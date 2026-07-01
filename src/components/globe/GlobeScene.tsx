@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Line, Html } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import * as THREE from "three";
 import {
   LOCATIONS,
@@ -17,13 +16,13 @@ import {
 } from "./globeData";
 
 const ACTIVE = "#eaf1ff";
-const DIM = "#5566a0";
-const ACCENT = "#5b74ff";
+const DIM = "#54689e";
+const ACCENT = "#4a63e0";
 const OCEAN = "#070910";
 // Land in earth-dark.jpg is ~0 (black); ocean is ~13-16 (grey). Threshold cleanly separates.
 const LAND_THRESHOLD = 10;
 
-/** Soft round sprite used for continent dots and node halos. */
+/** Soft round sprite used for continent dots and the small pin glow. */
 function makeGlowTexture() {
   const size = 64;
   const canvas = document.createElement("canvas");
@@ -31,7 +30,7 @@ function makeGlowTexture() {
   const ctx = canvas.getContext("2d")!;
   const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
   g.addColorStop(0, "rgba(255,255,255,1)");
-  g.addColorStop(0.35, "rgba(210,224,255,0.6)");
+  g.addColorStop(0.35, "rgba(210,224,255,0.55)");
   g.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, size, size);
@@ -63,7 +62,6 @@ function useLandDots() {
       const latStep = 1.3;
       for (let lat = -84; lat <= 84; lat += latStep) {
         const cos = Math.cos((lat * Math.PI) / 180);
-        // Equal-area-ish: widen the longitude step toward the poles.
         const lngStep = Math.max(1.3, 1.3 / Math.max(0.06, cos));
         for (let lng = -180; lng < 180; lng += lngStep) {
           const u = (lng + 180) / 360;
@@ -105,7 +103,7 @@ function Continents({ texture }: { texture: THREE.Texture }) {
         sizeAttenuation
         transparent
         depthWrite={false}
-        opacity={0.82}
+        opacity={0.85}
         color={"#b9c6f7"}
         blending={THREE.AdditiveBlending}
       />
@@ -113,7 +111,7 @@ function Continents({ texture }: { texture: THREE.Texture }) {
   );
 }
 
-/** Backside fresnel shell → thin atmospheric rim. */
+/** Static backside fresnel shell → thin atmospheric rim (no animation). */
 function Atmosphere() {
   const uniforms = useMemo(() => ({ uColor: { value: new THREE.Color(ACCENT) } }), []);
   return (
@@ -141,8 +139,8 @@ function Atmosphere() {
           varying vec3 vView;
           void main() {
             vec3 viewDir = normalize(-vView);
-            float fresnel = pow(1.0 - abs(dot(vNormal, viewDir)), 4.5);
-            gl_FragColor = vec4(uColor, fresnel * 0.5);
+            float fresnel = pow(1.0 - abs(dot(vNormal, viewDir)), 4.0);
+            gl_FragColor = vec4(uColor, fresnel * 0.55);
           }
         `}
       />
@@ -150,7 +148,8 @@ function Atmosphere() {
   );
 }
 
-function Node({
+/** Static pin (no pulsing). Tooltip shows only on hover. */
+function Pin({
   position,
   active,
   label,
@@ -159,7 +158,6 @@ function Node({
   onOut,
   texture,
   earthRef,
-  seed,
 }: {
   position: THREE.Vector3;
   active: boolean;
@@ -169,35 +167,28 @@ function Node({
   onOut: () => void;
   texture: THREE.Texture;
   earthRef: React.RefObject<THREE.Mesh | null>;
-  seed: number;
 }) {
-  const core = useRef<THREE.Mesh>(null);
   const color = active ? ACTIVE : DIM;
-
-  useFrame((state) => {
-    const pulse = 1 + Math.sin(state.clock.elapsedTime * 2 + seed) * 0.18;
-    if (core.current) core.current.scale.setScalar((active ? 1.35 : 0.85) * pulse);
-  });
-
   return (
     <group position={position}>
-      <mesh ref={core}>
-        <sphereGeometry args={[0.014, 16, 16]} />
+      {/* solid dot */}
+      <mesh>
+        <sphereGeometry args={[0.015, 16, 16]} />
         <meshBasicMaterial color={color} toneMapped={false} />
       </mesh>
-      <sprite scale={active ? 0.13 : 0.07}>
+      {/* subtle static glow (no bloom, no animation) */}
+      <sprite scale={active ? 0.07 : 0.04}>
         <spriteMaterial
           map={texture}
           color={color}
           transparent
           depthWrite={false}
-          opacity={active ? 0.95 : 0.45}
+          opacity={active ? 0.85 : 0.4}
           blending={THREE.AdditiveBlending}
           toneMapped={false}
         />
       </sprite>
-
-      {/* Invisible, larger hit area so the tiny node is easy to hover */}
+      {/* invisible larger hit area for easy hovering */}
       <mesh
         onPointerOver={(e) => {
           e.stopPropagation();
@@ -208,55 +199,18 @@ function Node({
         <sphereGeometry args={[0.055, 12, 12]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
-
-      {/* Tooltip only on hover; occluded by the globe when on the far side */}
+      {/* simple hover tooltip — centered, high z-index, occluded behind the globe */}
       {hovered && (
         <Html
+          position={[0, 0.05, 0]}
+          center
+          zIndexRange={[100, 0]}
           occlude={[earthRef as React.RefObject<THREE.Object3D>]}
-          zIndexRange={[30, 0]}
           pointerEvents="none"
         >
           <div className="globe-label">{label}</div>
         </Html>
       )}
-    </group>
-  );
-}
-
-function Arc({
-  points,
-  curve,
-  active,
-  offset,
-}: {
-  points: THREE.Vector3[];
-  curve: THREE.QuadraticBezierCurve3;
-  active: boolean;
-  offset: number;
-}) {
-  const pulse = useRef<THREE.Mesh>(null);
-
-  useFrame((state) => {
-    if (!pulse.current) return;
-    const t = (state.clock.elapsedTime * 0.22 + offset) % 1;
-    pulse.current.position.copy(curve.getPointAt(t));
-    (pulse.current.material as THREE.Material).opacity = active ? 1 : 0.2;
-  });
-
-  return (
-    <group>
-      <Line
-        points={points}
-        color={active ? "#93a6ff" : "#28325a"}
-        lineWidth={active ? 1.3 : 0.6}
-        transparent
-        opacity={active ? 0.85 : 0.28}
-        toneMapped={false}
-      />
-      <mesh ref={pulse}>
-        <sphereGeometry args={[0.009, 8, 8]} />
-        <meshBasicMaterial color="#dbe6ff" transparent toneMapped={false} />
-      </mesh>
     </group>
   );
 }
@@ -280,13 +234,12 @@ function GlobeGroup({
     };
   }, [hovered]);
 
-  const nodes = useMemo(
+  const pins = useMemo(
     () =>
       LOCATIONS.map((l, i) => ({
         id: l.id,
         label: labels[i] ?? l.id.toUpperCase(),
         pos: latLngToVector3(l.lat, l.lng, GLOBE_RADIUS * 1.012),
-        seed: i * 1.7,
       })),
     [labels]
   );
@@ -295,15 +248,16 @@ function GlobeGroup({
     const posById = new Map(
       LOCATIONS.map((l) => [l.id, latLngToVector3(l.lat, l.lng, GLOBE_RADIUS * 1.012)])
     );
-    return CONNECTIONS.map(([a, b], i) => {
-      const curve = buildArc(posById.get(a)!, posById.get(b)!);
-      return { a, b, curve, points: curve.getPoints(64), offset: i * 0.16 };
-    });
+    return CONNECTIONS.map(([a, b]) => ({
+      a,
+      b,
+      points: buildArc(posById.get(a)!, posById.get(b)!).getPoints(64),
+    }));
   }, []);
 
   return (
     <group rotation={[0.22, 0, 0.16]}>
-      {/* Opaque occluder — clearly smaller than the dot layer so no z-fighting */}
+      {/* Opaque occluder — clearly smaller than the r=1.0 dot layer → no z-fighting */}
       <mesh ref={earthRef}>
         <sphereGeometry args={[GLOBE_RADIUS * 0.985, 64, 64]} />
         <meshBasicMaterial color={OCEAN} />
@@ -313,27 +267,28 @@ function GlobeGroup({
       <Atmosphere />
 
       {arcs.map((arc, i) => (
-        <Arc
+        <Line
           key={i}
           points={arc.points}
-          curve={arc.curve}
-          offset={arc.offset}
-          active={arcActive(region, arc.a, arc.b)}
+          color={arcActive(region, arc.a, arc.b) ? "#8ba0ff" : "#28325a"}
+          lineWidth={arcActive(region, arc.a, arc.b) ? 1.2 : 0.6}
+          transparent
+          opacity={arcActive(region, arc.a, arc.b) ? 0.7 : 0.22}
+          toneMapped={false}
         />
       ))}
 
-      {nodes.map((n) => (
-        <Node
-          key={n.id}
-          position={n.pos}
-          label={n.label}
-          seed={n.seed}
+      {pins.map((p) => (
+        <Pin
+          key={p.id}
+          position={p.pos}
+          label={p.label}
           texture={texture}
           earthRef={earthRef}
-          active={locationActive(region, n.id)}
-          hovered={hovered === n.id}
-          onOver={() => setHovered(n.id)}
-          onOut={() => setHovered((h) => (h === n.id ? null : h))}
+          active={locationActive(region, p.id)}
+          hovered={hovered === p.id}
+          onOver={() => setHovered(p.id)}
+          onOut={() => setHovered((h) => (h === p.id ? null : h))}
         />
       ))}
     </group>
@@ -342,11 +297,9 @@ function GlobeGroup({
 
 export default function GlobeScene({
   activeRegion,
-  paused,
   labels,
 }: {
   activeRegion: Region;
-  paused: boolean;
   labels: string[];
 }) {
   const texture = useMemo(() => makeGlowTexture(), []);
@@ -356,7 +309,6 @@ export default function GlobeScene({
       dpr={[1, 1.75]}
       camera={{ position: [0, 0.25, 3.15], fov: 42, near: 0.1, far: 20 }}
       gl={{ antialias: true, powerPreference: "high-performance", stencil: false }}
-      frameloop={paused ? "never" : "always"}
     >
       <color attach="background" args={["#06070b"]} />
       <GlobeGroup region={activeRegion} labels={labels} texture={texture} />
@@ -364,22 +316,13 @@ export default function GlobeScene({
         enableZoom={false}
         enablePan={false}
         autoRotate
-        autoRotateSpeed={0.5}
+        autoRotateSpeed={0.45}
         rotateSpeed={0.4}
         enableDamping
         dampingFactor={0.08}
         minPolarAngle={Math.PI * 0.28}
         maxPolarAngle={Math.PI * 0.72}
       />
-      <EffectComposer>
-        <Bloom
-          mipmapBlur
-          luminanceThreshold={0.5}
-          luminanceSmoothing={0.3}
-          intensity={0.85}
-          radius={0.6}
-        />
-      </EffectComposer>
     </Canvas>
   );
 }

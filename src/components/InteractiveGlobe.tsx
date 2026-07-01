@@ -18,10 +18,10 @@ const GlobeScene = dynamic(() => import("./globe/GlobeScene"), { ssr: false });
 export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
   const root = useRef<HTMLElement>(null);
   const [mounted, setMounted] = useState(false);
-  const [paused, setPaused] = useState(true);
   const [region, setRegion] = useState<Region>("dach");
   const g = dict.sections.globe;
 
+  // Mount the WebGL canvas once, when the section first approaches the viewport.
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -29,12 +29,10 @@ export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
       ([entry]) => {
         if (entry.isIntersecting) {
           setMounted(true);
-          setPaused(false);
-        } else {
-          setPaused(true);
+          io.disconnect();
         }
       },
-      { rootMargin: "200px 0px", threshold: 0.01 }
+      { rootMargin: "300px 0px", threshold: 0.01 }
     );
     io.observe(el);
     return () => io.disconnect();
@@ -93,7 +91,7 @@ export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
 
         <div className="globe__canvas">
           {mounted ? (
-            <GlobeScene activeRegion={region} paused={paused} labels={g.locations} />
+            <GlobeScene activeRegion={region} labels={g.locations} />
           ) : (
             <div className="globe__placeholder" aria-hidden="true" />
           )}

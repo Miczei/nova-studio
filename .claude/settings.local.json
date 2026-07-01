@@ -30,7 +30,8 @@
       "Bash(curl -s -o /dev/null -w \"status=%{http_code}\\\\n\" http://localhost:3000/en)",
       "Bash(curl -sL \"https://unpkg.com/three-globe/example/img/earth-dark.jpg\" -o /Users/michalsobieraj/biznes/public/textures/earth-dark.jpg)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
