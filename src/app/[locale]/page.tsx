@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Capabilities from "@/components/Capabilities";
+import MacbookComparison from "@/components/MacbookComparison";
 import ChatbotShowcase from "@/components/ChatbotShowcase";
 import Process from "@/components/Process";
 import InteractiveGlobe from "@/components/InteractiveGlobe";
@@ -30,6 +31,7 @@ export default async function Home({
       <Navbar locale={locale} dict={dict} />
       <Hero dict={dict} />
       <Capabilities dict={dict} />
+      <MacbookComparison dict={dict} />
       <ChatbotShowcase dict={dict} />
       <Process dict={dict} />
       <InteractiveGlobe dict={dict} />

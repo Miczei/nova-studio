@@ -32,7 +32,7 @@ export default function Contact({ dict }: { dict: Dictionary }) {
     <section ref={root} id="contact" className="contact">
       <div className="shell contact__inner">
         <p className="section-eyebrow contact__reveal">
-          <span className="idx">06</span>
+          <span className="idx">07</span>
           <span>{c.label}</span>
         </p>
         <h2 className="contact__title contact__reveal">{c.title}</h2>

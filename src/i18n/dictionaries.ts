@@ -27,6 +27,28 @@ export type Dictionary = {
   };
   sections: {
     capabilities: { label: string; title: string; cards: Card[] };
+    transform: {
+      label: string;
+      title: string;
+      sub: string;
+      before: string;
+      after: string;
+      hint: string;
+      old: {
+        url: string;
+        welcome: string;
+        body: string;
+        links: string[];
+        btn: string;
+        updated: string;
+      };
+      neo: {
+        eyebrow: string;
+        headline: string;
+        sub: string;
+        btn: string;
+      };
+    };
     chatbot: {
       label: string;
       h2: string;
@@ -95,6 +117,28 @@ const en: Dictionary = {
           body: "Semantic, multilingual foundations that rank well and load in a blink.",
         },
       ],
+    },
+    transform: {
+      label: "The Transformation",
+      title: "Experience the transformation.",
+      sub: "Drag the slider and watch a dated website become a premium, conversion-driven experience. This is what we do for brands.",
+      before: "Before",
+      after: "After",
+      hint: "Drag to compare",
+      old: {
+        url: "your-company.com",
+        welcome: "Welcome to our website!!!",
+        body: "We have been in business since 1998. Please check our offer. Best viewed in 1024x768.",
+        links: ["Home", "Offer", "Gallery", "Contact"],
+        btn: "Click here",
+        updated: "Last updated: 03.2014",
+      },
+      neo: {
+        eyebrow: "Your Company",
+        headline: "Design that sells.",
+        sub: "A site that answers customers, converts visitors and scales with you.",
+        btn: "Start a project",
+      },
     },
     chatbot: {
       label: "AI Chatbots",
@@ -238,6 +282,28 @@ const pl: Dictionary = {
           body: "Semantyczne, wielojęzyczne fundamenty, które rankują i ładują się błyskawicznie.",
         },
       ],
+    },
+    transform: {
+      label: "Transformacja",
+      title: "Zobacz transformację.",
+      sub: "Przeciągnij suwak i zobacz, jak przestarzała strona staje się dopracowanym, konwertującym doświadczeniem. Właśnie to robimy dla marek.",
+      before: "Przed",
+      after: "Po",
+      hint: "Przeciągnij, aby porównać",
+      old: {
+        url: "twoja-firma.pl",
+        welcome: "Witamy na naszej stronie!!!",
+        body: "Działamy na rynku od 1998 roku. Zapraszamy do zapoznania się z ofertą. Strona najlepiej wygląda w 1024x768.",
+        links: ["Start", "Oferta", "Galeria", "Kontakt"],
+        btn: "Kliknij tutaj",
+        updated: "Ostatnia aktualizacja: 03.2014",
+      },
+      neo: {
+        eyebrow: "Twoja Firma",
+        headline: "Design, który sprzedaje.",
+        sub: "Strona, która odpowiada klientom, konwertuje odwiedzających i rośnie razem z Tobą.",
+        btn: "Rozpocznij projekt",
+      },
     },
     chatbot: {
       label: "Chatboty AI",

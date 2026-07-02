@@ -42,7 +42,7 @@ export default function ChatbotShowcase({ dict }: { dict: Dictionary }) {
       <div className="shell cb__grid">
         <div className="cb__col">
           <p className="section-eyebrow cb__reveal">
-            <span className="idx">03</span>
+            <span className="idx">04</span>
             <span>{cb.label}</span>
           </p>
           <h2 className="section-title cb__reveal">{cb.h2}</h2>

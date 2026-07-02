@@ -44,7 +44,7 @@ export default function Process({ dict }: { dict: Dictionary }) {
     <section ref={root} id="process" className="proc">
       <div className="shell">
         <p className="section-eyebrow">
-          <span className="idx">04</span>
+          <span className="idx">05</span>
           <span>{p.label}</span>
         </p>
         <h2 className="section-title">{p.title}</h2>

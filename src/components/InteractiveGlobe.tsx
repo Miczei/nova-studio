@@ -66,7 +66,7 @@ export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
       <div className="shell globe__grid">
         <div className="globe__text">
           <p className="section-eyebrow globe__eyebrow globe__reveal">
-            <span className="idx">05</span>
+            <span className="idx">06</span>
             <span>{g.label}</span>
           </p>
           <h2 className="section-title globe__title globe__reveal">{g.title}</h2>
