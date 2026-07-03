@@ -500,10 +500,10 @@ main {
   top: 14px;
   left: 50%;
   transform: translateX(-50%);
-  width: 116px;
-  height: 13px;
+  width: 11cqw;
+  height: 1.9cqw;
   background: #101114;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 0.9cqw 0.9cqw;
   z-index: 7;
 }
 
@@ -514,6 +514,99 @@ main {
   aspect-ratio: 16 / 10;
   background: #fff;
   container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- macOS menu bar (part of the machine, never clipped) --- */
+.macbook__menubar {
+  position: relative;
+  z-index: 4;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2.7cqw;
+  padding: 0 1.6cqw;
+  background: linear-gradient(rgba(250, 250, 252, 0.95), rgba(238, 239, 243, 0.92));
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.12cqw;
+  color: #1d1d1f;
+  overflow: hidden;
+}
+
+/* slow pulsing bloom sweeping the bar */
+.macbook__menubar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 25%, rgba(255, 255, 255, 0.9) 50%, transparent 75%);
+  animation: mb-bloom 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes mb-bloom {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+.mb__left,
+.mb__right {
+  display: flex;
+  align-items: center;
+  gap: 1.35cqw;
+  white-space: nowrap;
+}
+
+.mb__left {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.mb__apple svg {
+  width: 1.15cqw;
+  height: 1.4cqw;
+  display: block;
+  fill: #1d1d1f;
+}
+
+.mb__app {
+  font-weight: 700;
+}
+
+.mb__right {
+  gap: 1.15cqw;
+  font-size: 1.05cqw;
+  flex-shrink: 0; /* the clock must never get clipped */
+}
+
+.mb__glyph {
+  font-size: 1.2cqw;
+  line-height: 1;
+}
+
+.mb__icon {
+  width: 1.5cqw;
+  height: 1.15cqw;
+  display: block;
+  color: #1d1d1f;
+}
+
+.mb__time {
+  font-weight: 500;
+}
+
+/* --- Comparison area (below the menu bar) --- */
+.macbook__compare {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
   cursor: ew-resize;
   touch-action: pan-y; /* keep vertical page scroll on touch */
 }
@@ -565,65 +658,298 @@ main {
 .sb__bar {
   background: linear-gradient(#4472ae, #274b7e);
   color: #fff;
-  padding: 3cqw 4cqw;
-  font-size: 3.6cqw;
+  padding: 2cqw 3cqw;
+  font-size: 2.4cqw;
   font-weight: 700;
 }
 
 .sb__nav {
   background: #d8d4c6;
   border-bottom: 1px solid #b5b09e;
-  padding: 1.6cqw 4cqw;
-  font-size: 2.4cqw;
+  padding: 1.1cqw 3cqw;
+  font-size: 1.7cqw;
 }
 
 .sb__nav span {
   color: #1a3f8b;
   text-decoration: underline;
-  margin-right: 3.4cqw;
+  margin-right: 2.6cqw;
 }
 
 .sb__content {
-  padding: 4.5cqw 4cqw;
+  padding: 3.4cqw 3cqw;
 }
 
 .sb__h {
-  font-size: 4.6cqw;
+  font-size: 3.2cqw;
   font-weight: 700;
-  margin-bottom: 2cqw;
+  margin-bottom: 1.5cqw;
 }
 
 .sb__p {
-  font-size: 2.7cqw;
-  line-height: 1.5;
-  max-width: 88%;
-  margin-bottom: 3.4cqw;
+  font-size: 1.9cqw;
+  line-height: 1.55;
+  max-width: 80%;
+  margin-bottom: 2.6cqw;
 }
 
 .sb__btn {
   display: inline-block;
-  font-size: 2.6cqw;
-  padding: 1.3cqw 3.2cqw;
+  font-size: 1.8cqw;
+  padding: 0.9cqw 2.4cqw;
   color: #222;
   background: linear-gradient(#fdfdfd, #c7c7c7);
   border: 1px solid #8a8a8a;
-  border-radius: 0.8cqw;
+  border-radius: 0.6cqw;
   box-shadow: inset 0 1px 0 #fff, 1px 1px 2px rgba(0, 0, 0, 0.25);
 }
 
 .sb__meta {
-  font-size: 2.1cqw;
+  font-size: 1.5cqw;
   color: #7d7867;
-  margin-top: 5cqw;
+  margin-top: 4cqw;
   font-style: italic;
 }
 
-/* --- AFTER: premium redesign (mini NOVA style) --- */
+/* --- AFTER: full dev environment (VS Code + Simple Browser) --- */
 .site--after {
-  background: #fff;
-  font-family: var(--font-sans), system-ui, sans-serif;
-  color: var(--fg);
+  background: #17181d;
   z-index: 1;
+}
+
+.vs {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #17181d;
+  color: #c8ccd8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.vs__titlebar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  padding: 0.65cqw 1.2cqw;
+  background: #202127;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.05cqw;
+  color: #8b8f9c;
+}
+
+.vs__dot {
+  width: 0.85cqw;
+  height: 0.85cqw;
+  border-radius: 50%;
+}
+
+.vs__dot--r {
+  background: #ff5f57;
+}
+
+.vs__dot--y {
+  background: #febc2e;
+}
+
+.vs__dot--g {
+  background: #28c840;
+}
+
+.vs__title {
+  margin-left: 1cqw;
+}
+
+.vs__body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.vs__activity {
+  flex: 0 0 2.6cqw;
+  background: #1d1e24;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5cqw;
+  padding-top: 1.5cqw;
+}
+
+.vs__activity span {
+  width: 1.25cqw;
+  height: 1.25cqw;
+  border-radius: 0.35cqw;
+  background: #3a3d49;
+}
+
+.vs__activity span:first-child {
+  background: #7d84f2;
+}
+
+.vs__sidebar {
+  flex: 0 0 11.5cqw;
+  background: #1a1b21;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1.1cqw;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.1cqw;
+  color: #9ba0ad;
+  overflow: hidden;
+}
+
+.vs__sideTitle {
+  font-size: 0.9cqw;
+  letter-spacing: 0.14em;
+  padding: 0 1.3cqw 0.7cqw;
+  color: #6d7280;
+}
+
+.vs__file {
+  padding: 0.42cqw 1.3cqw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vs__file.is-active {
+  background: rgba(60, 64, 82, 0.55);
+  color: #e8eaf2;
+}
+
+.vs__editor {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.vs__tabs {
+  flex: 0 0 auto;
+  display: flex;
+  background: #1a1b21;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 1.05cqw;
+  color: #8b8f9c;
+}
+
+.vs__tab {
+  padding: 0.65cqw 1.6cqw;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vs__tab.is-active {
+  background: #17181d;
+  color: #e8eaf2;
+}
+
+.vs__code {
+  flex: 1;
+  overflow: hidden;
+  padding: 0.9cqw 0 0 1.2cqw;
+  font-size: 1.12cqw;
+  line-height: 1.8;
+}
+
+/* slow, seamless upward scroll (content rendered twice) */
+.vs__codeScroll {
+  animation: vs-scroll 34s linear infinite;
+}
+
+@keyframes vs-scroll {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.cl {
+  white-space: nowrap;
+}
+
+.cl .ln {
+  display: inline-block;
+  width: 2.1cqw;
+  color: #4b4f5c;
+}
+
+.tk-k {
+  color: #c792ea;
+}
+
+.tk-s {
+  color: #a5d6a2;
+}
+
+.tk-f {
+  color: #82aaff;
+}
+
+.tk-v {
+  color: #e2e6f0;
+}
+
+.tk-c {
+  color: #5b6070;
+}
+
+.tk-p {
+  color: #89909f;
+}
+
+.vs__browser {
+  flex: 0 0 31cqw;
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  background: #202127;
+  container-type: inline-size;
+}
+
+.vs__urlbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  padding: 1.7cqw 3.2cqw;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 2.7cqw;
+  color: #9ba0ad;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vs__urlDot {
+  width: 1.7cqw;
+  height: 1.7cqw;
+  border-radius: 50%;
+  background: #28c840;
+}
+
+.sa-embed {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #fff;
+  overflow: hidden;
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.vs__status {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.45cqw 1.3cqw;
+  background: #3c5df0;
+  color: #eef1ff;
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.95cqw;
 }
 
 .sa__nav {
@@ -702,19 +1028,67 @@ main {
   background: #fafafa;
 }
 
+/* Compact re-scale of the mini site inside the narrow browser pane
+   (the pane is its own container, so cqw here = pane width) */
+.vs__browser .sa__nav {
+  padding: 2.8cqw 4.2cqw;
+}
+
+.vs__browser .sa__brand {
+  font-size: 3.2cqw;
+}
+
+.vs__browser .sa__navlinks {
+  gap: 3.2cqw;
+  font-size: 2.7cqw;
+}
+
+.vs__browser .sa__hero {
+  padding: 5cqw 5cqw 0;
+}
+
+.vs__browser .sa__eyebrow {
+  font-size: 2.4cqw;
+}
+
+.vs__browser .sa__h {
+  font-size: 7.2cqw;
+}
+
+.vs__browser .sa__p {
+  font-size: 3.1cqw;
+  max-width: 84%;
+}
+
+.vs__browser .sa__btn {
+  font-size: 2.9cqw;
+  padding: 2cqw 5.6cqw;
+  margin-top: 3.8cqw;
+}
+
+.vs__browser .sa__cards {
+  gap: 3.2cqw;
+  padding: 6cqw 5cqw;
+}
+
+.vs__browser .sa__card {
+  height: 15cqw;
+  border-radius: 2.2cqw;
+}
+
 /* --- Comparison chrome: chips, divider, handle --- */
 .tf-chip {
   position: absolute;
-  top: 3cqw;
+  bottom: 2.6cqw;
   z-index: 4;
   font-family: var(--font-sans), sans-serif;
-  font-size: 2.1cqw;
+  font-size: 1.35cqw;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #fff;
   background: rgba(8, 9, 12, 0.72);
-  padding: 1cqw 2.2cqw;
+  padding: 0.75cqw 1.7cqw;
   border-radius: 99px;
   pointer-events: none;
   transition: opacity 0.25s var(--ease-out);
@@ -745,8 +1119,8 @@ main {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 6;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -779,9 +1153,26 @@ main {
   }
 }
 
+/* Smooth glide back to 50/50 when the cursor leaves the chassis */
+.site--before.tf-anim {
+  transition: clip-path 0.7s var(--ease-out);
+}
+
+.tf-divider.tf-anim,
+.tf-handle.tf-anim {
+  transition: left 0.7s var(--ease-out);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tf-handle--pulse {
     animation: none;
+  }
+  .vs__codeScroll {
+    animation: none;
+  }
+  .macbook__menubar::after {
+    animation: none;
+    opacity: 0.05;
   }
 }
 
@@ -1043,27 +1434,30 @@ main {
   margin: 28px 0 26px;
 }
 
+/* Premium metallic finish on the region tabs */
 .globe__tab {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.65);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   padding: 9px 18px;
   cursor: pointer;
   transition: color 0.25s var(--ease-out), background 0.25s var(--ease-out),
-    border-color 0.25s var(--ease-out);
+    border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
 
 .globe__tab:hover {
   color: #fff;
-  border-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.38);
 }
 
 .globe__tab.is-active {
   color: #06070b;
-  background: #fff;
+  background: linear-gradient(165deg, #ffffff, #d8dbe2);
   border-color: #fff;
+  box-shadow: inset 0 1px 0 #fff, 0 6px 24px rgba(255, 255, 255, 0.16);
 }
 
 .globe__subhead {
@@ -1082,10 +1476,25 @@ main {
   margin: 0;
 }
 
+.globe__stage {
+  min-width: 0;
+}
+
 .globe__canvas {
   position: relative;
   width: 100%;
   height: clamp(360px, 52vw, 560px);
+}
+
+/* Elegant digital clock at the base of the globe */
+.globe__clock {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.55);
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
 }
 
 .globe__placeholder {
@@ -1093,19 +1502,34 @@ main {
   height: 100%;
 }
 
-/* Hover tooltip rendered inside the WebGL scene via drei <Html center> */
-.globe-label {
-  background: rgba(255, 255, 255, 0.95);
-  color: #06070b;
-  font-size: 12px;
+/* Persistent location labels next to the markers */
+.globe-city {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.01em;
-  padding: 4px 10px;
-  border-radius: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.9), 0 0 2px rgba(0, 0, 0, 0.8);
   white-space: nowrap;
   pointer-events: none;
-  transition: opacity 0.3s var(--ease-out);
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.4);
+}
+
+.globe-city--dim {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+/* Visually hidden, crawlable content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* ============================================================

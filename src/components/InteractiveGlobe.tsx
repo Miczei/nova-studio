@@ -19,9 +19,28 @@ export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
   const root = useRef<HTMLElement>(null);
   const [mounted, setMounted] = useState(false);
   const [region, setRegion] = useState<Region>("dach");
+  const [clock, setClock] = useState("");
   const g = dict.sections.globe;
 
-  // Mount the WebGL canvas once, when the section first approaches the viewport.
+  // Elegant digital clock: "GMT+2 / 14:37", from the user's system time.
+  useEffect(() => {
+    const tick = () => {
+      const d = new Date();
+      const off = -d.getTimezoneOffset() / 60;
+      const sign = off >= 0 ? "+" : "";
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      setClock(`GMT${sign}${off} / ${hh}:${mm}`);
+    };
+    tick();
+    const id = setInterval(tick, 15000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Mount the WebGL canvas once, when the section first approaches the
+  // viewport. A timeout fallback guarantees the globe still appears in
+  // environments where IntersectionObserver callbacks are throttled; by then
+  // hydration is done, so Core Web Vitals are unaffected.
   useEffect(() => {
     const el = root.current;
     if (!el) return;
@@ -35,7 +54,11 @@ export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
       { rootMargin: "300px 0px", threshold: 0.01 }
     );
     io.observe(el);
-    return () => io.disconnect();
+    const fallback = window.setTimeout(() => setMounted(true), 2500);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   useIsomorphicLayoutEffect(() => {
@@ -89,12 +112,34 @@ export default function InteractiveGlobe({ dict }: { dict: Dictionary }) {
           <p className="globe__body globe__reveal">{active.text}</p>
         </div>
 
-        <div className="globe__canvas">
-          {mounted ? (
-            <GlobeScene activeRegion={region} labels={g.locations} />
-          ) : (
-            <div className="globe__placeholder" aria-hidden="true" />
-          )}
+        <div className="globe__stage">
+          <div className="globe__canvas">
+            {mounted ? (
+              <GlobeScene
+                activeRegion={region}
+                labels={g.locations}
+                hubs={g.hubs}
+                ariaLabel={g.title}
+              />
+            ) : (
+              <div className="globe__placeholder" aria-hidden="true" />
+            )}
+          </div>
+          <div className="globe__clock" aria-label="Current time">
+            {clock}
+          </div>
+
+          {/* Server-rendered copy of the hub tooltips: hover-only DOM is not
+              reliably indexed, so the SEO content also ships in the initial
+              HTML (visually hidden, readable by crawlers and screen readers). */}
+          <div className="sr-only">
+            {g.hubs.map((h) => (
+              <article key={h.id}>
+                <h3>{h.h3}</h3>
+                <p>{h.p}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -31,7 +31,14 @@
       "Bash(curl -sL \"https://unpkg.com/three-globe/example/img/earth-dark.jpg\" -o /Users/michalsobieraj/biznes/public/textures/earth-dark.jpg)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(curl -s -o /dev/null -w \"GET /en -> %{http_code}\\\\n\" http://localhost:57197/en)",
+      "Bash(curl -s http://localhost:57197/en)",
+      "Bash(curl -sL \"https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg\" -o earth-blue-marble.jpg)",
+      "Bash(curl -sL \"https://unpkg.com/three-globe/example/img/earth-night.jpg\" -o earth-night.jpg)",
+      "Bash(curl -sL \"https://unpkg.com/three-globe/example/img/earth-water.png\" -o earth-water.png)",
+      "Bash(export F=/Users/michalsobieraj/.claude/projects/-Users-michalsobieraj-biznes/2ac86000-b05a-46ec-be87-99bcaa31c9cb/tool-results/b0somei3j.txt)",
+      "Bash(node -e ' *)"
     ]
   }
 }

@@ -62,6 +62,7 @@ export type Dictionary = {
       title: string;
       regions: GlobeRegion[];
       locations: string[];
+      hubs: { id: string; city: string; h3: string; p: string }[];
     };
     contact: {
       label: string;
@@ -206,6 +207,12 @@ const en: Dictionary = {
           text: "From New York to Toronto, we partner with US and Canadian teams across time zones.",
         },
         {
+          id: "apac",
+          tab: "Asia-Pacific",
+          heading: "Working with Japan & Australia",
+          text: "From Tokyo to Sydney, we collaborate across the Asia-Pacific, always in sync with your time zone.",
+        },
+        {
           id: "global",
           tab: "Global",
           heading: "Working worldwide",
@@ -219,6 +226,59 @@ const en: Dictionary = {
         "Switzerland",
         "United States",
         "Canada",
+        "London",
+        "Tokyo",
+        "Sydney",
+      ],
+      hubs: [
+        {
+          id: "pl",
+          city: "Warsaw",
+          h3: "HQ Web Development Studio Poland",
+          p: "Delivering premium Next.js websites and custom AI chatbot integrations for European enterprises.",
+        },
+        {
+          id: "de",
+          city: "Berlin",
+          h3: "Web Development for Germany",
+          p: "German-speaking delivery of premium corporate websites, Next.js apps and AI chatbots for the German market.",
+        },
+        {
+          id: "at",
+          city: "Vienna",
+          h3: "Web Development for Austria",
+          p: "Interactive websites and AI-powered customer service built for Austrian businesses, delivered in German.",
+        },
+        {
+          id: "ch",
+          city: "Zurich",
+          h3: "Web Development for Switzerland",
+          p: "Precision-built websites and AI automation for Swiss companies, from fintech to premium retail.",
+        },
+        {
+          id: "us",
+          city: "New York",
+          h3: "Web & AI Solutions for the United States",
+          p: "High-performance marketing sites, e-commerce and AI chatbots for US teams, across every time zone.",
+        },
+        {
+          id: "ca",
+          city: "Toronto",
+          h3: "Web & AI Solutions for Canada",
+          p: "Modern web development and AI automation for Canadian companies, from startups to enterprise.",
+        },
+        {
+          id: "jp",
+          city: "Tokyo",
+          h3: "Global Digital Transformation in Japan",
+          p: "Providing high-performance e-commerce solutions, cutting-edge UI/UX design and AI automation for the APAC market.",
+        },
+        {
+          id: "au",
+          city: "Sydney",
+          h3: "Global Digital Transformation in Australia",
+          p: "Providing high-performance e-commerce solutions, cutting-edge UI/UX design and AI automation for the APAC market.",
+        },
       ],
     },
     contact: {
@@ -371,6 +431,12 @@ const pl: Dictionary = {
           text: "Od Nowego Jorku po Toronto, współpracujemy z zespołami z USA i Kanady w różnych strefach czasowych.",
         },
         {
+          id: "apac",
+          tab: "Azja-Pacyfik",
+          heading: "Współpraca z Japonią i Australią",
+          text: "Od Tokio po Sydney, współpracujemy w całym regionie Azji i Pacyfiku, zawsze w rytmie Twojej strefy czasowej.",
+        },
+        {
           id: "global",
           tab: "Świat",
           heading: "Współpraca na całym świecie",
@@ -384,6 +450,59 @@ const pl: Dictionary = {
         "Szwajcaria",
         "USA",
         "Kanada",
+        "Londyn",
+        "Tokio",
+        "Sydney",
+      ],
+      hubs: [
+        {
+          id: "pl",
+          city: "Warszawa",
+          h3: "Studio tworzenia stron internetowych, Polska (HQ)",
+          p: "Dostarczamy premium strony w Next.js oraz integracje własnych chatbotów AI dla europejskich firm.",
+        },
+        {
+          id: "de",
+          city: "Berlin",
+          h3: "Tworzenie stron dla Niemiec",
+          p: "Realizacje po niemiecku: premium strony firmowe, aplikacje Next.js i chatboty AI dla rynku niemieckiego.",
+        },
+        {
+          id: "at",
+          city: "Wiedeń",
+          h3: "Tworzenie stron dla Austrii",
+          p: "Interaktywne strony i obsługa klienta oparta na AI dla austriackich firm, realizowane po niemiecku.",
+        },
+        {
+          id: "ch",
+          city: "Zurych",
+          h3: "Tworzenie stron dla Szwajcarii",
+          p: "Precyzyjnie budowane strony i automatyzacja AI dla szwajcarskich firm, od fintechu po premium retail.",
+        },
+        {
+          id: "us",
+          city: "Nowy Jork",
+          h3: "Strony i AI dla Stanów Zjednoczonych",
+          p: "Wydajne strony marketingowe, e-commerce i chatboty AI dla zespołów z USA, w każdej strefie czasowej.",
+        },
+        {
+          id: "ca",
+          city: "Toronto",
+          h3: "Strony i AI dla Kanady",
+          p: "Nowoczesny web development i automatyzacja AI dla kanadyjskich firm, od startupów po enterprise.",
+        },
+        {
+          id: "jp",
+          city: "Tokio",
+          h3: "Globalna transformacja cyfrowa w Japonii",
+          p: "Wydajne rozwiązania e-commerce, nowoczesny design UI/UX i automatyzacja AI dla rynku APAC.",
+        },
+        {
+          id: "au",
+          city: "Sydney",
+          h3: "Globalna transformacja cyfrowa w Australii",
+          p: "Wydajne rozwiązania e-commerce, nowoczesny design UI/UX i automatyzacja AI dla rynku APAC.",
+        },
       ],
     },
     contact: {
