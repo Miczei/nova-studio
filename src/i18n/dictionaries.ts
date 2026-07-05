@@ -8,6 +8,7 @@ type GlobeRegion = { id: string; tab: string; heading: string; text: string };
 export type Dictionary = {
   nav: {
     home: string;
+    about: string;
     reach: string;
     capabilities: string;
     aiChatbots: string;
@@ -83,6 +84,7 @@ export type Dictionary = {
 const en: Dictionary = {
   nav: {
     home: "Home",
+    about: "About us",
     reach: "Global",
     capabilities: "Capabilities",
     aiChatbots: "AI Chatbots",
@@ -95,14 +97,14 @@ const en: Dictionary = {
   },
   hero: {
     eyebrow: "AI-Native Web Studio",
-    h1a: "Modern AI Web Development",
-    h1b: "& Interactive Web Design",
-    sub: "We build high-end, interactive websites with custom AI chatbots built in, autonomous agents that answer your customers the moment they ask.",
+    h1a: "Beautiful Interfaces.",
+    h1b: "Relentless AI.",
+    sub: "Delivering elite web experiences integrated with autonomous agent networks. Engineered for scale, secured by hardcoded business rules, and designed to leave competitors behind.",
     ctaPrimary: "Start a project",
     ctaSecondary: "See our work",
     scroll: "Scroll",
-    h2: "Custom AI chatbots,",
-    h2soft: "answering your customers around the clock.",
+    h2: "Autonomous agent networks,",
+    h2soft: "engineered for scale and secured by design.",
   },
   sections: {
     capabilities: {
@@ -311,6 +313,7 @@ const en: Dictionary = {
 const pl: Dictionary = {
   nav: {
     home: "Start",
+    about: "O nas",
     reach: "Zasięg",
     capabilities: "Możliwości",
     aiChatbots: "Chatboty AI",
@@ -323,14 +326,14 @@ const pl: Dictionary = {
   },
   hero: {
     eyebrow: "Studio Webowe Oparte na AI",
-    h1a: "Nowoczesne tworzenie stron z AI",
-    h1b: "i interaktywny web design",
-    sub: "Tworzymy dopracowane, interaktywne strony internetowe z wbudowanymi chatbotami AI, autonomicznymi agentami, które odpowiadają Twoim klientom w tej samej chwili, gdy pytają.",
+    h1a: "Piękne interfejsy.",
+    h1b: "Niepowstrzymane AI.",
+    sub: "Tworzymy elitarne doświadczenia webowe zintegrowane z sieciami autonomicznych agentów. Zaprojektowane pod skalę, zabezpieczone twardo zakodowanymi regułami biznesowymi i pomyślane tak, by zostawić konkurencję daleko w tyle.",
     ctaPrimary: "Rozpocznij projekt",
     ctaSecondary: "Zobacz realizacje",
     scroll: "Przewiń",
-    h2: "Własne chatboty AI,",
-    h2soft: "odpowiadają Twoim klientom przez całą dobę.",
+    h2: "Sieci autonomicznych agentów,",
+    h2soft: "zaprojektowane pod skalę i bezpieczne u podstaw.",
   },
   sections: {
     capabilities: {

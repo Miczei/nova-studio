@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import { SITE_URL } from "./site";
 import type { Locale } from "@/i18n/config";
-import type { PageContent } from "@/i18n/pages";
+
+/** Minimal shape needed to build metadata (PageContent + AboutContent both fit). */
+type MetaSource = {
+  slug: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+};
 
 /** Per-page metadata: title, description, keywords, canonical + hreflang. */
-export function siloMetadata(locale: Locale, page: PageContent): Metadata {
+export function siloMetadata(locale: Locale, page: MetaSource): Metadata {
   const path = `/${locale}/${page.slug}`;
   return {
     metadataBase: new URL(SITE_URL),
