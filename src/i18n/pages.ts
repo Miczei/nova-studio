@@ -40,7 +40,8 @@ export type PagesDict = {
   servicesLabel: string;
   aiEngine: PageContent;
   securityData: PageContent;
-  methodology: PageContent;
+  // "methodology" moved to src/i18n/solutions.ts: the /methodology route now
+  // renders the Solutions sales page, not a pillar silo.
 };
 
 const en: PagesDict = {
@@ -122,7 +123,7 @@ const en: PagesDict = {
     relatedH2: "Continue exploring",
     related: [
       { slug: "services/security-data", label: "Enterprise Security & Data" },
-      { slug: "methodology", label: "Methodology & Refinement" },
+      { slug: "methodology", label: "Automation & ROI" },
     ],
   },
   securityData: {
@@ -202,87 +203,7 @@ const en: PagesDict = {
     relatedH2: "Continue exploring",
     related: [
       { slug: "services/ai-engine", label: "AI Solutions & Orchestration" },
-      { slug: "methodology", label: "Methodology & Refinement" },
-    ],
-  },
-  methodology: {
-    slug: "methodology",
-    metaTitle: "AI Methodology: Testing, Evals, Tracing & Continuous Refinement | NOVA",
-    metaDescription:
-      "How NOVA keeps AI improving in production: rigorous evals, auditable tracing and logs, closed learning loops and constant refinement. The discipline behind AI that gets better every week.",
-    keywords: [
-      "AI evals and testing",
-      "LLM tracing and observability",
-      "AI learning loops",
-      "continuous AI improvement",
-      "AI methodology",
-    ],
-    breadcrumb: "Methodology",
-    eyebrow: "Methodology & Refinement",
-    h1: "AI that gets measurably better every week.",
-    intro:
-      "Shipping AI is the start, not the finish. NOVA runs a continuous improvement cycle: evaluate against real cases, trace every decision, learn from production and refine relentlessly. This is the discipline that turns a launch into a system that compounds.",
-    imageAlt:
-      "Dark-mode 3D glowing infinity loop and analytics dashboard visualizing AI tracing logs",
-    fomoH2: "Why does most agency AI quietly decay?",
-    fomoIntro:
-      "A wrapper is shipped once and never measured again. It has no evals, so no one notices when quality drifts; no tracing, so failures are unexplainable; no learning loop, so it never improves. Meanwhile a competitor on a refinement cycle pulls further ahead every single week.",
-    contrastBeginnerLabel: "Ship-and-forget AI",
-    contrastFullstackLabel: "NOVA refinement cycle",
-    contrast: [
-      {
-        beginner: "No tests. Quality is a vibe.",
-        fullstack: "Evals score every change against real cases before it ships.",
-      },
-      {
-        beginner: "When it fails, nobody can say why.",
-        fullstack: "Full tracing and logs make every AI decision auditable.",
-      },
-      {
-        beginner: "Production feedback is thrown away.",
-        fullstack: "Learning loops turn real usage into the next improvement.",
-      },
-      {
-        beginner: "Frozen the day it launched.",
-        fullstack: "Constant refinement compounds quality week over week.",
-      },
-    ],
-    pillarsH2: "The four pillars of continuous improvement",
-    pillars: [
-      {
-        no: 9,
-        title: "Testing & Evals",
-        question: "How do you test a non-deterministic AI?",
-        body: "We build evaluation suites of real inputs with graded expected outcomes, then score every prompt, model and agent change against them. Nothing ships that lowers the score, so improvement is measured, not assumed, and regressions are caught before your users ever see them.",
-      },
-      {
-        no: 11,
-        title: "Tracing & Logs",
-        question: "How do you debug an AI decision?",
-        body: "Every request is traced end to end: the prompt, the routing choice, each tool call and the final answer. When something goes wrong you can replay the exact decision path, so failures become fixable engineering problems instead of unexplainable mysteries.",
-      },
-      {
-        no: 12,
-        title: "Learning Loops",
-        question: "How does the AI learn from real usage?",
-        body: "Production interactions, corrections and outcomes feed back into evals, memory and prompts. Real customer behavior becomes the training signal for the next iteration, so the system adapts to how your users actually work rather than how we guessed they would.",
-      },
-      {
-        no: 13,
-        title: "Constant Refinement",
-        question: "What does continuous AI improvement look like?",
-        body: "Refinement is a schedule, not an accident. We run the evaluate-trace-learn cycle on a cadence, shipping small measured gains continuously. Because AI content and models move fast, a system refreshed monthly stays sharp while a frozen one silently falls behind.",
-      },
-    ],
-    ctaH2: "Choose AI that compounds.",
-    ctaBody:
-      "The gap between a frozen wrapper and a refined system widens every week. Let's put your AI on a cycle that keeps winning.",
-    ctaPrimary: "Start a project",
-    ctaSecondary: "See the AI engine",
-    relatedH2: "Continue exploring",
-    related: [
-      { slug: "services/ai-engine", label: "AI Solutions & Orchestration" },
-      { slug: "services/security-data", label: "Enterprise Security & Data" },
+      { slug: "methodology", label: "Automation & ROI" },
     ],
   },
 };
@@ -366,7 +287,7 @@ const pl: PagesDict = {
     relatedH2: "Zobacz dalej",
     related: [
       { slug: "services/security-data", label: "Bezpieczeństwo i dane enterprise" },
-      { slug: "methodology", label: "Metodologia i doskonalenie" },
+      { slug: "methodology", label: "Automatyzacja i ROI" },
     ],
   },
   securityData: {
@@ -446,87 +367,7 @@ const pl: PagesDict = {
     relatedH2: "Zobacz dalej",
     related: [
       { slug: "services/ai-engine", label: "Rozwiązania AI i orkiestracja" },
-      { slug: "methodology", label: "Metodologia i doskonalenie" },
-    ],
-  },
-  methodology: {
-    slug: "methodology",
-    metaTitle: "Metodologia AI: testy, ewaluacje, tracing i ciągłe doskonalenie | NOVA",
-    metaDescription:
-      "Jak NOVA utrzymuje AI w ciągłym doskonaleniu na produkcji: rygorystyczne ewaluacje, audytowalny tracing i logi, zamknięte pętle uczenia i stałe doskonalenie. Dyscyplina za AI, które co tydzień jest lepsze.",
-    keywords: [
-      "ewaluacje i testy AI",
-      "tracing i obserwowalność LLM",
-      "pętle uczenia AI",
-      "ciągłe doskonalenie AI",
-      "metodologia AI",
-    ],
-    breadcrumb: "Metodologia",
-    eyebrow: "Metodologia i doskonalenie",
-    h1: "AI, które co tydzień jest mierzalnie lepsze.",
-    intro:
-      "Wdrożenie AI to początek, nie meta. NOVA prowadzi cykl ciągłego doskonalenia: ewaluacja na realnych przypadkach, tracing każdej decyzji, uczenie z produkcji i bezlitosne doskonalenie. To dyscyplina, która zamienia launch w system, który się kumuluje.",
-    imageAlt:
-      "Ciemna wizualizacja 3D świecącej pętli nieskończoności i dashboardu analitycznego z logami tracingu AI",
-    fomoH2: "Dlaczego AI od większości agencji po cichu się psuje?",
-    fomoIntro:
-      "Nakładkę wdraża się raz i nigdy więcej nie mierzy. Nie ma ewaluacji, więc nikt nie zauważa spadku jakości; nie ma tracingu, więc awarie są niewytłumaczalne; nie ma pętli uczenia, więc nic się nie poprawia. W tym czasie konkurent w cyklu doskonalenia odjeżdża co tydzień.",
-    contrastBeginnerLabel: "AI wdrożone i porzucone",
-    contrastFullstackLabel: "Cykl doskonalenia NOVA",
-    contrast: [
-      {
-        beginner: "Zero testów. Jakość na wyczucie.",
-        fullstack: "Ewaluacje oceniają każdą zmianę na realnych przypadkach przed wdrożeniem.",
-      },
-      {
-        beginner: "Gdy zawiedzie, nikt nie wie dlaczego.",
-        fullstack: "Pełny tracing i logi czynią każdą decyzję AI audytowalną.",
-      },
-      {
-        beginner: "Feedback z produkcji ląduje w koszu.",
-        fullstack: "Pętle uczenia zamieniają realne użycie w kolejne usprawnienie.",
-      },
-      {
-        beginner: "Zamrożone w dniu launchu.",
-        fullstack: "Stałe doskonalenie kumuluje jakość tydzień po tygodniu.",
-      },
-    ],
-    pillarsH2: "Cztery filary ciągłego doskonalenia",
-    pillars: [
-      {
-        no: 9,
-        title: "Testy i ewaluacje",
-        question: "Jak testować niedeterministyczne AI?",
-        body: "Budujemy zestawy ewaluacyjne z realnych wejść i ocenianych oczekiwanych wyników, a potem oceniamy każdą zmianę promptu, modelu i agenta. Nic, co obniża wynik, nie trafia na produkcję, więc poprawa jest mierzona, a regresje łapane, zanim zobaczy je użytkownik.",
-      },
-      {
-        no: 11,
-        title: "Tracing i logi",
-        question: "Jak debugować decyzję AI?",
-        body: "Każde zapytanie jest śledzone od końca do końca: prompt, wybór routingu, każde wywołanie narzędzia i finalna odpowiedź. Gdy coś pójdzie źle, odtwarzasz dokładną ścieżkę decyzji, więc awarie stają się naprawialnym problemem inżynierskim, a nie niewytłumaczalną zagadką.",
-      },
-      {
-        no: 12,
-        title: "Pętle uczenia",
-        question: "Jak AI uczy się z realnego użycia?",
-        body: "Interakcje produkcyjne, korekty i wyniki wracają do ewaluacji, pamięci i promptów. Realne zachowanie klientów staje się sygnałem uczącym dla kolejnej iteracji, więc system dopasowuje się do tego, jak Twoi użytkownicy naprawdę pracują, nie jak zgadywaliśmy.",
-      },
-      {
-        no: 13,
-        title: "Stałe doskonalenie",
-        question: "Jak wygląda ciągłe doskonalenie AI?",
-        body: "Doskonalenie to harmonogram, nie przypadek. Cykl ewaluuj-śledź-ucz uruchamiamy regularnie, wdrażając małe, mierzone zyski bez przerwy. Bo treści i modele AI pędzą, system odświeżany co miesiąc zostaje ostry, a zamrożony po cichu zostaje z tyłu.",
-      },
-    ],
-    ctaH2: "Wybierz AI, które się kumuluje.",
-    ctaBody:
-      "Przepaść między zamrożoną nakładką a doskonalonym systemem rośnie co tydzień. Postawmy Twoje AI na cyklu, który wygrywa dalej.",
-    ctaPrimary: "Rozpocznij projekt",
-    ctaSecondary: "Zobacz silnik AI",
-    relatedH2: "Zobacz dalej",
-    related: [
-      { slug: "services/ai-engine", label: "Rozwiązania AI i orkiestracja" },
-      { slug: "services/security-data", label: "Bezpieczeństwo i dane enterprise" },
+      { slug: "methodology", label: "Automatyzacja i ROI" },
     ],
   },
 };

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import SubPage from "@/components/subpage/SubPage";
+import SolutionsPage from "@/components/solutions/SolutionsPage";
 import { getDictionary } from "@/i18n/dictionaries";
-import { getPages } from "@/i18n/pages";
+import { getSolutions } from "@/i18n/solutions";
 import { siloMetadata } from "@/lib/siloMeta";
-import { buildPageSchema } from "@/lib/schema";
+import { buildSolutionsSchema } from "@/lib/schema";
 import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 function toLocale(v: string): Locale {
@@ -16,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const locale = toLocale((await params).locale);
-  return siloMetadata(locale, getPages(locale).methodology);
+  return siloMetadata(locale, getSolutions(locale));
 }
 
 export default async function Page({
@@ -26,15 +26,15 @@ export default async function Page({
 }) {
   const locale = toLocale((await params).locale);
   const dict = getDictionary(locale);
-  const page = getPages(locale).methodology;
+  const solutions = getSolutions(locale);
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildPageSchema(locale, page)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildSolutionsSchema(locale, solutions)) }}
       />
-      <SubPage locale={locale} dict={dict} page={page} image="/images/methodology.jpg" />
+      <SolutionsPage locale={locale} dict={dict} solutions={solutions} />
     </>
   );
 }
