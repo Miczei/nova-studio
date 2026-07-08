@@ -37,7 +37,7 @@ export default function SubPage({
           <div className="shell">
             {/* Breadcrumb (mirrors BreadcrumbList JSON-LD) */}
             <nav className="sub__crumbs" aria-label="Breadcrumb">
-              <Link href={home}>NOVA</Link>
+              <Link href={home}>Couders</Link>
               <span aria-hidden="true">/</span>
               <span>{page.breadcrumb}</span>
             </nav>

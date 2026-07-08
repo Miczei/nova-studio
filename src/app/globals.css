@@ -1657,6 +1657,31 @@ main {
   --d-soft: #6b7180;
 }
 
+/* Couders homepage: same dark shell chrome, but pure black. */
+.couders-shell {
+  background: #000;
+}
+.couders-shell .footer {
+  background: #000;
+}
+
+@keyframes couders-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.3333%);
+  }
+}
+.couders-marquee {
+  animation: couders-marquee 28s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .couders-marquee {
+    animation: none;
+  }
+}
+
 /* Navbar / footer / buttons flipped to dark within the shell */
 .sub-shell .nav__brand,
 .sub-shell .nav__links a {

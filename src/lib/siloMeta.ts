@@ -30,7 +30,7 @@ export function siloMetadata(locale: Locale, page: MetaSource): Metadata {
       title: page.metaTitle,
       description: page.metaDescription,
       url: path,
-      siteName: "NOVA",
+      siteName: "Couders",
       type: "website",
       locale: locale === "pl" ? "pl_PL" : "en_US",
     },

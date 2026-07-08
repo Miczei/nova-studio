@@ -44,7 +44,7 @@ export default function Navbar({
   return (
     <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
       <Link className="nav__brand" href={home}>
-        NOVA
+        COUDERS
       </Link>
 
       <nav className="nav__links" aria-label="Primary">

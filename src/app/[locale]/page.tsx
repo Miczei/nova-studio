@@ -1,13 +1,14 @@
 import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Capabilities from "@/components/Capabilities";
-import MacbookComparison from "@/components/MacbookComparison";
-import ChatbotShowcase from "@/components/ChatbotShowcase";
-import Process from "@/components/Process";
-import InteractiveGlobe from "@/components/InteractiveGlobe";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import CoudersHero from "@/components/couders/CoudersHero";
+import CapabilitiesBento from "@/components/couders/CapabilitiesBento";
+import CoreEngine from "@/components/couders/CoreEngine";
+import AiAgnostic from "@/components/couders/AiAgnostic";
+import ProcessSection from "@/components/couders/ProcessSection";
+import ReachBento from "@/components/couders/ReachBento";
+import CtaSection from "@/components/couders/CtaSection";
 import { getDictionary } from "@/i18n/dictionaries";
+import { getCouders } from "@/i18n/couders";
 import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 // See layout.tsx: params must be typed as `string` to match the type Next.js
@@ -25,18 +26,21 @@ export default async function Home({
 }) {
   const locale = toLocale((await params).locale);
   const dict = getDictionary(locale);
+  const couders = getCouders(locale);
 
   return (
-    <main>
+    <div className="sub-shell couders-shell">
       <Navbar locale={locale} dict={dict} />
-      <Hero dict={dict} />
-      <Capabilities dict={dict} />
-      <MacbookComparison dict={dict} />
-      <ChatbotShowcase dict={dict} />
-      <Process dict={dict} />
-      <InteractiveGlobe dict={dict} />
-      <Contact dict={dict} />
+      <main>
+        <CoudersHero content={couders.hero} />
+        <CapabilitiesBento content={couders.capabilities} />
+        <CoreEngine content={couders.engine} />
+        <AiAgnostic content={couders.agnostic} />
+        <ProcessSection content={couders.process} />
+        <ReachBento content={couders.reach} />
+        <CtaSection content={couders.cta} email={dict.sections.contact.email} />
+      </main>
       <Footer dict={dict} locale={locale} />
-    </main>
+    </div>
   );
 }

@@ -1,0 +1,369 @@
+import type { Locale } from "./config";
+
+export type CoudersTile = {
+  no: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  foot?: string;
+  span: string;
+};
+
+export type CoudersContent = {
+  hero: {
+    eyebrow: string;
+    h1: string;
+    sub: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    scroll: string;
+    morphAria: string;
+  };
+  capabilities: {
+    eyebrow: string;
+    h2: string;
+    tiles: CoudersTile[];
+  };
+  engine: {
+    eyebrow: string;
+    h2: string;
+    intro: string;
+    points: { no: string; title: string; body: string }[];
+    canvasAria: string;
+  };
+  agnostic: {
+    eyebrow: string;
+    h2: string;
+    lead: string;
+    p1: string;
+    p2: string;
+    marqueeAria: string;
+  };
+  process: {
+    eyebrow: string;
+    h2: string;
+    steps: { no: string; title: string; body: string }[];
+  };
+  reach: {
+    eyebrow: string;
+    h2: string;
+    tiles: { title: string; sub: string; body: string; span: string }[];
+    stat: { value: string; label: string; span: string };
+  };
+  cta: {
+    h2: string;
+    body: string;
+    button: string;
+    emailLabel: string;
+  };
+};
+
+const en: CoudersContent = {
+  hero: {
+    eyebrow: "Bespoke AI Systems",
+    h1: "Autonomous intelligence, built to order.",
+    sub: "Couders engineers custom AI chatbots and autonomous agents, trained on your private data, fluent in your customers' languages, and bound by your rules. They answer, decide, and act around the clock.",
+    ctaPrimary: "Start a conversation",
+    ctaSecondary: "See the engine",
+    scroll: "Scroll",
+    morphAria:
+      "A single continuous line morphing from an abstract face into the Couders wordmark",
+  },
+  capabilities: {
+    eyebrow: "Capabilities",
+    h2: "Four disciplines. One intelligent system.",
+    tiles: [
+      {
+        no: "01",
+        eyebrow: "Custom Enterprise Chatbots",
+        title: "Conversation, engineered.",
+        body: "Chatbots trained exclusively on your private knowledge, locked to your tone of voice, and deployed where your customers already talk: chat, WhatsApp, Slack, email. Every answer instant, every answer yours.",
+        foot: "Grounded in your data. Fluent in every market you serve.",
+        span: "md:col-span-4 md:row-span-2",
+      },
+      {
+        no: "02",
+        eyebrow: "Autonomous AI Agents",
+        title: "Not assistants. Operators.",
+        body: "Agents that plan multi-step work and finish it: qualifying leads, triaging tickets, drafting replies, updating records. Human approval exactly where you demand it.",
+        span: "md:col-span-2 md:row-span-2",
+      },
+      {
+        no: "03",
+        eyebrow: "Internal Knowledge Retrieval",
+        title: "Your company, searchable.",
+        body: "Policies, contracts, tickets and docs become one private brain. Employees ask in plain language and get cited, grounded answers in seconds.",
+        span: "md:col-span-3",
+      },
+      {
+        no: "04",
+        eyebrow: "CRM & Workflow Integrations",
+        title: "Plugged into everything.",
+        body: "Salesforce, HubSpot, calendars, ERPs, internal tools. Our agents read and write where your work actually lives, so nothing needs copying twice.",
+        span: "md:col-span-3",
+      },
+    ],
+  },
+  engine: {
+    eyebrow: "The Core Engine",
+    h2: "One engine. Zero improvisation.",
+    intro:
+      "Every Couders agent runs on the same disciplined core: your private data as its only source of truth, deterministic rules around every action, and full observability of every decision it makes.",
+    points: [
+      {
+        no: "01",
+        title: "Trained on your private data",
+        body: "Your knowledge lives in an isolated, encrypted store that never trains public models. The agent knows your products, policies and history, and nothing it should not.",
+      },
+      {
+        no: "02",
+        title: "24/7 autonomous operation",
+        body: "Agents do not sleep, queue or forget. Peak season traffic and 3 a.m. questions get the same instant, consistent treatment as a Tuesday morning.",
+      },
+      {
+        no: "03",
+        title: "Multilingual by design",
+        body: "One knowledge core, every language your customers speak. Polish, German, English or thirty markets at once, without separate systems to maintain.",
+      },
+      {
+        no: "04",
+        title: "Grounded answers, zero hallucinations",
+        body: "Retrieval with citations plus hardcoded business rules. When the data does not support an answer, the agent says so or escalates to a human instead of inventing.",
+      },
+    ],
+    canvasAria:
+      "Animated constellation of connected nodes visualizing how autonomous agents process information",
+  },
+  agnostic: {
+    eyebrow: "The Tech Stack",
+    h2: "AI agnostic by principle.",
+    lead: "We are loyal to your outcome, not to any single AI vendor.",
+    p1: "Couders integrates with every major AI model on the market: OpenAI's GPT models behind ChatGPT, Anthropic's Claude, Google's Gemini and Meta's open Llama family. For each enterprise use case we benchmark candidate models on your real data for accuracy, latency, cost and data-privacy posture, then engineer the winning combination into your system. A support chatbot might route quick questions to a fast, inexpensive model and complex reasoning to a frontier one, automatically.",
+    p2: "Because the model layer stays swappable, your investment survives every model release. When a better model ships next quarter, we re-benchmark, swap the engine and your agents simply get smarter, with no rebuild and no vendor lock-in. That is what AI agnostic means at Couders: custom AI solutions built on the best model for the job, today and every day after.",
+    marqueeAria: "Logos of supported AI providers: OpenAI, Anthropic, Google Gemini and Meta Llama",
+  },
+  process: {
+    eyebrow: "Implementation Process",
+    h2: "From first call to autonomous scale.",
+    steps: [
+      {
+        no: "01",
+        title: "Discovery",
+        body: "We map the conversations and workflows worth automating, define success metrics, and pick the highest-value starting point.",
+      },
+      {
+        no: "02",
+        title: "Data Integration & Training",
+        body: "We connect your sources, build the private knowledge core, and evaluate the agent against real historical cases until it clears your bar.",
+      },
+      {
+        no: "03",
+        title: "Deployment",
+        body: "Guardrails, approval checkpoints and monitoring go live with the agent. Rollout is gradual, observable and reversible at every step.",
+      },
+      {
+        no: "04",
+        title: "Autonomous Scaling",
+        body: "Learning loops feed production experience back into the system. As trust compounds, the agent's scope widens from answering to acting.",
+      },
+    ],
+  },
+  reach: {
+    eyebrow: "Global Reach",
+    h2: "Intelligent systems across borders.",
+    tiles: [
+      {
+        title: "DACH",
+        sub: "Berlin · Vienna · Zurich",
+        body: "German-speaking delivery of enterprise AI agents for the region's most demanding industries.",
+        span: "md:col-span-3",
+      },
+      {
+        title: "Poland",
+        sub: "Kraków · Warsaw",
+        body: "Our engineering home. Custom chatbots and agents for companies scaling from CEE to the world.",
+        span: "md:col-span-3",
+      },
+      {
+        title: "US & Canada",
+        sub: "New York · Toronto",
+        body: "North American deployments across every time zone.",
+        span: "md:col-span-2",
+      },
+      {
+        title: "APAC",
+        sub: "Tokyo · Sydney",
+        body: "Agents serving Asia-Pacific customers in their language, their hours.",
+        span: "md:col-span-2",
+      },
+    ],
+    stat: {
+      value: "24/7",
+      label: "Every time zone covered. Agents that never hand off.",
+      span: "md:col-span-2",
+    },
+  },
+  cta: {
+    h2: "Let's build something intelligent.",
+    body: "Tell us what should never be answered slowly again. We will scope your first agent end to end.",
+    button: "Start a conversation",
+    emailLabel: "Or write to us directly",
+  },
+};
+
+const pl: CoudersContent = {
+  hero: {
+    eyebrow: "Systemy AI na zamówienie",
+    h1: "Autonomiczna inteligencja, szyta na miarę.",
+    sub: "Couders projektuje niestandardowe chatboty AI i autonomicznych agentów, trenowanych na Twoich prywatnych danych, mówiących językami Twoich klientów i związanych Twoimi regułami. Odpowiadają, decydują i działają całą dobę.",
+    ctaPrimary: "Zacznij rozmowę",
+    ctaSecondary: "Zobacz silnik",
+    scroll: "Przewiń",
+    morphAria:
+      "Pojedyncza ciągła linia przekształcająca się z abstrakcyjnej twarzy w logotyp Couders",
+  },
+  capabilities: {
+    eyebrow: "Kompetencje",
+    h2: "Cztery dyscypliny. Jeden inteligentny system.",
+    tiles: [
+      {
+        no: "01",
+        eyebrow: "Chatboty klasy enterprise",
+        title: "Rozmowa, wyinżynierowana.",
+        body: "Chatboty trenowane wyłącznie na Twojej prywatnej wiedzy, zamknięte w Twoim tonie komunikacji i wdrożone tam, gdzie klienci już rozmawiają: czat, WhatsApp, Slack, e-mail. Każda odpowiedź natychmiastowa, każda Twoja.",
+        foot: "Oparte na Twoich danych. Płynne w każdym rynku, który obsługujesz.",
+        span: "md:col-span-4 md:row-span-2",
+      },
+      {
+        no: "02",
+        eyebrow: "Autonomiczni agenci AI",
+        title: "Nie asystenci. Operatorzy.",
+        body: "Agenci, którzy planują wieloetapową pracę i ją kończą: kwalifikują leady, segregują zgłoszenia, przygotowują odpowiedzi, aktualizują rekordy. Akceptacja człowieka dokładnie tam, gdzie jej wymagasz.",
+        span: "md:col-span-2 md:row-span-2",
+      },
+      {
+        no: "03",
+        eyebrow: "Wyszukiwanie wiedzy wewnętrznej",
+        title: "Twoja firma, przeszukiwalna.",
+        body: "Polityki, umowy, zgłoszenia i dokumenty stają się jednym prywatnym mózgiem. Pracownicy pytają po ludzku i w sekundy dostają odpowiedzi z cytowanymi źródłami.",
+        span: "md:col-span-3",
+      },
+      {
+        no: "04",
+        eyebrow: "Integracje CRM i workflow",
+        title: "Podłączeni do wszystkiego.",
+        body: "Salesforce, HubSpot, kalendarze, ERP, narzędzia wewnętrzne. Nasi agenci czytają i zapisują tam, gdzie naprawdę toczy się praca, więc nic nie wymaga kopiowania dwa razy.",
+        span: "md:col-span-3",
+      },
+    ],
+  },
+  engine: {
+    eyebrow: "Rdzeń systemu",
+    h2: "Jeden silnik. Zero improwizacji.",
+    intro:
+      "Każdy agent Couders działa na tym samym zdyscyplinowanym rdzeniu: Twoje prywatne dane jako jedyne źródło prawdy, deterministyczne reguły wokół każdej akcji i pełna obserwowalność każdej podjętej decyzji.",
+    points: [
+      {
+        no: "01",
+        title: "Trenowany na Twoich prywatnych danych",
+        body: "Twoja wiedza żyje w odizolowanym, szyfrowanym magazynie, który nigdy nie trenuje publicznych modeli. Agent zna Twoje produkty, polityki i historię, i nic ponad to, co powinien.",
+      },
+      {
+        no: "02",
+        title: "Praca autonomiczna 24/7",
+        body: "Agenci nie śpią, nie kolejkują i nie zapominają. Szczyt sezonu i pytanie o trzeciej w nocy dostają tę samą natychmiastową, spójną obsługę co wtorkowy poranek.",
+      },
+      {
+        no: "03",
+        title: "Wielojęzyczność w standardzie",
+        body: "Jeden rdzeń wiedzy, każdy język Twoich klientów. Polski, niemiecki, angielski albo trzydzieści rynków naraz, bez osobnych systemów do utrzymania.",
+      },
+      {
+        no: "04",
+        title: "Odpowiedzi ugruntowane, zero halucynacji",
+        body: "Wyszukiwanie z cytowaniami plus twarde reguły biznesowe w kodzie. Gdy dane nie potwierdzają odpowiedzi, agent mówi to wprost albo przekazuje sprawę człowiekowi, zamiast zmyślać.",
+      },
+    ],
+    canvasAria:
+      "Animowana konstelacja połączonych węzłów wizualizująca przetwarzanie informacji przez autonomicznych agentów",
+  },
+  agnostic: {
+    eyebrow: "Stack technologiczny",
+    h2: "AI-agnostycy z zasady.",
+    lead: "Jesteśmy lojalni wobec Twojego wyniku, nie wobec żadnego dostawcy AI.",
+    p1: "Couders integruje się z każdym liczącym się modelem AI na rynku: modelami GPT od OpenAI znanymi z ChatGPT, Claude od Anthropic, Gemini od Google i otwartą rodziną Llama od Meta. Dla każdego wdrożenia enterprise benchmarkujemy kandydatów na Twoich prawdziwych danych pod kątem trafności, szybkości, kosztu i prywatności danych, a zwycięską kombinację wbudowujemy w Twój system. Chatbot wsparcia może kierować proste pytania do szybkiego, taniego modelu, a złożone rozumowanie do modelu frontier, automatycznie.",
+    p2: "Ponieważ warstwa modeli pozostaje wymienna, Twoja inwestycja przeżywa każdą premierę. Gdy w przyszłym kwartale wyjdzie lepszy model, robimy ponowny benchmark, wymieniamy silnik i Twoi agenci po prostu stają się mądrzejsi, bez przebudowy i bez uzależnienia od dostawcy. To właśnie znaczy AI-agnostyczność w Couders: niestandardowe rozwiązania AI na najlepszym modelu do zadania, dziś i każdego kolejnego dnia.",
+    marqueeAria: "Logotypy wspieranych dostawców AI: OpenAI, Anthropic, Google Gemini i Meta Llama",
+  },
+  process: {
+    eyebrow: "Proces wdrożenia",
+    h2: "Od pierwszej rozmowy do autonomicznej skali.",
+    steps: [
+      {
+        no: "01",
+        title: "Discovery",
+        body: "Mapujemy rozmowy i procesy warte automatyzacji, definiujemy metryki sukcesu i wybieramy punkt startowy o najwyższej wartości.",
+      },
+      {
+        no: "02",
+        title: "Integracja danych i trening",
+        body: "Podłączamy Twoje źródła, budujemy prywatny rdzeń wiedzy i oceniamy agenta na prawdziwych historycznych przypadkach, aż przekroczy Twoją poprzeczkę.",
+      },
+      {
+        no: "03",
+        title: "Wdrożenie",
+        body: "Zabezpieczenia, punkty akceptacji i monitoring startują razem z agentem. Rollout jest stopniowy, obserwowalny i odwracalny na każdym kroku.",
+      },
+      {
+        no: "04",
+        title: "Autonomiczne skalowanie",
+        body: "Pętle uczenia oddają produkcyjne doświadczenie z powrotem do systemu. Wraz z zaufaniem rośnie zakres agenta: od odpowiadania do działania.",
+      },
+    ],
+  },
+  reach: {
+    eyebrow: "Zasięg globalny",
+    h2: "Inteligentne systemy ponad granicami.",
+    tiles: [
+      {
+        title: "DACH",
+        sub: "Berlin · Wiedeń · Zurych",
+        body: "Niemieckojęzyczne wdrożenia agentów AI klasy enterprise dla najbardziej wymagających branż regionu.",
+        span: "md:col-span-3",
+      },
+      {
+        title: "Polska",
+        sub: "Kraków · Warszawa",
+        body: "Nasz inżynierski dom. Chatboty i agenci dla firm skalujących się z CEE na świat.",
+        span: "md:col-span-3",
+      },
+      {
+        title: "USA i Kanada",
+        sub: "Nowy Jork · Toronto",
+        body: "Wdrożenia w Ameryce Północnej we wszystkich strefach czasowych.",
+        span: "md:col-span-2",
+      },
+      {
+        title: "APAC",
+        sub: "Tokio · Sydney",
+        body: "Agenci obsługujący klientów Azji i Pacyfiku w ich języku i ich godzinach.",
+        span: "md:col-span-2",
+      },
+    ],
+    stat: {
+      value: "24/7",
+      label: "Każda strefa czasowa pokryta. Agenci, którzy nigdy nie przekazują zmiany.",
+      span: "md:col-span-2",
+    },
+  },
+  cta: {
+    h2: "Zbudujmy coś inteligentnego.",
+    body: "Powiedz nam, co już nigdy nie powinno czekać na odpowiedź. Zaprojektujemy Twojego pierwszego agenta od początku do końca.",
+    button: "Zacznij rozmowę",
+    emailLabel: "Albo napisz do nas bezpośrednio",
+  },
+};
+
+const COUDERS: Record<Locale, CoudersContent> = { en, pl };
+
+export const getCouders = (locale: Locale): CoudersContent => COUDERS[locale] ?? en;

@@ -2,55 +2,9 @@
 
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import type { CoudersContent, CoudersTile } from "@/i18n/couders";
 
-/**
- * Capabilities as a bento grid: four AI pillars on pure black with hairline
- * silver borders. Hover lifts the border and follows the cursor with a faint
- * chrome spotlight; tiles rise in with a stagger as they enter the viewport.
- */
-
-type Tile = {
-  no: string;
-  eyebrow: string;
-  title: string;
-  body: string;
-  foot?: string;
-  span: string;
-};
-
-const TILES: Tile[] = [
-  {
-    no: "01",
-    eyebrow: "Custom Enterprise Chatbots",
-    title: "Conversation, engineered.",
-    body: "Chatbots trained exclusively on your private knowledge, locked to your tone of voice, and deployed where your customers already talk: chat, WhatsApp, Slack, email. Every answer instant, every answer yours.",
-    foot: "Grounded in your data. Fluent in every market you serve.",
-    span: "md:col-span-4 md:row-span-2",
-  },
-  {
-    no: "02",
-    eyebrow: "Autonomous AI Agents",
-    title: "Not assistants. Operators.",
-    body: "Agents that plan multi-step work and finish it: qualifying leads, triaging tickets, drafting replies, updating records. Human approval exactly where you demand it.",
-    span: "md:col-span-2 md:row-span-2",
-  },
-  {
-    no: "03",
-    eyebrow: "Internal Knowledge Retrieval",
-    title: "Your company, searchable.",
-    body: "Policies, contracts, tickets and docs become one private brain. Employees ask in plain language and get cited, grounded answers in seconds.",
-    span: "md:col-span-3",
-  },
-  {
-    no: "04",
-    eyebrow: "CRM & Workflow Integrations",
-    title: "Plugged into everything.",
-    body: "Salesforce, HubSpot, calendars, ERPs, internal tools. Our agents read and write where your work actually lives, so nothing needs copying twice.",
-    span: "md:col-span-3",
-  },
-];
-
-function BentoTile({ tile, index }: { tile: Tile; index: number }) {
+function BentoTile({ tile, index }: { tile: CoudersTile; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
 
   const onMove = (e: React.MouseEvent) => {
@@ -71,7 +25,6 @@ function BentoTile({ tile, index }: { tile: Tile; index: number }) {
       transition={{ duration: 0.7, delay: index * 0.09, ease: [0.16, 1, 0.3, 1] }}
       className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-8 transition-colors duration-500 hover:border-white/[0.22] md:p-10 ${tile.span}`}
     >
-      {/* Cursor spotlight, chrome tinted, only on hover */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -113,22 +66,26 @@ function BentoTile({ tile, index }: { tile: Tile; index: number }) {
   );
 }
 
-export default function CapabilitiesBento() {
+export default function CapabilitiesBento({
+  content,
+}: {
+  content: CoudersContent["capabilities"];
+}) {
   return (
     <section id="capabilities" className="relative z-10 bg-black px-6 py-28 md:py-40">
       <div className="mx-auto max-w-6xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500">
-          Capabilities
+          {content.eyebrow}
         </p>
         <h2
           className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-[-0.03em] text-[#F5F5F7] md:text-5xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
-          Four disciplines. One intelligent system.
+          {content.h2}
         </h2>
 
         <div className="mt-14 grid auto-rows-[minmax(180px,auto)] grid-cols-1 gap-4 md:grid-cols-6">
-          {TILES.map((t, i) => (
+          {content.tiles.map((t, i) => (
             <BentoTile key={t.no} tile={t} index={i} />
           ))}
         </div>

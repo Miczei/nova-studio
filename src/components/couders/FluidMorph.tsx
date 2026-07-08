@@ -192,10 +192,12 @@ export default function FluidMorph({
   scrollTargetRef,
   /** Freeze at a fixed progress (design review / lab use). */
   debugProgress,
+  ariaLabel,
   className,
 }: {
   scrollTargetRef?: React.RefObject<HTMLElement | null>;
   debugProgress?: number;
+  ariaLabel?: string;
   className?: string;
 }) {
   const faceRef = useRef<SVGPathElement>(null);
@@ -267,7 +269,10 @@ export default function FluidMorph({
       viewBox={`0 0 ${VB_W} ${VB_H}`}
       fill="none"
       className={className}
-      aria-label="A single continuous line morphing from an abstract face into the Couders wordmark"
+      aria-label={
+        ariaLabel ??
+        "A single continuous line morphing from an abstract face into the Couders wordmark"
+      }
       role="img"
     >
       <defs>

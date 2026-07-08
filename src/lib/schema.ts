@@ -21,7 +21,7 @@ export function buildPageSchema(locale: Locale, page: PageContent) {
     url,
     provider: {
       "@type": "Organization",
-      name: "NOVA",
+      name: "Couders",
       url: `${SITE_URL}/${locale}`,
     },
     areaServed: ["Europe", "North America", "Asia-Pacific"],
@@ -34,7 +34,7 @@ export function buildPageSchema(locale: Locale, page: PageContent) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "NOVA",
+        name: "Couders",
         item: `${SITE_URL}/${locale}`,
       },
       {
@@ -67,7 +67,7 @@ export function buildAboutSchema(locale: Locale, about: AboutContent) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "NOVA",
+    name: "Couders",
     url: `${SITE_URL}/${locale}`,
     description: about.metaDescription,
     foundingLocation: {
@@ -84,7 +84,7 @@ export function buildAboutSchema(locale: Locale, about: AboutContent) {
       {
         "@type": "ListItem",
         position: 1,
-        name: "NOVA",
+        name: "Couders",
         item: `${SITE_URL}/${locale}`,
       },
       {

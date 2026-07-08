@@ -92,7 +92,7 @@ const en: Dictionary = {
     aiEngine: "AI Engine",
     securityData: "Security",
     methodology: "Methodology",
-    cta: "Start a project",
+    cta: "Start a conversation",
     languageLabel: "Language",
   },
   hero: {
@@ -299,14 +299,14 @@ const en: Dictionary = {
       email: "hello@nova.studio",
     },
     footer: {
-      tagline: "AI-native web studio.",
+      tagline: "Bespoke AI systems.",
       rights: "All rights reserved.",
     },
   },
   meta: {
-    title: "Modern AI Web Development & Interactive Web Design | NOVA",
+    title: "Couders | Custom AI Chatbots & Autonomous AI Agents for Enterprise",
     description:
-      "NOVA is an AI-native web studio building high-end, interactive websites with custom AI chatbots built in. Modern AI web development and interactive web design that converts.",
+      "Couders engineers custom AI chatbots and autonomous agents trained on your private data. AI agnostic across OpenAI GPT, Anthropic Claude, Google Gemini and Meta Llama. Multilingual, secure, working 24/7.",
   },
 };
 
@@ -321,7 +321,7 @@ const pl: Dictionary = {
     aiEngine: "Silnik AI",
     securityData: "Bezpieczeństwo",
     methodology: "Metodologia",
-    cta: "Rozpocznij projekt",
+    cta: "Zacznij rozmowę",
     languageLabel: "Język",
   },
   hero: {
@@ -528,14 +528,14 @@ const pl: Dictionary = {
       email: "hello@nova.studio",
     },
     footer: {
-      tagline: "Studio webowe oparte na AI.",
+      tagline: "Systemy AI na zamówienie.",
       rights: "Wszelkie prawa zastrzeżone.",
     },
   },
   meta: {
-    title: "Nowoczesne tworzenie stron z AI i interaktywny web design | NOVA",
+    title: "Couders | Chatboty AI i autonomiczni agenci dla firm",
     description:
-      "NOVA to studio webowe oparte na AI. Tworzymy dopracowane, interaktywne strony internetowe z wbudowanymi chatbotami AI. Nowoczesne tworzenie stron i interaktywny web design, który konwertuje.",
+      "Couders buduje niestandardowe chatboty AI i autonomicznych agentów trenowanych na prywatnych danych firmy. AI-agnostycznie: OpenAI GPT, Anthropic Claude, Google Gemini i Meta Llama. Wielojęzycznie, bezpiecznie, 24/7.",
   },
 };
 

@@ -62,7 +62,7 @@ export async function generateMetadata({
       title: dict.meta.title,
       description: dict.meta.description,
       url: `/${locale}`,
-      siteName: "NOVA",
+      siteName: "Couders",
       locale: locale === "pl" ? "pl_PL" : "en_US",
       type: "website",
     },

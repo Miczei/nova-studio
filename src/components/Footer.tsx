@@ -21,7 +21,7 @@ export default function Footer({
     <footer className="footer">
       <div className="shell footer__inner">
         <div className="footer__brand">
-          <span className="nav__brand">NOVA</span>
+          <span className="nav__brand">COUDERS</span>
           <span className="footer__tagline">{f.tagline}</span>
         </div>
 
@@ -33,7 +33,7 @@ export default function Footer({
         </nav>
 
         <div className="footer__meta">
-          © {year} NOVA. {f.rights}
+          © {year} Couders. {f.rights}
         </div>
       </div>
     </footer>
