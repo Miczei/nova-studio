@@ -39,7 +39,7 @@ export default function HeroAgent({ className }: { className?: string }) {
           ease: "easeInOut",
           delay: 0.4,
         }}
-        style={{ transformOrigin: "121px 56px", transformBox: "view-box" }}
+        style={{ transformOrigin: "120px 58px", transformBox: "view-box" }}
       >
         <motion.circle
           cx={AGENT_FLOWER.cx}
@@ -49,7 +49,7 @@ export default function HeroAgent({ className }: { className?: string }) {
           initial={reduced ? false : { scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 1.9, duration: 0.7, ease: EASE }}
-          style={{ transformOrigin: "121px 56px", transformBox: "view-box" }}
+          style={{ transformOrigin: "120px 58px", transformBox: "view-box" }}
         />
         <path
           d={AGENT_STEM}
