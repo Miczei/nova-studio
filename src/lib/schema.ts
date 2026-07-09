@@ -116,7 +116,7 @@ export function buildSolutionsSchema(locale: Locale, solutions: SolutionsContent
     url,
     provider: {
       "@type": "Organization",
-      name: "NOVA",
+      name: "Couders",
       url: `${SITE_URL}/${locale}`,
     },
     areaServed: ["Europe", "North America", "Asia-Pacific"],
@@ -142,7 +142,7 @@ export function buildSolutionsSchema(locale: Locale, solutions: SolutionsContent
       {
         "@type": "ListItem",
         position: 1,
-        name: "NOVA",
+        name: "Couders",
         item: `${SITE_URL}/${locale}`,
       },
       {
