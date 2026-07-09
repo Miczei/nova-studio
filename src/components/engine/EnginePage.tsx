@@ -7,6 +7,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DecodeText from "./DecodeText";
 import MiniAgent from "./MiniAgent";
+import HeroAgent from "./HeroAgent";
 import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { PageContent, Pillar } from "@/i18n/pages";
@@ -135,50 +136,54 @@ export default function EnginePage({
         <MiniAgent statuses={ui.agentStatuses} label={ui.agentLabel} />
 
         <section className="px-6 pb-24 pt-40 md:pb-32 md:pt-48">
-          <div className="mx-auto max-w-6xl">
-            <nav
-              aria-label="Breadcrumb"
-              className="mb-10 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600"
-            >
-              <Link href={home} className="pointer-events-auto transition-colors hover:text-white">
-                Couders
-              </Link>
-              <span aria-hidden="true">/</span>
-              <span className="text-zinc-400">{page.breadcrumb}</span>
-            </nav>
+          <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
+            <div>
+              <nav
+                aria-label="Breadcrumb"
+                className="mb-10 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600"
+              >
+                <Link href={home} className="pointer-events-auto transition-colors hover:text-white">
+                  Couders
+                </Link>
+                <span aria-hidden="true">/</span>
+                <span className="text-zinc-400">{page.breadcrumb}</span>
+              </nav>
 
-            <DecodeText
-              text={page.eyebrow}
-              className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500"
-            />
-            <HeroTitle text={page.h1} />
-            <motion.p
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
-              className="mt-7 max-w-2xl text-pretty leading-relaxed text-zinc-400 md:text-lg"
-            >
-              {page.intro}
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
-              className="mt-10 flex flex-wrap items-center gap-3.5"
-            >
-              <a
-                href={`${home}#contact`}
-                className="rounded-full bg-white px-7 py-3.5 text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
+              <DecodeText
+                text={page.eyebrow}
+                className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500"
+              />
+              <HeroTitle text={page.h1} />
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
+                className="mt-7 max-w-2xl text-pretty leading-relaxed text-zinc-400 md:text-lg"
               >
-                {page.ctaPrimary}
-              </a>
-              <Link
-                href={secondaryHref}
-                className="rounded-full border border-white/20 px-7 py-3.5 text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60"
+                {page.intro}
+              </motion.p>
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
+                className="mt-10 flex flex-wrap items-center gap-3.5"
               >
-                {page.ctaSecondary}
-              </Link>
-            </motion.div>
+                <a
+                  href={`${home}#contact`}
+                  className="rounded-full bg-white px-7 py-3.5 text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
+                >
+                  {page.ctaPrimary}
+                </a>
+                <Link
+                  href={secondaryHref}
+                  className="rounded-full border border-white/20 px-7 py-3.5 text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60"
+                >
+                  {page.ctaSecondary}
+                </Link>
+              </motion.div>
+            </div>
+
+            <HeroAgent className="hidden w-56 lg:block xl:w-64" />
           </div>
         </section>
 
