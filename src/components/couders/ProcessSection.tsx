@@ -9,19 +9,19 @@ export default function ProcessSection({
   content: CoudersContent["process"];
 }) {
   return (
-    <section id="process" className="relative z-10 bg-black px-6 py-28 md:py-40">
+    <section id="process" className="relative z-10 bg-black px-5 py-16 sm:px-6 sm:py-24 md:py-40">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500">
+        <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]">
           {content.eyebrow}
         </p>
         <h2
-          className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-[-0.03em] text-[#F5F5F7] md:text-5xl"
+          className="mt-4 max-w-2xl text-balance text-2xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:text-3xl md:text-5xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {content.h2}
         </h2>
 
-        <div className="mt-14 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-8 sm:mt-14 sm:gap-y-10 md:grid-cols-4">
           {content.steps.map((s, i) => (
             <motion.div
               key={s.no}
@@ -43,7 +43,7 @@ export default function ProcessSection({
               >
                 {s.title}
               </h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-zinc-400">{s.body}</p>
+              <p className="mt-3 text-sm leading-relaxed text-zinc-400 sm:text-[15px]">{s.body}</p>
             </motion.div>
           ))}
         </div>

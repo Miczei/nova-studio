@@ -23,7 +23,7 @@ function BentoTile({ tile, index }: { tile: CoudersTile; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.09, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-8 transition-colors duration-500 hover:border-white/[0.22] md:p-10 ${tile.span}`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-6 transition-colors duration-500 hover:border-white/[0.22] sm:p-8 md:p-10 ${tile.span}`}
     >
       <div
         aria-hidden="true"
@@ -36,7 +36,7 @@ function BentoTile({ tile, index }: { tile: CoudersTile; index: number }) {
 
       <div className="relative">
         <div className="flex items-baseline justify-between">
-          <span className="font-mono text-[11px] uppercase tracking-[0.26em] text-zinc-500">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 sm:text-[11px] sm:tracking-[0.26em]">
             {tile.eyebrow}
           </span>
           <span
@@ -47,18 +47,18 @@ function BentoTile({ tile, index }: { tile: CoudersTile; index: number }) {
           </span>
         </div>
         <h3
-          className="mt-6 text-2xl font-semibold tracking-[-0.02em] text-[#F5F5F7] md:text-[1.7rem]"
+          className="mt-5 text-xl font-semibold tracking-[-0.02em] text-[#F5F5F7] sm:mt-6 sm:text-2xl md:text-[1.7rem]"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {tile.title}
         </h3>
-        <p className="mt-4 max-w-md text-[15px] leading-relaxed text-zinc-400">
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-zinc-400 sm:mt-4 sm:text-[15px]">
           {tile.body}
         </p>
       </div>
 
       {tile.foot && (
-        <p className="relative mt-10 border-t border-white/[0.07] pt-5 font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
+        <p className="relative mt-8 border-t border-white/[0.07] pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-zinc-500 sm:mt-10 sm:pt-5 sm:text-xs sm:tracking-[0.18em]">
           {tile.foot}
         </p>
       )}
@@ -72,19 +72,19 @@ export default function CapabilitiesBento({
   content: CoudersContent["capabilities"];
 }) {
   return (
-    <section id="capabilities" className="relative z-10 bg-black px-6 py-28 md:py-40">
+    <section id="capabilities" className="relative z-10 bg-black px-5 py-16 sm:px-6 sm:py-24 md:py-40">
       <div className="mx-auto max-w-6xl">
-        <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500">
+        <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]">
           {content.eyebrow}
         </p>
         <h2
-          className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-[-0.03em] text-[#F5F5F7] md:text-5xl"
+          className="mt-4 max-w-2xl text-balance text-2xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:text-3xl md:text-5xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {content.h2}
         </h2>
 
-        <div className="mt-14 grid auto-rows-[minmax(180px,auto)] grid-cols-1 gap-4 md:grid-cols-6">
+        <div className="mt-10 grid auto-rows-[minmax(150px,auto)] grid-cols-1 gap-3 sm:mt-14 sm:auto-rows-[minmax(180px,auto)] sm:gap-4 md:grid-cols-6">
           {content.tiles.map((t, i) => (
             <BentoTile key={t.no} tile={t} index={i} />
           ))}

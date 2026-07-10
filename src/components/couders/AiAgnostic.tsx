@@ -167,10 +167,10 @@ function MarqueeRow({ items }: { items: Provider[] }) {
   return (
     <div className="flex shrink-0 items-center">
       {items.map((p) => (
-        <div key={p.name} className="mx-12 flex items-center gap-4 md:mx-16">
+        <div key={p.name} className="mx-8 flex items-center gap-3 sm:mx-12 sm:gap-4 md:mx-16">
           <p.Mark />
           <div>
-            <span className="block text-lg font-medium tracking-[-0.01em] text-white">
+            <span className="block text-base font-medium tracking-[-0.01em] text-white sm:text-lg">
               {p.name}
             </span>
             <span className="block font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500">
@@ -200,8 +200,8 @@ function MarqueeBand({
   reverse?: boolean;
 }) {
   return (
-    <div className="py-8">
-      <p className="mx-auto mb-6 max-w-6xl px-6 font-mono text-[10px] uppercase tracking-[0.28em] text-zinc-600">
+    <div className="py-6 sm:py-8">
+      <p className="mx-auto mb-5 max-w-6xl px-5 font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-600 sm:mb-6 sm:px-6 sm:text-[10px] sm:tracking-[0.28em]">
         {label}
       </p>
       <div className="overflow-hidden" style={MASK}>
@@ -225,26 +225,26 @@ export default function AiAgnostic({
   content: CoudersContent["agnostic"];
 }) {
   return (
-    <section id="stack" className="relative z-10 bg-black py-28 md:py-40">
-      <div className="mx-auto max-w-6xl px-6">
-        <p className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500">
+    <section id="stack" className="relative z-10 bg-black py-16 sm:py-24 md:py-40">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
+        <p className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]">
           {content.eyebrow}
         </p>
         <h2
-          className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-[-0.03em] text-[#F5F5F7] md:text-5xl"
+          className="mt-4 max-w-2xl text-balance text-2xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:text-3xl md:text-5xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {content.h2}
         </h2>
-        <p className="mt-6 max-w-xl text-lg font-medium text-zinc-300">
+        <p className="mt-5 max-w-xl text-base font-medium text-zinc-300 sm:mt-6 sm:text-lg">
           {content.lead}
         </p>
 
-        <div className="mt-8 grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
-          <p className="text-pretty text-[15px] leading-relaxed text-zinc-400">
+        <div className="mt-7 grid max-w-4xl grid-cols-1 gap-6 sm:mt-8 sm:gap-8 md:grid-cols-2">
+          <p className="text-pretty text-sm leading-relaxed text-zinc-400 sm:text-[15px]">
             {content.p1}
           </p>
-          <p className="text-pretty text-[15px] leading-relaxed text-zinc-400">
+          <p className="text-pretty text-sm leading-relaxed text-zinc-400 sm:text-[15px]">
             {content.p2}
           </p>
         </div>
@@ -257,7 +257,7 @@ export default function AiAgnostic({
         transition={{ duration: 1 }}
         role="img"
         aria-label={content.marqueeAria}
-        className="mt-20 divide-y divide-white/[0.08] border-y border-white/[0.08]"
+        className="mt-14 divide-y divide-white/[0.08] border-y border-white/[0.08] sm:mt-20"
       >
         <MarqueeBand label={content.rowModels} items={MODELS} />
         <MarqueeBand label={content.rowInfra} items={INFRA} reverse />

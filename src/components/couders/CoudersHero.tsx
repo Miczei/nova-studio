@@ -28,7 +28,7 @@ export default function CoudersHero({
   return (
     <section ref={sectionRef} className="relative z-10 h-[260vh] bg-black">
       <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden pt-16">
-        <p className="mb-2 font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500">
+        <p className="mb-2 px-6 text-center font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]">
           {content.eyebrow}
         </p>
 
@@ -44,24 +44,24 @@ export default function CoudersHero({
           className="flex max-w-2xl flex-col items-center px-6 text-center"
         >
           <h1
-            className="text-balance text-3xl font-semibold tracking-[-0.04em] text-[#F5F5F7] md:text-5xl"
+            className="text-balance text-3xl font-semibold tracking-[-0.04em] text-[#F5F5F7] sm:text-4xl md:text-5xl"
             style={{ fontFamily: "var(--font-display), sans-serif" }}
           >
             {content.h1}
           </h1>
-          <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-zinc-400 antialiased md:text-lg">
+          <p className="mt-4 max-w-xl text-pretty text-[15px] leading-relaxed text-zinc-400 antialiased sm:mt-5 sm:text-base md:text-lg">
             {content.sub}
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5">
+          <div className="mt-7 flex w-full flex-col items-center justify-center gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:gap-3.5">
             <a
               href="#contact"
-              className="rounded-full bg-white px-7 py-3.5 text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
+              className="w-full max-w-xs rounded-full bg-white px-7 py-3.5 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:max-w-none"
             >
               {content.ctaPrimary}
             </a>
             <a
               href="#engine"
-              className="rounded-full border border-white/20 px-7 py-3.5 text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60"
+              className="w-full max-w-xs rounded-full border border-white/20 px-7 py-3.5 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:max-w-none"
             >
               {content.ctaSecondary}
             </a>
