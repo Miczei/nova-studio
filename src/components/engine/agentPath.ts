@@ -5,6 +5,6 @@ export const STANDBY_DOT = { cx: 48, cy: 52, r: 4.5 };
 
 export const STANDBY_VIEWBOX = "0 0 100 100";
 
-export const FLOWER_COLOR = "#B15C3F";
+export const FLOWER_COLOR = "#C06C4C";
 
 export const LINE_COLOR = "#F5F5F7";
