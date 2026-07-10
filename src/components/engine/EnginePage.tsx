@@ -20,7 +20,7 @@ function HeroTitle({ text }: { text: string }) {
   return (
     <h1
       aria-label={text}
-      className="mt-6 max-w-4xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.04em] text-[#F5F5F7] md:text-6xl"
+      className="mt-5 max-w-4xl text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.04em] text-[#F5F5F7] sm:mt-6 sm:text-5xl sm:leading-[1.02] md:text-6xl"
       style={{ fontFamily: "var(--font-display), sans-serif" }}
     >
       {words.map((w, i) => (
@@ -42,7 +42,7 @@ function HeroTitle({ text }: { text: string }) {
 
 function StreamDivider() {
   return (
-    <div aria-hidden="true" className="mx-auto max-w-6xl px-6">
+    <div aria-hidden="true" className="mx-auto max-w-6xl px-5 sm:px-6">
       <svg width="100%" height="2" className="block">
         <line x1="0" y1="1" x2="100%" y2="1" stroke="rgba(255,255,255,0.08)" strokeWidth="1" />
         <line
@@ -72,11 +72,11 @@ function PillarTile({ pillar, span, delay }: { pillar: Pillar; span: string; del
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: EASE }}
-      className={`relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-8 transition-colors duration-500 hover:border-white/[0.22] md:p-10 ${span}`}
+      className={`relative overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-6 transition-colors duration-500 hover:border-white/[0.22] sm:p-8 md:p-10 ${span}`}
     >
       <motion.div
         aria-hidden="true"
-        className="absolute inset-0 p-8 md:p-10"
+        className="absolute inset-0 p-6 sm:p-8 md:p-10"
         animate={{ opacity: revealed ? 0 : 1 }}
         transition={{ duration: 0.5, ease: EASE }}
       >
@@ -90,8 +90,8 @@ function PillarTile({ pillar, span, delay }: { pillar: Pillar; span: string; del
         animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 10 }}
         transition={{ duration: 0.6, ease: EASE }}
       >
-        <div className="flex items-baseline justify-between">
-          <span className="font-mono text-[11px] uppercase tracking-[0.26em] text-zinc-500">
+        <div className="flex items-baseline justify-between gap-4">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 sm:text-[11px] sm:tracking-[0.26em]">
             {pillar.title}
           </span>
           <span
@@ -102,12 +102,14 @@ function PillarTile({ pillar, span, delay }: { pillar: Pillar; span: string; del
           </span>
         </div>
         <h3
-          className="mt-6 text-xl font-semibold tracking-[-0.02em] text-[#F5F5F7] md:text-2xl"
+          className="mt-5 text-lg font-semibold tracking-[-0.02em] text-[#F5F5F7] sm:mt-6 sm:text-xl md:text-2xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {pillar.question}
         </h3>
-        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-zinc-400">{pillar.body}</p>
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400 sm:mt-4 sm:text-[15px]">
+          {pillar.body}
+        </p>
       </motion.div>
     </motion.div>
   );
@@ -132,15 +134,15 @@ export default function EnginePage({
     <div className="sub-shell couders-shell">
       <Navbar locale={locale} dict={dict} />
 
-      <main className="relative z-10 bg-black">
+      <main className="relative z-10 overflow-x-hidden bg-black">
         <MiniAgent statuses={ui.agentStatuses} label={ui.agentLabel} />
 
-        <section className="px-6 pb-24 pt-40 md:pb-32 md:pt-48">
+        <section className="px-5 pb-20 pt-32 sm:px-6 sm:pt-40 md:pb-32 md:pt-48">
           <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
             <div>
               <nav
                 aria-label="Breadcrumb"
-                className="mb-10 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600"
+                className="mb-8 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600 sm:mb-10"
               >
                 <Link href={home} className="pointer-events-auto transition-colors hover:text-white">
                   Couders
@@ -151,14 +153,14 @@ export default function EnginePage({
 
               <DecodeText
                 text={page.eyebrow}
-                className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500"
+                className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]"
               />
               <HeroTitle text={page.h1} />
               <motion.p
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
-                className="mt-7 max-w-2xl text-pretty leading-relaxed text-zinc-400 md:text-lg"
+                className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-zinc-400 sm:mt-7 md:text-lg"
               >
                 {page.intro}
               </motion.p>
@@ -166,53 +168,53 @@ export default function EnginePage({
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
-                className="mt-10 flex flex-wrap items-center gap-3.5"
+                className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-3.5"
               >
                 <a
                   href={`${home}#contact`}
-                  className="rounded-full bg-white px-7 py-3.5 text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
+                  className="w-full rounded-full bg-white px-6 py-3 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:px-7 sm:py-3.5"
                 >
                   {page.ctaPrimary}
                 </a>
                 <Link
                   href={secondaryHref}
-                  className="rounded-full border border-white/20 px-7 py-3.5 text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60"
+                  className="w-full rounded-full border border-white/20 px-6 py-3 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:px-7 sm:py-3.5"
                 >
                   {page.ctaSecondary}
                 </Link>
               </motion.div>
             </div>
 
-            <HeroAgent className="hidden w-56 lg:block xl:w-64" />
+            <HeroAgent className="mx-auto mt-14 block w-44 sm:w-52 lg:mx-0 lg:mt-0 lg:w-56 xl:w-64" />
           </div>
         </section>
 
         <StreamDivider />
 
-        <section className="px-6 py-24 md:py-32">
+        <section className="px-5 py-16 sm:px-6 sm:py-24 md:py-32">
           <div className="mx-auto max-w-6xl">
             <h2
-              className="max-w-2xl text-balance text-3xl font-semibold tracking-[-0.03em] text-[#F5F5F7] md:text-5xl"
+              className="max-w-2xl text-balance text-2xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:text-3xl md:text-5xl"
               style={{ fontFamily: "var(--font-display), sans-serif" }}
             >
               {page.fomoH2}
             </h2>
-            <p className="mt-6 max-w-2xl text-pretty leading-relaxed text-zinc-400">
+            <p className="mt-5 max-w-2xl text-pretty text-sm leading-relaxed text-zinc-400 sm:mt-6 sm:text-base">
               {page.fomoIntro}
             </p>
 
-            <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="mt-10 grid grid-cols-1 gap-3 sm:mt-14 sm:gap-4 md:grid-cols-2">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-70px" }}
                 transition={{ duration: 0.7, ease: EASE }}
-                className="rounded-2xl border border-white/[0.06] bg-[#050506] p-8 md:p-10"
+                className="rounded-2xl border border-white/[0.06] bg-[#050506] p-6 sm:p-8 md:p-10"
               >
-                <span className="font-mono text-[11px] uppercase tracking-[0.26em] text-zinc-600">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-600 sm:text-[11px] sm:tracking-[0.26em]">
                   {page.contrastBeginnerLabel}
                 </span>
-                <ul className="mt-8 space-y-5">
+                <ul className="mt-6 space-y-4 sm:mt-8 sm:space-y-5">
                   {page.contrast.map((c, i) => (
                     <motion.li
                       key={i}
@@ -220,7 +222,7 @@ export default function EnginePage({
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
-                      className="flex gap-4 text-[15px] leading-relaxed text-zinc-500"
+                      className="flex gap-3 text-sm leading-relaxed text-zinc-500 sm:gap-4 sm:text-[15px]"
                     >
                       <span aria-hidden="true" className="mt-0.5 text-zinc-700">
                         ×
@@ -236,16 +238,16 @@ export default function EnginePage({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-70px" }}
                 transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
-                className="relative overflow-hidden rounded-2xl border border-white/[0.18] bg-[#0A0A0B] p-8 md:p-10"
+                className="relative overflow-hidden rounded-2xl border border-white/[0.18] bg-[#0A0A0B] p-6 sm:p-8 md:p-10"
               >
                 <div
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#E8EAEE] to-transparent opacity-60"
                 />
-                <span className="font-mono text-[11px] uppercase tracking-[0.26em] text-zinc-300">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-300 sm:text-[11px] sm:tracking-[0.26em]">
                   {page.contrastFullstackLabel}
                 </span>
-                <ul className="mt-8 space-y-5">
+                <ul className="mt-6 space-y-4 sm:mt-8 sm:space-y-5">
                   {page.contrast.map((c, i) => (
                     <motion.li
                       key={i}
@@ -253,7 +255,7 @@ export default function EnginePage({
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.08, ease: EASE }}
-                      className="flex gap-4 text-[15px] leading-relaxed text-zinc-200"
+                      className="flex gap-3 text-sm leading-relaxed text-zinc-200 sm:gap-4 sm:text-[15px]"
                     >
                       <span
                         aria-hidden="true"
@@ -272,20 +274,20 @@ export default function EnginePage({
 
         <StreamDivider />
 
-        <section className="px-6 py-24 md:py-32">
+        <section className="px-5 py-16 sm:px-6 sm:py-24 md:py-32">
           <div className="mx-auto max-w-6xl">
             <DecodeText
               text={ui.specIndex}
-              className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500"
+              className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]"
             />
             <h2
-              className="mt-4 max-w-2xl text-balance text-3xl font-semibold tracking-[-0.03em] text-[#F5F5F7] md:text-5xl"
+              className="mt-4 max-w-2xl text-balance text-2xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:text-3xl md:text-5xl"
               style={{ fontFamily: "var(--font-display), sans-serif" }}
             >
               {page.pillarsH2}
             </h2>
 
-            <div className="mt-14 grid auto-rows-[minmax(200px,auto)] grid-cols-1 gap-4 md:grid-cols-6">
+            <div className="mt-10 grid auto-rows-[minmax(160px,auto)] grid-cols-1 gap-3 sm:mt-14 sm:auto-rows-[minmax(200px,auto)] sm:gap-4 md:grid-cols-6">
               {page.pillars.map((p, i) => (
                 <PillarTile key={p.no} pillar={p} span={spans[i % spans.length]} delay={i * 120} />
               ))}
@@ -295,7 +297,7 @@ export default function EnginePage({
 
         <StreamDivider />
 
-        <section className="px-6 py-28 md:py-40">
+        <section className="px-5 py-20 sm:px-6 sm:py-28 md:py-40">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -304,22 +306,24 @@ export default function EnginePage({
             className="mx-auto flex max-w-3xl flex-col items-center text-center"
           >
             <h2
-              className="text-balance bg-gradient-to-b from-white via-[#E8EAEE] to-[#9BA1AB] bg-clip-text text-3xl font-semibold tracking-[-0.04em] text-transparent md:text-5xl"
+              className="text-balance bg-gradient-to-b from-white via-[#E8EAEE] to-[#9BA1AB] bg-clip-text text-3xl font-semibold tracking-[-0.04em] text-transparent sm:text-4xl md:text-5xl"
               style={{ fontFamily: "var(--font-display), sans-serif" }}
             >
               {page.ctaH2}
             </h2>
-            <p className="mt-6 max-w-xl text-pretty leading-relaxed text-zinc-400">{page.ctaBody}</p>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
+            <p className="mt-5 max-w-xl text-pretty text-sm leading-relaxed text-zinc-400 sm:mt-6 sm:text-base">
+              {page.ctaBody}
+            </p>
+            <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10 sm:w-auto sm:gap-3.5">
               <a
                 href={`${home}#contact`}
-                className="rounded-full bg-white px-8 py-4 text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
+                className="w-full rounded-full bg-white px-7 py-3.5 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:px-8 sm:py-4"
               >
                 {page.ctaPrimary}
               </a>
               <Link
                 href={secondaryHref}
-                className="rounded-full border border-white/20 px-8 py-4 text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60"
+                className="w-full rounded-full border border-white/20 px-7 py-3.5 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:px-8 sm:py-4"
               >
                 {page.ctaSecondary}
               </Link>
@@ -327,12 +331,12 @@ export default function EnginePage({
           </motion.div>
         </section>
 
-        <section className="px-6 pb-32">
+        <section className="px-5 pb-24 sm:px-6 sm:pb-32">
           <div className="mx-auto max-w-6xl">
-            <h2 className="font-mono text-[11px] uppercase tracking-[0.32em] text-zinc-500">
+            <h2 className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]">
               {page.relatedH2}
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="mt-6 grid grid-cols-1 gap-3 sm:mt-8 sm:gap-4 md:grid-cols-2">
               {page.related.map((r, i) => (
                 <motion.div
                   key={r.slug}
@@ -343,10 +347,10 @@ export default function EnginePage({
                 >
                   <Link
                     href={`/${locale}/${r.slug}`}
-                    className="group flex items-center justify-between rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-7 transition-colors duration-500 hover:border-white/[0.25]"
+                    className="group flex items-center justify-between rounded-2xl border border-white/[0.08] bg-[#0A0A0B] p-5 transition-colors duration-500 hover:border-white/[0.25] sm:p-7"
                   >
                     <span
-                      className="text-lg font-medium tracking-[-0.01em] text-[#F5F5F7]"
+                      className="text-base font-medium tracking-[-0.01em] text-[#F5F5F7] sm:text-lg"
                       style={{ fontFamily: "var(--font-display), sans-serif" }}
                     >
                       {r.label}

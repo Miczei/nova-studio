@@ -21,6 +21,7 @@ export default function DecodeText({
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let raf = 0;
+    let failSafe = 0;
     let started = false;
 
     const io = new IntersectionObserver(
@@ -28,6 +29,9 @@ export default function DecodeText({
         if (!entry.isIntersecting || started) return;
         started = true;
         io.disconnect();
+        failSafe = window.setTimeout(() => {
+          el.textContent = text;
+        }, duration + 400);
         const t0 = performance.now();
         const tick = (now: number) => {
           const p = Math.min(1, (now - t0) / duration);
@@ -48,6 +52,7 @@ export default function DecodeText({
 
     return () => {
       cancelAnimationFrame(raf);
+      clearTimeout(failSafe);
       io.disconnect();
     };
   }, [text, duration]);

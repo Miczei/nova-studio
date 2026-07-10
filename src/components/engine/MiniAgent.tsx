@@ -37,14 +37,13 @@ export default function MiniAgent({
   });
 
   return (
-    <div className="pointer-events-none fixed bottom-6 right-6 z-40 hidden flex-col items-center gap-2 md:flex">
+    <div className="pointer-events-none fixed bottom-4 right-4 z-40 flex flex-col items-center gap-1.5 sm:bottom-6 sm:right-6 sm:gap-2">
       <span className="sr-only">{label}</span>
       <motion.svg
         aria-hidden="true"
-        width="52"
-        height="52"
         viewBox={STANDBY_VIEWBOX}
         fill="none"
+        className="h-10 w-10 sm:h-[52px] sm:w-[52px]"
         animate={reduced ? undefined : { opacity: [0.55, 0.9, 0.55] }}
         transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -80,7 +79,7 @@ export default function MiniAgent({
       </motion.svg>
       <span
         aria-hidden="true"
-        className="rounded-full border border-white/10 bg-black/70 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500 backdrop-blur"
+        className="max-w-[38vw] truncate rounded-full border border-white/10 bg-black/70 px-2 py-0.5 font-mono text-[8px] uppercase tracking-[0.16em] text-zinc-500 backdrop-blur sm:max-w-none sm:px-2.5 sm:py-1 sm:text-[9px] sm:tracking-[0.2em]"
       >
         {status}
       </span>
