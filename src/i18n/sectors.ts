@@ -241,18 +241,69 @@ const en: SectorsContent = {
           outcome: "Block fraudulent transactions in milliseconds, not after the chargeback lands.",
           body: "Scoring agents watch every transaction against behavioral baselines and known patterns, freezing only what deserves freezing.",
           span: "md:col-span-2",
+          deepDive: {
+            intro: "A stolen card tries three stores in ninety seconds. A traditional fraud queue reviews it tomorrow. Your agent reviews it now.",
+            steps: [
+              {
+                title: "Score",
+                body: "Every transaction is scored in milliseconds against the cardholder's own behavioral baseline and known fraud patterns.",
+              },
+              {
+                title: "Decide",
+                body: "Clear-cut fraud is frozen instantly; genuine edge cases are routed to an analyst with the full evidence attached.",
+              },
+              {
+                title: "Adapt",
+                body: "Confirmed outcomes feed back into the model, so a new fraud tactic gets caught the second time, not the hundredth.",
+              },
+            ],
+          },
         },
         {
           title: "Automated compliance auditing",
           outcome: "Every transaction screened against AML and KYC rules, with an audit trail regulators can replay.",
           body: "Continuous screening instead of quarterly panic, with each decision logged, sourced and explainable.",
           span: "md:col-span-2",
+          deepDive: {
+            intro: "Regulators ask for two years of transaction rationale on a Tuesday afternoon. Your agent already has it, sourced and timestamped.",
+            steps: [
+              {
+                title: "Screen",
+                body: "Every transaction is checked against live AML and KYC rules the moment it happens, not in a quarterly batch.",
+              },
+              {
+                title: "Log",
+                body: "Each decision is recorded with its inputs, the rule it matched and the evidence, in a trail a regulator can replay.",
+              },
+              {
+                title: "Flag",
+                body: "Anything ambiguous is escalated to the responsible officer before it becomes a filing problem.",
+              },
+            ],
+          },
         },
         {
           title: "Intelligent wealth assistants",
           outcome: "Portfolio insight in plain language, with every figure sourced and every action behind client consent.",
           body: "Assistants that explain positions, risks and scenarios conversationally, and never execute anything on their own.",
           span: "md:col-span-2",
+          deepDive: {
+            intro: "A client texts 'why is my portfolio down' at 11 PM. The assistant answers in plain language, with every number sourced, and never touches a trade.",
+            steps: [
+              {
+                title: "Explain",
+                body: "It turns positions, exposures and scenarios into a conversation the client actually understands.",
+              },
+              {
+                title: "Model",
+                body: "It runs what-if scenarios on request, showing the range of outcomes rather than a single false promise.",
+              },
+              {
+                title: "Defer",
+                body: "Anything that moves money is packaged for a human advisor to review and execute, never done autonomously.",
+              },
+            ],
+          },
         },
         {
           title: "Human sign-off, always",
@@ -468,18 +519,69 @@ const pl: SectorsContent = {
           outcome: "Blokuj podejrzane transakcje w milisekundy, a nie po chargebacku.",
           body: "Agenci scoringowi porównują każdą transakcję z profilem behawioralnym i znanymi wzorcami, mrożąc tylko to, co na to zasługuje.",
           span: "md:col-span-2",
+          deepDive: {
+            intro: "Skradziona karta próbuje trzech sklepów w dziewięćdziesiąt sekund. Tradycyjna kolejka antyfraudowa sprawdzi to jutro. Twój agent sprawdza teraz.",
+            steps: [
+              {
+                title: "Scoring",
+                body: "Każda transakcja jest oceniana w milisekundy względem własnego profilu behawioralnego posiadacza karty i znanych wzorców fraudu.",
+              },
+              {
+                title: "Decyzja",
+                body: "Oczywisty fraud jest mrożony natychmiast; realne przypadki brzegowe trafiają do analityka z pełnym materiałem dowodowym.",
+              },
+              {
+                title: "Adaptacja",
+                body: "Potwierdzone wyniki wracają do modelu, więc nowa taktyka fraudu zostaje złapana za drugim razem, nie za setnym.",
+              },
+            ],
+          },
         },
         {
           title: "Automatyczny audyt zgodności",
           outcome: "Każda transakcja prześwietlona pod AML i KYC, ze ścieżką audytu, którą regulator może odtworzyć.",
           body: "Ciągły screening zamiast kwartalnej paniki, z każdą decyzją zalogowaną, źródłowaną i wyjaśnialną.",
           span: "md:col-span-2",
+          deepDive: {
+            intro: "Regulator prosi o uzasadnienie dwóch lat transakcji we wtorkowe popołudnie. Twój agent już to ma, źródłowane i ostemplowane czasem.",
+            steps: [
+              {
+                title: "Screening",
+                body: "Każda transakcja jest sprawdzana względem żywych reguł AML i KYC w chwili, gdy się dzieje, a nie w kwartalnej paczce.",
+              },
+              {
+                title: "Log",
+                body: "Każda decyzja jest zapisana z wejściami, dopasowaną regułą i dowodami, w ścieżce, którą regulator może odtworzyć.",
+              },
+              {
+                title: "Flaga",
+                body: "Wszystko niejednoznaczne jest eskalowane do odpowiedzialnego oficera, zanim stanie się problemem sprawozdawczym.",
+              },
+            ],
+          },
         },
         {
           title: "Inteligentni asystenci majątkowi",
           outcome: "Wgląd w portfel prostym językiem, z każdą liczbą źródłowaną i każdą akcją za zgodą klienta.",
           body: "Asystenci tłumaczą pozycje, ryzyka i scenariusze w rozmowie, a niczego nie wykonują samodzielnie.",
           span: "md:col-span-2",
+          deepDive: {
+            intro: "Klient pisze 'czemu mój portfel spada' o 23:00. Asystent odpowiada prostym językiem, z każdą liczbą źródłowaną, i nigdy nie dotyka zlecenia.",
+            steps: [
+              {
+                title: "Wyjaśnienie",
+                body: "Zamienia pozycje, ekspozycje i scenariusze w rozmowę, którą klient naprawdę rozumie.",
+              },
+              {
+                title: "Modelowanie",
+                body: "Na żądanie liczy scenariusze what-if, pokazując zakres wyników zamiast jednej fałszywej obietnicy.",
+              },
+              {
+                title: "Przekazanie",
+                body: "Wszystko, co przesuwa pieniądze, jest pakowane do przeglądu i wykonania przez ludzkiego doradcę, nigdy autonomicznie.",
+              },
+            ],
+          },
         },
         {
           title: "Podpis człowieka, zawsze",

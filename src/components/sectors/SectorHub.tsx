@@ -11,6 +11,7 @@ import {
   useTransform,
 } from "framer-motion";
 import type { Sector, SectorTile, SectorsContent } from "@/i18n/sectors";
+import SectorFlow from "./SectorFlow";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const ACCENT = "#C06C4C";
@@ -39,50 +40,6 @@ const VISUALS: Record<Sector["id"], string> = {
     "M 12 104 L 58 78 L 92 90 L 138 50 L 170 64 L 206 28 " +
     "C 234 20 250 38 242 56 C 234 72 210 68 210 50 C 210 38 222 30 234 34",
 };
-
-/* ---- Data-flow simulation: glowing dot traveling the silver line ---- */
-function DataFlowVisual({ labels }: { labels: { from: string; via: string; to: string } }) {
-  const reduced = useReducedMotion();
-  const FLOW = "M 24 46 C 90 14 150 78 296 34";
-  return (
-    <svg viewBox="0 0 320 84" fill="none" aria-hidden="true" className="w-full">
-      <defs>
-        <filter id="flow-glow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="3" />
-        </filter>
-      </defs>
-      <path d={FLOW} stroke={SILVER} strokeOpacity="0.28" strokeWidth="1.5" />
-      {[
-        { x: 24, y: 46, dy: 20, label: labels.from, anchor: "start" as const },
-        { x: 160, y: 46, dy: 32, label: labels.via, anchor: "middle" as const },
-        { x: 296, y: 34, dy: -16, label: labels.to, anchor: "end" as const },
-      ].map((n) => (
-        <g key={n.label}>
-          <circle cx={n.x} cy={n.y} r="4" fill="#0A0A0B" stroke={SILVER} strokeWidth="1.5" />
-          <text
-            x={n.x}
-            y={n.y + n.dy}
-            textAnchor={n.anchor}
-            fill="#71717A"
-            style={{ font: "500 8px ui-monospace, monospace", letterSpacing: "0.12em" }}
-          >
-            {n.label.toUpperCase()}
-          </text>
-        </g>
-      ))}
-      {!reduced && (
-        <>
-          <circle r="5" fill={ACCENT} opacity="0.45" filter="url(#flow-glow)">
-            <animateMotion dur="2.6s" repeatCount="indefinite" path={FLOW} />
-          </circle>
-          <circle r="2.5" fill={ACCENT}>
-            <animateMotion dur="2.6s" repeatCount="indefinite" path={FLOW} />
-          </circle>
-        </>
-      )}
-    </svg>
-  );
-}
 
 function SectorVisual({ sector, aria }: { sector: Sector["id"]; aria: string }) {
   const reduced = useReducedMotion();
@@ -353,7 +310,7 @@ export default function SectorHub({ content }: { content: SectorsContent }) {
               </p>
 
               <div className="mt-8 rounded-xl border border-white/[0.08] bg-black p-5">
-                <DataFlowVisual labels={content.flow} />
+                <SectorFlow sector={sector.id} labels={content.flow} />
               </div>
 
               <div className="mt-8 space-y-0">
