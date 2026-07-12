@@ -10,6 +10,8 @@ export type SectorTile = {
   outcome?: string;
   /** Tier 2: expandable plain-English walkthrough. Cards without it don't expand. */
   deepDive?: { intro: string; steps: DeepDiveStep[] };
+  /** Overrides the sector's default deep-dive visual with a bespoke one. */
+  flow?: "wealth";
 };
 
 export type Sector = {
@@ -287,6 +289,7 @@ const en: SectorsContent = {
           outcome: "Portfolio insight in plain language, with every figure sourced and every action behind client consent.",
           body: "Assistants that explain positions, risks and scenarios conversationally, and never execute anything on their own.",
           span: "md:col-span-2",
+          flow: "wealth",
           deepDive: {
             intro: "A client texts 'why is my portfolio down' at 11 PM. The assistant answers in plain language, with every number sourced, and never touches a trade.",
             steps: [
@@ -565,6 +568,7 @@ const pl: SectorsContent = {
           outcome: "Wgląd w portfel prostym językiem, z każdą liczbą źródłowaną i każdą akcją za zgodą klienta.",
           body: "Asystenci tłumaczą pozycje, ryzyka i scenariusze w rozmowie, a niczego nie wykonują samodzielnie.",
           span: "md:col-span-2",
+          flow: "wealth",
           deepDive: {
             intro: "Klient pisze 'czemu mój portfel spada' o 23:00. Asystent odpowiada prostym językiem, z każdą liczbą źródłowaną, i nigdy nie dotyka zlecenia.",
             steps: [

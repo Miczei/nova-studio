@@ -311,7 +311,7 @@ export default function SectorHub({ content }: { content: SectorsContent }) {
               </p>
 
               <div className="mt-8 rounded-xl border border-white/[0.08] bg-black p-5">
-                <SectorFlow sector={sector.id} labels={content.flow} />
+                <SectorFlow sector={sector.id} flow={openTile.flow} labels={content.flow} />
               </div>
 
               <div className="mt-8 space-y-0">
