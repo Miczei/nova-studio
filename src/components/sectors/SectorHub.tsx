@@ -284,7 +284,7 @@ export default function SectorHub({ content }: { content: SectorsContent }) {
             <motion.div
               layoutId={`tile-${sector.id}-${openTile.title}`}
               onClick={(e) => e.stopPropagation()}
-              className="max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl border border-white/[0.15] bg-[#0A0A0B] p-6 sm:rounded-2xl sm:p-10"
+              className="max-h-[85vh] w-full max-w-2xl overflow-y-auto overscroll-contain rounded-t-2xl border border-white/[0.15] bg-[#0A0A0B] p-6 sm:rounded-2xl sm:p-10"
             >
               <div className="flex items-start justify-between gap-6">
                 <h3

@@ -10,22 +10,24 @@ const SILVER = "#C7CCD6";
 type FlowLabels = { from: string; via: string; to: string };
 
 /* ---------------------------------------------------------------------------
-   FINANCE: a rising/falling market line that spikes at the outcome, with
-   "smart money" (glowing terracotta packets) flowing along it through the
-   decision nodes and a pulsing ring at the Business Outcome spike.
+   FINANCE: a hard, angular zig-zag market line (straight segments only, no
+   beziers) that spikes at the outcome, with "smart money" (glowing terracotta
+   packets) tracing the sharp corners through the decision nodes and a pulsing
+   ring at the Business Outcome spike.
    --------------------------------------------------------------------------- */
 function FinanceFlow({ labels }: { labels: FlowLabels }) {
   const reduced = useReducedMotion();
 
-  // On-curve anchors: (20,104) request · (146,96) reasoning · (300,20) spike.
+  // Straight-line vertices only. Nodes sit on: (20,104) request ·
+  // (146,104) reasoning · (300,20) spike.
   const CHART =
-    "M 20 104 C 48 80 66 78 88 98 C 106 114 126 116 146 96 " +
-    "C 162 80 176 84 192 102 C 216 128 248 70 300 20";
+    "M 20 104 L 48 60 L 76 110 L 104 58 L 146 104 L 178 64 " +
+    "L 210 110 L 244 70 L 276 98 L 300 20";
   const AREA = `${CHART} L 300 128 L 20 128 Z`;
 
   const nodes = [
     { x: 20, y: 104, dy: 20, label: labels.from, anchor: "start" as const },
-    { x: 146, y: 96, dy: 30, label: labels.via, anchor: "middle" as const },
+    { x: 146, y: 104, dy: 30, label: labels.via, anchor: "middle" as const },
     { x: 300, y: 20, dy: -14, label: labels.to, anchor: "end" as const },
   ];
 
@@ -70,7 +72,7 @@ function FinanceFlow({ labels }: { labels: FlowLabels }) {
         stroke={SILVER}
         strokeWidth="2"
         strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeLinejoin="miter"
         initial={reduced ? false : { pathLength: 0 }}
         animate={{ pathLength: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
