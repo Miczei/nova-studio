@@ -127,106 +127,93 @@ function FinanceFlow({ labels }: { labels: FlowLabels }) {
 }
 
 /* ---------------------------------------------------------------------------
-   WEALTH ASSISTANTS: a minimalist continuous-line hand lays $100 bills out on
-   an invisible plane, pauses, then sweeps them back up. Silver stroke, glowing
-   terracotta "$" accents. Seamless loop (start state == end state).
+   WEALTH ASSISTANTS: an infinite, slow-motion "money rain". Minimalist silver
+   $100 bills drift down the container with a gentle sway and rotation, like
+   falling leaves. Terracotta-glowing "100". Staggered so the flow is seamless.
    --------------------------------------------------------------------------- */
-const DUR = 6.6;
-const T = [0, 0.14, 0.44, 0.6, 0.84, 1];
 
-function Bill() {
+/* One minimalist bill, centered at (0,0): silver outline + glowing 100. */
+function RainBill({ w = 48, h = 27 }: { w?: number; h?: number }) {
+  const digitStyle = { font: "700 11px var(--font-display), sans-serif", letterSpacing: "0.04em" } as const;
   return (
-    <>
-      <rect x={-23} y={-12.5} width={46} height={25} rx={3} fill="#0a0a0a" stroke={SILVER} strokeWidth={1.5} />
-      <rect x={-18} y={-8} width={36} height={16} rx={2} fill="none" stroke={SILVER} strokeOpacity={0.3} strokeWidth={1} />
-      <circle cx={0} cy={0} r={7} fill="none" stroke={SILVER} strokeOpacity={0.45} strokeWidth={1} />
-      <text
-        x={0}
-        y={3.6}
-        textAnchor="middle"
-        fill={ACCENT}
-        filter="url(#wealth-glow)"
-        style={{ font: '700 11px var(--font-display), sans-serif' }}
-      >
-        $
+    <g>
+      <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={3} fill="none" stroke={SILVER} strokeWidth={1.5} />
+      <rect x={-w / 2 + 4} y={-h / 2 + 4} width={w - 8} height={h - 8} rx={2} fill="none" stroke={SILVER} strokeOpacity={0.25} strokeWidth={1} />
+      {/* soft terracotta glow behind the digits */}
+      <text x={0} y={3.9} textAnchor="middle" fill={ACCENT} filter="url(#rain-glow)" opacity={0.75} style={digitStyle}>
+        100
       </text>
-      <text x={-19} y={-3.5} textAnchor="start" fill={SILVER} fillOpacity={0.5} style={{ font: '600 5px ui-monospace, monospace' }}>100</text>
-      <text x={19} y={9.5} textAnchor="end" fill={SILVER} fillOpacity={0.5} style={{ font: '600 5px ui-monospace, monospace' }}>100</text>
-    </>
+      {/* crisp legible digits on top */}
+      <text x={0} y={3.9} textAnchor="middle" fill="#E7A98C" style={digitStyle}>
+        100
+      </text>
+    </g>
   );
 }
+
+const RAIN_W = 320;
+const RAIN_H = 220;
+
+/* Deterministic per-bill drift so the SSR and client markup match. */
+const RAIN_BILLS = [
+  { left: 34, dur: 5.2, delay: 0, sway: 14, rot: 8, scale: 1 },
+  { left: 96, dur: 6.4, delay: 0.9, sway: -18, rot: -10, scale: 0.86 },
+  { left: 150, dur: 4.6, delay: 0.4, sway: 12, rot: 9, scale: 1.04 },
+  { left: 210, dur: 6.0, delay: 1.6, sway: -14, rot: -8, scale: 0.92 },
+  { left: 262, dur: 5.6, delay: 0.6, sway: 16, rot: 11, scale: 0.8 },
+  { left: 128, dur: 5.0, delay: 2.3, sway: -12, rot: -9, scale: 0.96 },
+  { left: 286, dur: 6.8, delay: 1.2, sway: 12, rot: 7, scale: 0.88 },
+];
 
 function WealthFlow() {
   const reduced = useReducedMotion();
 
-  const bills = [
-    { rest: { x: 236, y: 96, r: -6 }, fan: { x: 84, y: 120, r: -16 }, times: [0, 0.12, 0.4, 0.6, 0.8, 1] },
-    { rest: { x: 230, y: 92, r: 0 }, fan: { x: 152, y: 106, r: -1 }, times: [0, 0.15, 0.44, 0.6, 0.83, 1] },
-    { rest: { x: 224, y: 88, r: 6 }, fan: { x: 220, y: 116, r: 14 }, times: [0, 0.18, 0.48, 0.6, 0.86, 1] },
-  ];
-
-  const HAND =
-    "M 318 74 L 288 78 C 262 70 236 76 230 96 C 227 108 231 116 238 116 " +
-    "C 241 106 245 104 248 116 C 251 106 256 104 259 116 C 262 106 267 105 270 116 " +
-    "C 279 104 288 92 288 78";
-
   return (
-    <svg viewBox="0 0 320 176" fill="none" aria-label="A minimalist line-art hand fanning out and gathering hundred dollar bills" role="img" className="w-full">
-      <defs>
-        <filter id="wealth-glow" x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur stdDeviation="1.6" />
-        </filter>
-        <filter id="wealth-trail" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="4" />
-        </filter>
-      </defs>
+    <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: `${RAIN_W} / ${RAIN_H}` }}>
+      <svg viewBox={`0 0 ${RAIN_W} ${RAIN_H}`} fill="none" className="h-full w-full" aria-hidden="true">
+        <defs>
+          <filter id="rain-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="1.5" />
+          </filter>
+        </defs>
+        {reduced &&
+          RAIN_BILLS.slice(0, 4).map((b, i) => (
+            <g key={i} transform={`translate(${b.left} ${40 + i * 42}) rotate(${b.rot / 2}) scale(${b.scale})`}>
+              <RainBill />
+            </g>
+          ))}
+      </svg>
 
-      {/* Invisible plane the bills rest on, hinted with a faint terracotta line */}
-      <motion.line
-        x1="44"
-        y1="140"
-        x2="276"
-        y2="140"
-        stroke={ACCENT}
-        strokeWidth="1"
-        initial={false}
-        animate={reduced ? { opacity: 0.16 } : { opacity: [0.06, 0.2, 0.06] }}
-        transition={reduced ? undefined : { duration: DUR / 2, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Bills */}
-      {bills.map((b, i) => (
-        <motion.g
-          key={i}
-          initial={false}
-          animate={
-            reduced
-              ? { x: b.fan.x, y: b.fan.y, rotate: b.fan.r }
-              : {
-                  x: [b.rest.x, b.rest.x, b.fan.x, b.fan.x, b.rest.x, b.rest.x],
-                  y: [b.rest.y, b.rest.y, b.fan.y, b.fan.y, b.rest.y, b.rest.y],
-                  rotate: [b.rest.r, b.rest.r, b.fan.r, b.fan.r, b.rest.r, b.rest.r],
-                  opacity: [0.9, 0.94, 1, 1, 0.94, 0.9],
-                }
-          }
-          transition={reduced ? undefined : { duration: DUR, times: b.times, repeat: Infinity, ease: "easeInOut" }}
-          style={{ transformBox: "fill-box", transformOrigin: "center" }}
-        >
-          <Bill />
-        </motion.g>
-      ))}
-
-      {/* Hand — enters, lays the bills, pauses, sweeps back, exits (seamless) */}
-      <motion.g
-        initial={false}
-        animate={reduced ? { x: -8, opacity: 1 } : { x: [70, 6, -12, -12, 52, 70], opacity: [0, 1, 1, 1, 1, 0] }}
-        transition={reduced ? undefined : { duration: DUR, times: T, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <path d={HAND} stroke={SILVER} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        {/* faint terracotta glow at the working fingertip */}
-        <circle cx="254" cy="118" r="3.5" fill={ACCENT} opacity="0.5" filter="url(#wealth-trail)" />
-      </motion.g>
-    </svg>
+      {!reduced &&
+        RAIN_BILLS.map((b, i) => (
+          <motion.svg
+            key={i}
+            viewBox="0 0 60 34"
+            className="absolute"
+            style={{ left: `${(b.left / RAIN_W) * 100}%`, width: `${(60 / RAIN_W) * 100}%`, top: 0 }}
+            initial={{ y: "-40px", x: 0, rotate: 0, opacity: 0 }}
+            animate={{
+              y: [`-40px`, `${RAIN_H + 40}px`],
+              x: [0, b.sway, -b.sway, 0],
+              rotate: [0, b.rot, -b.rot, 0],
+              opacity: [0, 0.9, 0.9, 0],
+            }}
+            transition={{
+              duration: b.dur,
+              delay: b.delay,
+              repeat: Infinity,
+              ease: "linear",
+              times: [0, 0.12, 0.88, 1],
+              x: { duration: b.dur, delay: b.delay, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: b.dur, delay: b.delay, repeat: Infinity, ease: "easeInOut" },
+            }}
+          >
+            <g transform={`translate(30 17) scale(${b.scale})`}>
+              <RainBill />
+            </g>
+          </motion.svg>
+        ))}
+    </div>
   );
 }
 
