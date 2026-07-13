@@ -132,71 +132,89 @@ function FinanceFlow({ labels }: { labels: FlowLabels }) {
    falling leaves. Terracotta-glowing "100". Staggered so the flow is seamless.
    --------------------------------------------------------------------------- */
 
-/* One minimalist bill, centered at (0,0): silver outline + glowing 100. */
-function RainBill({ w = 48, h = 27 }: { w?: number; h?: number }) {
-  const digitStyle = { font: "700 11px var(--font-display), sans-serif", letterSpacing: "0.04em" } as const;
+/* One minimalist bill, centered at (0,0): silver outline + glowing "MONEY". */
+function RainBill({ w = 66, h = 26 }: { w?: number; h?: number }) {
+  const textStyle = { font: "700 9px var(--font-display), sans-serif", letterSpacing: "0.1em" } as const;
   return (
     <g>
       <rect x={-w / 2} y={-h / 2} width={w} height={h} rx={3} fill="none" stroke={SILVER} strokeWidth={1.5} />
       <rect x={-w / 2 + 4} y={-h / 2 + 4} width={w - 8} height={h - 8} rx={2} fill="none" stroke={SILVER} strokeOpacity={0.25} strokeWidth={1} />
-      {/* soft terracotta glow behind the digits */}
-      <text x={0} y={3.9} textAnchor="middle" fill={ACCENT} filter="url(#rain-glow)" opacity={0.75} style={digitStyle}>
-        100
+      {/* soft terracotta glow behind the word */}
+      <text x={0} y={3.4} textAnchor="middle" fill={ACCENT} filter="url(#rain-glow)" opacity={0.7} style={textStyle}>
+        MONEY
       </text>
-      {/* crisp legible digits on top */}
-      <text x={0} y={3.9} textAnchor="middle" fill="#E7A98C" style={digitStyle}>
-        100
+      {/* crisp legible word on top */}
+      <text x={0} y={3.4} textAnchor="middle" fill="#E7A98C" style={textStyle}>
+        MONEY
       </text>
     </g>
   );
 }
 
 const RAIN_W = 320;
-const RAIN_H = 220;
+/* Fixed, compact animation band height (px) so bills reliably fall the full
+   visible height regardless of container width, and the modal stays punchy. */
+const RAIN_H = 132;
 
 /* Deterministic per-bill drift so the SSR and client markup match. */
 const RAIN_BILLS = [
-  { left: 34, dur: 5.2, delay: 0, sway: 14, rot: 8, scale: 1 },
-  { left: 96, dur: 6.4, delay: 0.9, sway: -18, rot: -10, scale: 0.86 },
-  { left: 150, dur: 4.6, delay: 0.4, sway: 12, rot: 9, scale: 1.04 },
-  { left: 210, dur: 6.0, delay: 1.6, sway: -14, rot: -8, scale: 0.92 },
-  { left: 262, dur: 5.6, delay: 0.6, sway: 16, rot: 11, scale: 0.8 },
-  { left: 128, dur: 5.0, delay: 2.3, sway: -12, rot: -9, scale: 0.96 },
-  { left: 286, dur: 6.8, delay: 1.2, sway: 12, rot: 7, scale: 0.88 },
+  { left: 30, dur: 5.2, delay: 0, sway: 12, rot: 8, scale: 1 },
+  { left: 96, dur: 6.4, delay: 0.9, sway: -16, rot: -10, scale: 0.86 },
+  { left: 152, dur: 4.6, delay: 0.4, sway: 12, rot: 9, scale: 1.02 },
+  { left: 208, dur: 6.0, delay: 1.6, sway: -13, rot: -8, scale: 0.92 },
+  { left: 256, dur: 5.6, delay: 0.6, sway: 15, rot: 11, scale: 0.8 },
+  { left: 128, dur: 5.0, delay: 2.3, sway: -11, rot: -9, scale: 0.94 },
+  { left: 282, dur: 6.8, delay: 1.2, sway: 11, rot: 7, scale: 0.88 },
 ];
 
 function WealthFlow() {
   const reduced = useReducedMotion();
 
   return (
-    <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: `${RAIN_W} / ${RAIN_H}` }}>
-      <svg viewBox={`0 0 ${RAIN_W} ${RAIN_H}`} fill="none" className="h-full w-full" aria-hidden="true">
+    <div
+      role="img"
+      aria-label="A continuous rain of minimalist money notes"
+      className="relative w-full overflow-hidden rounded-lg"
+      style={{ height: `${RAIN_H}px` }}
+    >
+      {/* Shared filter defs (referenced document-wide by the falling bills). */}
+      <svg className="absolute h-0 w-0" aria-hidden="true">
         <defs>
           <filter id="rain-glow" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="1.5" />
+            <feGaussianBlur stdDeviation="1.4" />
           </filter>
         </defs>
-        {reduced &&
-          RAIN_BILLS.slice(0, 4).map((b, i) => (
-            <g key={i} transform={`translate(${b.left} ${40 + i * 42}) rotate(${b.rot / 2}) scale(${b.scale})`}>
+      </svg>
+
+      {reduced &&
+        RAIN_BILLS.slice(0, 3).map((b, i) => (
+          <svg
+            key={i}
+            viewBox="0 0 100 44"
+            className="absolute"
+            style={{ left: `${(b.left / RAIN_W) * 100}%`, width: "96px", top: `${16 + i * 40}px` }}
+            aria-hidden="true"
+          >
+            <g transform={`translate(50 22) rotate(${b.rot / 2}) scale(${b.scale})`}>
               <RainBill />
             </g>
-          ))}
-      </svg>
+          </svg>
+        ))}
 
       {!reduced &&
         RAIN_BILLS.map((b, i) => (
           <motion.svg
             key={i}
-            viewBox="0 0 60 34"
+            viewBox="0 0 100 44"
             className="absolute"
-            style={{ left: `${(b.left / RAIN_W) * 100}%`, width: `${(60 / RAIN_W) * 100}%`, top: 0 }}
-            initial={{ y: "-40px", x: 0, rotate: 0, opacity: 0 }}
+            style={{ left: `${(b.left / RAIN_W) * 100}%`, width: "96px", top: 0 }}
+            aria-hidden="true"
+            initial={{ y: "-44px", x: 0, rotate: 0, opacity: 0 }}
             animate={{
-              y: [`-40px`, `${RAIN_H + 40}px`],
+              y: ["-44px", `${RAIN_H + 44}px`],
               x: [0, b.sway, -b.sway, 0],
               rotate: [0, b.rot, -b.rot, 0],
-              opacity: [0, 0.9, 0.9, 0],
+              opacity: [0, 0.92, 0.92, 0],
             }}
             transition={{
               duration: b.dur,
@@ -208,7 +226,7 @@ function WealthFlow() {
               rotate: { duration: b.dur, delay: b.delay, repeat: Infinity, ease: "easeInOut" },
             }}
           >
-            <g transform={`translate(30 17) scale(${b.scale})`}>
+            <g transform={`translate(50 22) scale(${b.scale})`}>
               <RainBill />
             </g>
           </motion.svg>
