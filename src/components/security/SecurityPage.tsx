@@ -151,60 +151,61 @@ export default function SecurityPage({
       <main className="relative z-10 overflow-x-hidden bg-black">
         <MiniAgent statuses={ui.agentStatuses} label={ui.agentLabel} />
 
-        <section className="px-5 pb-20 pt-32 sm:px-6 sm:pt-40 md:pb-32 md:pt-48">
-          <div className="mx-auto max-w-6xl lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-16">
-            <div>
-              <nav
-                aria-label="Breadcrumb"
-                className="mb-8 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600 sm:mb-10"
-              >
-                <Link href={home} className="pointer-events-auto transition-colors hover:text-white">
-                  Couders
-                </Link>
-                <span aria-hidden="true">/</span>
-                <span className="text-zinc-400">{page.breadcrumb}</span>
-              </nav>
+        <section className="pb-20 pt-32 sm:pt-40 md:pb-32 md:pt-48">
+          <div className="mx-auto max-w-6xl px-5 sm:px-6">
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-8 flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.2em] text-zinc-600 sm:mb-10"
+            >
+              <Link href={home} className="pointer-events-auto transition-colors hover:text-white">
+                Couders
+              </Link>
+              <span aria-hidden="true">/</span>
+              <span className="text-zinc-400">{page.breadcrumb}</span>
+            </nav>
 
-              <DecodeText
-                text={page.eyebrow}
-                className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]"
-              />
-              <HeroTitle text={page.h1} />
-              <motion.p
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
-                className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-zinc-400 sm:mt-7 md:text-lg"
+            <DecodeText
+              text={page.eyebrow}
+              className="font-mono text-[10px] uppercase tracking-[0.26em] text-zinc-500 sm:text-[11px] sm:tracking-[0.32em]"
+            />
+            <HeroTitle text={page.h1} />
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7, ease: EASE }}
+              className="mt-6 max-w-2xl text-pretty text-base leading-relaxed text-zinc-400 sm:mt-7 md:text-lg"
+            >
+              {page.intro}
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
+              className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-3.5"
+            >
+              <a
+                href={`${home}#contact`}
+                className="w-full rounded-full bg-white px-6 py-3 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:px-7 sm:py-3.5"
               >
-                {page.intro}
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
-                className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-3.5"
+                {page.ctaPrimary}
+              </a>
+              <Link
+                href={secondaryHref}
+                className="w-full rounded-full border border-white/20 px-6 py-3 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:px-7 sm:py-3.5"
               >
-                <a
-                  href={`${home}#contact`}
-                  className="w-full rounded-full bg-white px-6 py-3 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:px-7 sm:py-3.5"
-                >
-                  {page.ctaPrimary}
-                </a>
-                <Link
-                  href={secondaryHref}
-                  className="w-full rounded-full border border-white/20 px-6 py-3 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:px-7 sm:py-3.5"
-                >
-                  {page.ctaSecondary}
-                </Link>
-              </motion.div>
-            </div>
-
-            <div className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:items-center">
-              <div className="mx-auto mt-14 w-full max-w-[280px] lg:mx-0 lg:mt-0 lg:w-[320px] xl:w-[360px]">
-                <FaceCodeVideo src={video} />
-              </div>
-            </div>
+                {page.ctaSecondary}
+              </Link>
+            </motion.div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.05, ease: EASE }}
+            className="mt-14 h-[70vh] min-h-[460px] w-full sm:mt-16 sm:h-[80vh] sm:min-h-[560px] md:mt-20 lg:h-[88vh] lg:max-h-[920px]"
+          >
+            <FaceCodeVideo src={video} />
+          </motion.div>
         </section>
 
         <StreamDivider />
