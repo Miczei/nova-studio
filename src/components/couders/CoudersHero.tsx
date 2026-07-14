@@ -6,7 +6,7 @@ import HeroChat from "./HeroChat";
 import type { CoudersContent } from "@/i18n/couders";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-const COPY_DELAY = 1.0; // right as the (now ~0.95s) logo morph finishes
+const COPY_DELAY = 1.9; // right as the (now ~1.9s) logo morph finishes
 
 export default function CoudersHero({
   content,
@@ -40,13 +40,13 @@ export default function CoudersHero({
           initial={still ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: COPY_DELAY, ease: EASE }}
-          className="mt-1 max-w-xl text-balance px-6 text-center text-xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:text-2xl md:text-3xl"
+          className="mt-1 max-w-xl text-balance px-6 text-center text-xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:max-w-3xl sm:whitespace-nowrap sm:text-2xl md:text-3xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {content.h1}
         </motion.h1>
 
-        <div className="w-full max-w-xl px-6">
+        <div className="w-full max-w-4xl px-6">
           <HeroChat />
         </div>
 
