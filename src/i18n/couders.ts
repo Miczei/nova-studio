@@ -68,7 +68,7 @@ export type CoudersContent = {
 const en: CoudersContent = {
   hero: {
     eyebrow: "Bespoke AI Systems",
-    h1: "Autonomous intelligence, built to order.",
+    h1: "Autonomous AI Agents & Next-Gen Enterprise Solutions",
     sub: "Couders engineers custom AI chatbots and autonomous agents, trained on your private data, fluent in your customers' languages, and bound by your rules. They answer, decide, and act around the clock.",
     ctaPrimary: "Start a conversation",
     ctaSecondary: "See the engine",
@@ -221,7 +221,7 @@ const en: CoudersContent = {
         value: 0,
         suffix: "",
         label: "Vendor lock-in",
-        body: "The model layer stays swappable. When a better model ships, we re-benchmark and swap the engine — no rebuild, no renegotiation.",
+        body: "The model layer stays swappable. When a better model ships, we re-benchmark and swap the engine - no rebuild, no renegotiation.",
         span: "md:col-span-2",
       },
       {
@@ -251,7 +251,7 @@ const en: CoudersContent = {
 const pl: CoudersContent = {
   hero: {
     eyebrow: "Systemy AI na zamówienie",
-    h1: "Autonomiczna inteligencja, szyta na miarę.",
+    h1: "Autonomiczne Agenty AI i zaawansowane rozwiązania nowej generacji",
     sub: "Couders projektuje niestandardowe chatboty AI i autonomicznych agentów, trenowanych na Twoich prywatnych danych, mówiących językami Twoich klientów i związanych Twoimi regułami. Odpowiadają, decydują i działają całą dobę.",
     ctaPrimary: "Zacznij rozmowę",
     ctaSecondary: "Zobacz silnik",
@@ -405,7 +405,7 @@ const pl: CoudersContent = {
         suffix: "",
         label: "Uzależnienia od dostawcy",
         span: "md:col-span-2",
-        body: "Warstwa modeli pozostaje wymienna. Gdy wyjdzie lepszy model, robimy ponowny benchmark i wymieniamy silnik — bez przebudowy, bez renegocjacji.",
+        body: "Warstwa modeli pozostaje wymienna. Gdy wyjdzie lepszy model, robimy ponowny benchmark i wymieniamy silnik - bez przebudowy, bez renegocjacji.",
       },
       {
         value: 100,

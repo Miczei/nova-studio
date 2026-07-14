@@ -12,7 +12,7 @@ const RIPPLE = 10;
 
 const DRAW_DURATION = 1.0;
 const HOLD = 0;
-const MORPH_DURATION = 0.9;
+const MORPH_DURATION = 1.6;
 
 const C_D = "M 840 160 A 170 170 0 1 0 840 400";
 
@@ -194,7 +194,7 @@ export default function FluidMorph({
         holdTimer = window.setTimeout(() => {
           morph = animate(0, 1, {
             duration: MORPH_DURATION,
-            ease: [0.7, 0, 0.18, 1],
+            ease: [0.16, 1, 0.3, 1],
             onUpdate: render,
           });
         }, HOLD * 1000);

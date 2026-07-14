@@ -53,7 +53,7 @@ function StatCard({
       </span>
       <span className="sr-only">
         {stat.value}
-        {stat.suffix} — {stat.label}
+        {stat.suffix} - {stat.label}
       </span>
       <div className="mt-6">
         <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-zinc-500 sm:text-[11px] sm:tracking-[0.26em]">
