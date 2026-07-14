@@ -94,6 +94,7 @@ export default function Navbar({
   ];
 
   return (
+    <>
     <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
       <div className="nav__left">
         <button
@@ -154,50 +155,60 @@ export default function Navbar({
           {dict.nav.cta}
         </a>
       </div>
+    </header>
 
-      <div
-        className={`nav__mobile-backdrop ${mobileOpen ? "nav__mobile-backdrop--open" : ""}`}
-        onClick={() => setMobileOpen(false)}
-        aria-hidden="true"
-      />
+    {/*
+      Rendered as siblings of <header>, not children: `.nav--scrolled`
+      applies `backdrop-filter` once the page scrolls, and any ancestor
+      with `filter`/`backdrop-filter` becomes the containing block for
+      `position: fixed` descendants. Nesting the drawer inside <header>
+      made it resize to the header's own (thin) box the moment you
+      scrolled and opened it — this keeps its fixed positioning anchored
+      to the viewport regardless of scroll/header state.
+    */}
+    <div
+      className={`nav__mobile-backdrop ${mobileOpen ? "nav__mobile-backdrop--open" : ""}`}
+      onClick={() => setMobileOpen(false)}
+      aria-hidden="true"
+    />
 
-      <nav
-        id="mobile-nav-panel"
-        className={`nav__mobile-panel ${mobileOpen ? "nav__mobile-panel--open" : ""}`}
-        aria-label={mobileLabel}
-      >
-        <div className="nav__mobile-head">
-          <span className="nav__brand">COUDERS</span>
-          <button
-            type="button"
-            className="nav__mobile-close"
-            aria-label={closeLabel}
-            onClick={() => setMobileOpen(false)}
-          >
-            &times;
-          </button>
-        </div>
-
-        {navItems.map((item) => (
-          <Link
-            key={item.path}
-            href={item.href}
-            className={cls(item.path)}
-            aria-current={cur(item.path)}
-            onClick={() => setMobileOpen(false)}
-          >
-            {item.label}
-          </Link>
-        ))}
-
-        <a
-          className="nav__cta nav__mobile-cta"
-          href={`${home}#contact`}
+    <nav
+      id="mobile-nav-panel"
+      className={`nav__mobile-panel ${mobileOpen ? "nav__mobile-panel--open" : ""}`}
+      aria-label={mobileLabel}
+    >
+      <div className="nav__mobile-head">
+        <span className="nav__brand">COUDERS</span>
+        <button
+          type="button"
+          className="nav__mobile-close"
+          aria-label={closeLabel}
           onClick={() => setMobileOpen(false)}
         >
-          {dict.nav.cta}
-        </a>
-      </nav>
-    </header>
+          &times;
+        </button>
+      </div>
+
+      {navItems.map((item) => (
+        <Link
+          key={item.path}
+          href={item.href}
+          className={cls(item.path)}
+          aria-current={cur(item.path)}
+          onClick={() => setMobileOpen(false)}
+        >
+          {item.label}
+        </Link>
+      ))}
+
+      <a
+        className="nav__cta nav__mobile-cta"
+        href={`${home}#contact`}
+        onClick={() => setMobileOpen(false)}
+      >
+        {dict.nav.cta}
+      </a>
+    </nav>
+    </>
   );
 }
