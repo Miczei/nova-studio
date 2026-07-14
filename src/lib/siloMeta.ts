@@ -23,7 +23,7 @@ export function siloMetadata(locale: Locale, page: MetaSource): Metadata {
       languages: {
         en: `/en/${page.slug}`,
         pl: `/pl/${page.slug}`,
-        "x-default": `/en/${page.slug}`,
+        "x-default": `/pl/${page.slug}`,
       },
     },
     openGraph: {
