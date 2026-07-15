@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import type { CoudersContent, CoudersTelemetryCard } from "@/i18n/couders";
-import AmbientGlow from "./AmbientGlow";
+import AmbientGlow, { GLOW_COBALT, GLOW_TERRACOTTA } from "./AmbientGlow";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -47,7 +47,7 @@ function TelemetryCard({ card, index }: { card: CoudersTelemetryCard; index: num
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.09, ease: EASE }}
-      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur-md transition-colors duration-500 hover:border-[#C06C4C]/60 sm:p-8 md:p-10 ${card.span}`}
+      className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 border-t-white/25 bg-[#0E1117]/80 p-6 backdrop-blur-xl transition-colors duration-500 hover:border-[#C06C4C]/60 sm:p-8 md:p-10 ${card.span}`}
     >
       {/* Card 3's always-on highlight: a soft terracotta glow, dimmer than the hover state. */}
       {card.accent && (
@@ -104,12 +104,12 @@ export default function ImpactTelemetry({ content }: { content: CoudersContent["
       className="relative z-10 overflow-hidden bg-black px-5 py-16 sm:px-6 sm:py-24 md:py-40"
     >
       <AmbientGlow
-        className="-top-24 right-[10%] h-[460px] w-[460px]"
-        color="rgba(192,108,76,0.14)"
+        className="-bottom-24 -left-16 h-[520px] w-[520px]"
+        color={GLOW_TERRACOTTA}
       />
       <AmbientGlow
-        className="bottom-[-10%] left-[4%] h-[380px] w-[380px]"
-        color="rgba(90,120,150,0.1)"
+        className="-top-24 -right-16 h-[520px] w-[520px]"
+        color={GLOW_COBALT}
       />
 
       <div className="relative mx-auto max-w-6xl">

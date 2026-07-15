@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import FluidMorph from "./FluidMorph";
 import HeroChat from "./HeroChat";
-import AmbientGlow from "./AmbientGlow";
+import AmbientGlow, { GLOW_COBALT, GLOW_TERRACOTTA } from "./AmbientGlow";
 import type { CoudersContent } from "@/i18n/couders";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -26,12 +26,12 @@ export default function CoudersHero({
   return (
     <section className="relative z-10 overflow-hidden bg-black">
       <AmbientGlow
-        className="left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2"
-        color="rgba(192,108,76,0.12)"
+        className="-bottom-20 -left-20 h-[560px] w-[560px]"
+        color={GLOW_TERRACOTTA}
       />
       <AmbientGlow
-        className="bottom-0 right-[6%] h-[420px] w-[420px]"
-        color="rgba(90,120,150,0.1)"
+        className="-top-20 -right-20 h-[560px] w-[560px]"
+        color={GLOW_COBALT}
       />
       <div className="relative flex min-h-screen flex-col items-center overflow-hidden px-0 pb-16 pt-12 sm:pt-16">
         <motion.p

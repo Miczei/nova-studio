@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { animate, motion, useReducedMotion } from "framer-motion";
 import type { CoudersContent } from "@/i18n/couders";
 import type { Locale } from "@/i18n/config";
-import AmbientGlow from "./AmbientGlow";
+import AmbientGlow, { GLOW_COBALT, GLOW_TERRACOTTA } from "./AmbientGlow";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -16,15 +16,24 @@ const EFFICIENCY_BASE = 0.5;
 const EFFICIENCY_PER_EMPLOYEE = 0.01;
 const HOURLY_RATE = { pl: 45, en: 11 } as const;
 
+// Range extended to comfortably cover large enterprise operations, not just
+// small/mid teams.
 const INQUIRIES_MIN = 500;
-const INQUIRIES_MAX = 50000;
+const INQUIRIES_MAX = 200000;
 const INQUIRIES_STEP = 500;
 const INQUIRIES_DEFAULT = 5000;
 
 const TEAM_MIN = 1;
-const TEAM_MAX = 50;
+const TEAM_MAX = 500;
 const TEAM_STEP = 1;
 const TEAM_DEFAULT = 5;
+
+const PRESETS: { pl: string; en: string; inquiries: number; team: number }[] = [
+  { pl: "Startup", en: "Startup", inquiries: 1500, team: 2 },
+  { pl: "Średnia firma", en: "Mid-size", inquiries: 5000, team: 5 },
+  { pl: "Skalowanie", en: "Scale-up", inquiries: 25000, team: 25 },
+  { pl: "Korporacja", en: "Enterprise", inquiries: 100000, team: 150 },
+];
 
 function useAnimatedNumber(target: number, reduced: boolean) {
   const [display, setDisplay] = useState(target);
@@ -78,12 +87,12 @@ export default function RoiEstimator({
       className="relative z-10 overflow-hidden bg-black px-5 py-16 sm:px-6 sm:py-24 md:py-40"
     >
       <AmbientGlow
-        className="-top-32 left-[8%] h-[420px] w-[420px]"
-        color="rgba(192,108,76,0.16)"
+        className="-bottom-24 -left-16 h-[520px] w-[520px]"
+        color={GLOW_TERRACOTTA}
       />
       <AmbientGlow
-        className="bottom-0 right-[4%] h-[380px] w-[380px]"
-        color="rgba(90,120,150,0.12)"
+        className="-top-24 -right-16 h-[520px] w-[520px]"
+        color={GLOW_COBALT}
       />
 
       <div className="relative mx-auto max-w-6xl">
@@ -109,18 +118,41 @@ export default function RoiEstimator({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="relative mt-10 overflow-hidden rounded-2xl border border-white/10 bg-black/50 p-6 backdrop-blur-md sm:mt-14 md:p-10"
+          className="relative mt-10 overflow-hidden rounded-2xl border border-white/10 border-t-white/25 bg-[#0E1117]/80 p-6 backdrop-blur-xl sm:mt-14 md:p-10"
         >
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(560px circle at 85% 0%, rgba(192,108,76,0.14), transparent 65%)",
+                "radial-gradient(560px circle at 85% 0%, rgba(192,108,76,0.22), transparent 65%)",
             }}
           />
 
-          <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
+          <div className="relative flex flex-wrap gap-2">
+            {PRESETS.map((preset) => {
+              const active = inquiries === preset.inquiries && teamSize === preset.team;
+              return (
+                <button
+                  key={preset.en}
+                  type="button"
+                  onClick={() => {
+                    setInquiries(preset.inquiries);
+                    setTeamSize(preset.team);
+                  }}
+                  className={`rounded-full border px-4 py-1.5 text-xs font-medium tracking-[-0.01em] transition-colors duration-300 ${
+                    active
+                      ? "border-[#C06C4C]/70 bg-[#C06C4C]/15 text-white"
+                      : "border-white/10 text-zinc-400 hover:border-white/25 hover:text-white"
+                  }`}
+                >
+                  {locale === "pl" ? preset.pl : preset.en}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="relative mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
             {/* Sliders */}
             <div className="flex flex-col justify-center gap-8">
               <div>

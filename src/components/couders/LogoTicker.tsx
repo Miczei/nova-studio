@@ -230,7 +230,14 @@ export default function LogoTicker({
   content: CoudersContent["logoTicker"];
 }) {
   return (
-    <section id="tech-ticker" className="relative z-10 overflow-x-hidden bg-black py-10 sm:py-14">
+    <section
+      id="tech-ticker"
+      className="relative z-10 overflow-x-hidden border-y border-white/10 py-10 sm:py-14"
+      style={{
+        background:
+          "linear-gradient(to right, #0F1218, #161A24, #0F1218)",
+      }}
+    >
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -238,7 +245,7 @@ export default function LogoTicker({
         transition={{ duration: 1 }}
         role="img"
         aria-label={content.marqueeAria}
-        className="divide-y divide-white/[0.08] border-y border-white/[0.08]"
+        className="divide-y divide-white/[0.08]"
       >
         <MarqueeBand label={content.rowModels} items={MODELS} />
         <MarqueeBand label={content.rowInfra} items={INFRA} reverse />
