@@ -34,12 +34,7 @@ export type CoudersContent = {
     points: { no: string; title: string; body: string }[];
     canvasAria: string;
   };
-  agnostic: {
-    eyebrow: string;
-    h2: string;
-    lead: string;
-    p1: string;
-    p2: string;
+  logoTicker: {
     rowModels: string;
     rowInfra: string;
     marqueeAria: string;
@@ -143,12 +138,7 @@ const en: CoudersContent = {
     canvasAria:
       "Animated constellation of connected nodes visualizing how autonomous agents process information",
   },
-  agnostic: {
-    eyebrow: "The Tech Stack",
-    h2: "AI agnostic by principle.",
-    lead: "We are loyal to your outcome, not to any single AI vendor.",
-    p1: "Couders integrates with every major AI model on the market: OpenAI's GPT models behind ChatGPT, Anthropic's Claude, Google's Gemini and Meta's open Llama family. For each enterprise use case we benchmark candidate models on your real data for accuracy, latency, cost and data-privacy posture, then engineer the winning combination into your system. A support chatbot might route quick questions to a fast, inexpensive model and complex reasoning to a frontier one, automatically.",
-    p2: "Because the model layer stays swappable, your investment survives every model release. When a better model ships next quarter, we re-benchmark, swap the engine and your agents simply get smarter, with no rebuild and no vendor lock-in. The same discipline extends to the surrounding stack: we orchestrate agents with LangChain and OpenClaw, deploy autonomous agents through frameworks like Manus, embed assistants such as Copilot into the tools your teams already use, automate workflows with n8n, run models locally through Ollama when data cannot leave your infrastructure, and ground retrieval in vector databases like Pinecone. That is what AI agnostic means at Couders: the best model and the best tooling for the job, today and every day after.",
+  logoTicker: {
     rowModels: "Intelligence · Foundation models",
     rowInfra: "Infrastructure · Orchestration & automation",
     marqueeAria:
@@ -263,7 +253,7 @@ const pl: CoudersContent = {
   },
   telemetry: {
     eyebrow: "W Liczbach",
-    h2: "Mierzalny Wpływ",
+    h2: "Mierzalne rezultaty",
     cards: [
       {
         value: 99.9,
@@ -325,12 +315,7 @@ const pl: CoudersContent = {
     canvasAria:
       "Animowana konstelacja połączonych węzłów wizualizująca przetwarzanie informacji przez autonomicznych agentów",
   },
-  agnostic: {
-    eyebrow: "Stack technologiczny",
-    h2: "AI-agnostycy z zasady.",
-    lead: "Jesteśmy lojalni wobec Twojego wyniku, nie wobec żadnego dostawcy AI.",
-    p1: "Couders integruje się z każdym liczącym się modelem AI na rynku: modelami GPT od OpenAI znanymi z ChatGPT, Claude od Anthropic, Gemini od Google i otwartą rodziną Llama od Meta. Dla każdego wdrożenia enterprise benchmarkujemy kandydatów na Twoich prawdziwych danych pod kątem trafności, szybkości, kosztu i prywatności danych, a zwycięską kombinację wbudowujemy w Twój system. Chatbot wsparcia może kierować proste pytania do szybkiego, taniego modelu, a złożone rozumowanie do modelu frontier, automatycznie.",
-    p2: "Ponieważ warstwa modeli pozostaje wymienna, Twoja inwestycja przeżywa każdą premierę. Gdy w przyszłym kwartale wyjdzie lepszy model, robimy ponowny benchmark, wymieniamy silnik i Twoi agenci po prostu stają się mądrzejsi, bez przebudowy i bez uzależnienia od dostawcy. Ta sama dyscyplina obejmuje resztę stacku: orkiestrujemy agentów z LangChain i OpenClaw, wdrażamy autonomicznych agentów przez frameworki takie jak Manus, osadzamy asystentów takich jak Copilot w narzędziach, których zespoły już używają, automatyzujemy procesy w n8n, uruchamiamy modele lokalnie przez Ollama, gdy dane nie mogą opuścić Twojej infrastruktury, i opieramy wyszukiwanie na bazach wektorowych takich jak Pinecone. To właśnie znaczy AI-agnostyczność w Couders: najlepszy model i najlepsze narzędzia do zadania, dziś i każdego kolejnego dnia.",
+  logoTicker: {
     rowModels: "Inteligencja · Modele bazowe",
     rowInfra: "Infrastruktura · Orkiestracja i automatyzacja",
     marqueeAria:
