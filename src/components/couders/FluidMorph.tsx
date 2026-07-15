@@ -14,10 +14,12 @@ const DRAW_DURATION = 1.0;
 const HOLD = 0;
 const MORPH_DURATION = 1.6;
 // Fire the reveal callback at this fraction of the morph's *duration* (not
-// its eased value) so whatever comes next starts overlapping the final
-// settling phase instead of waiting for the last, visually-imperceptible
-// micro-decimals of the morph to finish.
-const REVEAL_THRESHOLD = 0.78;
+// its eased value) so whatever comes next starts overlapping the bulk of the
+// morph instead of waiting for it to finish. The ease curve front-loads most
+// of the visual expansion, so this is intentionally aggressive: by 35% the
+// wordmark is already actively forming, and the reveal rides alongside it
+// rather than trailing behind it.
+const REVEAL_THRESHOLD = 0.35;
 
 const C_D = "M 840 160 A 170 170 0 1 0 840 400";
 
