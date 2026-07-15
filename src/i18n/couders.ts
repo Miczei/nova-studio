@@ -27,12 +27,15 @@ export type CoudersContent = {
     h2: string;
     cards: CoudersTelemetryCard[];
   };
-  engine: {
+  roiEstimator: {
     eyebrow: string;
     h2: string;
-    intro: string;
-    points: { no: string; title: string; body: string }[];
-    canvasAria: string;
+    lead: string;
+    slider1Label: string;
+    slider2Label: string;
+    hoursLabel: string;
+    savingsLabel: string;
+    ctaLabel: string;
   };
   logoTicker: {
     rowModels: string;
@@ -108,35 +111,15 @@ const en: CoudersContent = {
       },
     ],
   },
-  engine: {
-    eyebrow: "The Core Engine",
-    h2: "One engine. Zero improvisation.",
-    intro:
-      "Every Couders agent runs on the same disciplined core: your private data as its only source of truth, deterministic rules around every action, and full observability of every decision it makes.",
-    points: [
-      {
-        no: "01",
-        title: "Trained on your private data",
-        body: "Your knowledge lives in an isolated, encrypted store that never trains public models. The agent knows your products, policies and history, and nothing it should not.",
-      },
-      {
-        no: "02",
-        title: "24/7 autonomous operation",
-        body: "Agents do not sleep, queue or forget. Peak season traffic and 3 a.m. questions get the same instant, consistent treatment as a Tuesday morning.",
-      },
-      {
-        no: "03",
-        title: "Multilingual by design",
-        body: "One knowledge core, every language your customers speak. Polish, German, English or thirty markets at once, without separate systems to maintain.",
-      },
-      {
-        no: "04",
-        title: "Grounded answers, zero hallucinations",
-        body: "Retrieval with citations plus hardcoded business rules. When the data does not support an answer, the agent says so or escalates to a human instead of inventing.",
-      },
-    ],
-    canvasAria:
-      "Animated constellation of connected nodes visualizing how autonomous agents process information",
+  roiEstimator: {
+    eyebrow: "ROI Calculator",
+    h2: "Estimate your savings.",
+    lead: "Drag the sliders to match your operation and see what autonomous agents could save you every month.",
+    slider1Label: "Monthly repetitive inquiries / tasks",
+    slider2Label: "Operations / Support team size (employees)",
+    hoursLabel: "Hours Saved / Mo",
+    savingsLabel: "Estimated Monthly Savings",
+    ctaLabel: "Book an audit based on these estimates ➔",
   },
   logoTicker: {
     rowModels: "Intelligence · Foundation models",
@@ -285,35 +268,15 @@ const pl: CoudersContent = {
       },
     ],
   },
-  engine: {
-    eyebrow: "Rdzeń systemu",
-    h2: "Jeden silnik. Zero improwizacji.",
-    intro:
-      "Każdy agent Couders działa na tym samym zdyscyplinowanym rdzeniu: Twoje prywatne dane jako jedyne źródło prawdy, deterministyczne reguły wokół każdej akcji i pełna obserwowalność każdej podjętej decyzji.",
-    points: [
-      {
-        no: "01",
-        title: "Trenowany na Twoich prywatnych danych",
-        body: "Twoja wiedza żyje w odizolowanym, szyfrowanym magazynie, który nigdy nie trenuje publicznych modeli. Agent zna Twoje produkty, polityki i historię, i nic ponad to, co powinien.",
-      },
-      {
-        no: "02",
-        title: "Praca autonomiczna 24/7",
-        body: "Agenci nie śpią, nie kolejkują i nie zapominają. Szczyt sezonu i pytanie o trzeciej w nocy dostają tę samą natychmiastową, spójną obsługę co wtorkowy poranek.",
-      },
-      {
-        no: "03",
-        title: "Wielojęzyczność w standardzie",
-        body: "Jeden rdzeń wiedzy, każdy język Twoich klientów. Polski, niemiecki, angielski albo trzydzieści rynków naraz, bez osobnych systemów do utrzymania.",
-      },
-      {
-        no: "04",
-        title: "Odpowiedzi ugruntowane, zero halucynacji",
-        body: "Wyszukiwanie z cytowaniami plus twarde reguły biznesowe w kodzie. Gdy dane nie potwierdzają odpowiedzi, agent mówi to wprost albo przekazuje sprawę człowiekowi, zamiast zmyślać.",
-      },
-    ],
-    canvasAria:
-      "Animowana konstelacja połączonych węzłów wizualizująca przetwarzanie informacji przez autonomicznych agentów",
+  roiEstimator: {
+    eyebrow: "Kalkulator ROI",
+    h2: "Oszacuj swoje oszczędności.",
+    lead: "Przesuń suwaki, aby dopasować kalkulator do skali Twojej firmy i zobacz, ile miesięcznie mogą zaoszczędzić autonomiczni agenci.",
+    slider1Label: "Liczba powtarzalnych zapytań / zadań w miesiącu",
+    slider2Label: "Wielkość zespołu obsługi / operacji",
+    hoursLabel: "Zaoszczędzone godziny miesięcznie",
+    savingsLabel: "Szacowana oszczędność finansowa",
+    ctaLabel: "Zarezerwuj audyt na podstawie tych wyliczeń ➔",
   },
   logoTicker: {
     rowModels: "Inteligencja · Modele bazowe",

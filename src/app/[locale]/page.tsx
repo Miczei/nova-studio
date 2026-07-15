@@ -4,7 +4,7 @@ import CoudersHero from "@/components/couders/CoudersHero";
 import ImpactTelemetry from "@/components/couders/ImpactTelemetry";
 import ProcessSection from "@/components/couders/ProcessSection";
 import LogoTicker from "@/components/couders/LogoTicker";
-import CoreEngine from "@/components/couders/CoreEngine";
+import RoiEstimator from "@/components/couders/RoiEstimator";
 import ReachBento from "@/components/couders/ReachBento";
 import Commitments from "@/components/couders/Commitments";
 import CtaSection from "@/components/couders/CtaSection";
@@ -37,7 +37,7 @@ export default async function Home({
         <ImpactTelemetry content={couders.telemetry} />
         <ProcessSection content={couders.process} />
         <LogoTicker content={couders.logoTicker} />
-        <CoreEngine content={couders.engine} />
+        <RoiEstimator content={couders.roiEstimator} locale={locale} />
         <ReachBento content={couders.reach} />
         <Commitments content={couders.commitments} />
         <CtaSection content={couders.cta} email={dict.sections.contact.email} />

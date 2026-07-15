@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import FluidMorph from "./FluidMorph";
 import HeroChat from "./HeroChat";
+import AmbientGlow from "./AmbientGlow";
 import type { CoudersContent } from "@/i18n/couders";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -23,8 +24,16 @@ export default function CoudersHero({
   const [logoReveal, setLogoReveal] = useState(still);
 
   return (
-    <section className="relative z-10 bg-black">
-      <div className="flex min-h-screen flex-col items-center overflow-hidden px-0 pb-16 pt-12 sm:pt-16">
+    <section className="relative z-10 overflow-hidden bg-black">
+      <AmbientGlow
+        className="left-1/2 top-0 h-[520px] w-[520px] -translate-x-1/2"
+        color="rgba(192,108,76,0.12)"
+      />
+      <AmbientGlow
+        className="bottom-0 right-[6%] h-[420px] w-[420px]"
+        color="rgba(90,120,150,0.1)"
+      />
+      <div className="relative flex min-h-screen flex-col items-center overflow-hidden px-0 pb-16 pt-12 sm:pt-16">
         <motion.p
           initial={still ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -45,7 +54,7 @@ export default function CoudersHero({
           initial={still ? false : { opacity: 0, y: 20 }}
           animate={logoReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.7, delay: 0, ease: EASE }}
-          className="mt-1 max-w-xl text-balance px-6 text-center text-xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:max-w-2xl sm:text-2xl lg:w-max lg:max-w-none lg:whitespace-nowrap lg:text-3xl"
+          className="mt-1 max-w-xl text-balance px-6 text-center text-xl font-semibold tracking-[-0.03em] text-white sm:max-w-2xl sm:text-2xl lg:w-max lg:max-w-none lg:whitespace-nowrap lg:text-3xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
           {content.h1}
