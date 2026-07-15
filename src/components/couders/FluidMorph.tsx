@@ -51,19 +51,16 @@ C 726 326 734 318 738 306
 C 748 282 760 260 776 252
 C 790 246 800 254 796 266
 C 790 280 770 284 758 276
-C 746 296 750 318 768 326
-C 780 331 792 328 800 318
-C 812 322 820 314 824 300
-C 826 288 828 268 830 250
-C 836 242 846 242 850 248
-C 852 262 850 296 849 330
-C 851 334 858 336 866 332
-C 884 324 902 288 914 250
-C 918 242 926 242 928 250
-C 934 268 934 296 920 316
-C 912 326 900 330 892 322
-C 900 334 918 338 934 330
-C 944 325 952 318 956 310
+C 766 260 780 248 796 250
+C 810 244 822 242 830 248
+C 826 260 814 272 806 288
+C 800 306 796 320 800 330
+C 780 344 764 358 776 376
+C 788 392 818 392 832 376
+C 844 362 840 340 850 322
+C 862 300 850 278 858 256
+C 872 240 894 242 900 258
+C 906 270 892 278 880 270
 `;
 
 function clamp01(v: number) {
@@ -139,10 +136,12 @@ export default function FluidMorph({
   debugProgress,
   ariaLabel,
   className,
+  onComplete,
 }: {
   debugProgress?: number;
   ariaLabel?: string;
   className?: string;
+  onComplete?: () => void;
 }) {
   const cRef = useRef<SVGPathElement>(null);
   const wordRef = useRef<SVGPathElement>(null);
@@ -196,6 +195,7 @@ export default function FluidMorph({
             duration: MORPH_DURATION,
             ease: [0.16, 1, 0.3, 1],
             onUpdate: render,
+            onComplete: () => onComplete?.(),
           });
         }, HOLD * 1000);
       },
