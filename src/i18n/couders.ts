@@ -1,12 +1,15 @@
 import type { Locale } from "./config";
 
-export type CoudersTile = {
-  no: string;
-  eyebrow: string;
+export type CoudersTelemetryCard = {
+  /** null => a static/non-numeric metric (e.g. "24/7"), rendered via `display`. */
+  value: number | null;
+  decimals: number;
+  suffix: string;
+  display?: string;
   title: string;
   body: string;
-  foot?: string;
   span: string;
+  accent: boolean;
 };
 
 export type CoudersContent = {
@@ -19,10 +22,10 @@ export type CoudersContent = {
     scroll: string;
     morphAria: string;
   };
-  capabilities: {
+  telemetry: {
     eyebrow: string;
     h2: string;
-    tiles: CoudersTile[];
+    cards: CoudersTelemetryCard[];
   };
   engine: {
     eyebrow: string;
@@ -76,38 +79,37 @@ const en: CoudersContent = {
     morphAria:
       "A single continuous line morphing from an abstract face into the Couders wordmark",
   },
-  capabilities: {
-    eyebrow: "Capabilities",
-    h2: "Four disciplines. One intelligent system.",
-    tiles: [
+  telemetry: {
+    eyebrow: "By The Numbers",
+    h2: "Impact Telemetry",
+    cards: [
       {
-        no: "01",
-        eyebrow: "Custom Enterprise Chatbots",
-        title: "Conversation, engineered.",
-        body: "Chatbots trained exclusively on your private knowledge, locked to your tone of voice, and deployed where your customers already talk: chat, WhatsApp, Slack, email. Every answer instant, every answer yours.",
-        foot: "Grounded in your data. Fluent in every market you serve.",
-        span: "md:col-span-4 md:row-span-2",
+        value: 99.9,
+        decimals: 1,
+        suffix: "%",
+        title: "Security & Uptime Compliance",
+        body: "Engineered with private, secure LLM deployments and robust data protection to meet enterprise-level compliance.",
+        span: "md:col-span-3 md:row-span-2",
+        accent: false,
       },
       {
-        no: "02",
-        eyebrow: "Autonomous AI Agents",
-        title: "Not assistants. Operators.",
-        body: "Agents that plan multi-step work and finish it: qualifying leads, triaging tickets, drafting replies, updating records. Human approval exactly where you demand it.",
-        span: "md:col-span-2 md:row-span-2",
-      },
-      {
-        no: "03",
-        eyebrow: "Internal Knowledge Retrieval",
-        title: "Your company, searchable.",
-        body: "Policies, contracts, tickets and docs become one private brain. Employees ask in plain language and get cited, grounded answers in seconds.",
+        value: -80,
+        decimals: 0,
+        suffix: "%",
+        title: "Response Latency Reduction",
+        body: "Autonomous workflows handle repetitive requests instantly, driving down average execution and resolution times.",
         span: "md:col-span-3",
+        accent: false,
       },
       {
-        no: "04",
-        eyebrow: "CRM & Workflow Integrations",
-        title: "Plugged into everything.",
-        body: "Salesforce, HubSpot, calendars, ERPs, internal tools. Our agents read and write where your work actually lives, so nothing needs copying twice.",
+        value: null,
+        decimals: 0,
+        suffix: "",
+        display: "24/7",
+        title: "Continuous Autonomy",
+        body: "Self-improving AI agents operating around the clock, eliminating operational bottlenecks seamlessly.",
         span: "md:col-span-3",
+        accent: true,
       },
     ],
   },
@@ -259,38 +261,37 @@ const pl: CoudersContent = {
     morphAria:
       "Pojedyncza ciągła linia przekształcająca się z abstrakcyjnej twarzy w logotyp Couders",
   },
-  capabilities: {
-    eyebrow: "Kompetencje",
-    h2: "Cztery dyscypliny. Jeden inteligentny system.",
-    tiles: [
+  telemetry: {
+    eyebrow: "W Liczbach",
+    h2: "Mierzalny Wpływ",
+    cards: [
       {
-        no: "01",
-        eyebrow: "Chatboty klasy enterprise",
-        title: "Rozmowa, wyinżynierowana.",
-        body: "Chatboty trenowane wyłącznie na Twojej prywatnej wiedzy, zamknięte w Twoim tonie komunikacji i wdrożone tam, gdzie klienci już rozmawiają: czat, WhatsApp, Slack, e-mail. Każda odpowiedź natychmiastowa, każda Twoja.",
-        foot: "Oparte na Twoich danych. Płynne w każdym rynku, który obsługujesz.",
-        span: "md:col-span-4 md:row-span-2",
+        value: 99.9,
+        decimals: 1,
+        suffix: "%",
+        title: "Gwarancja Bezpieczeństwa & Uptime",
+        body: "Nasze systemy projektujemy w oparciu o prywatne, bezpieczne środowiska chmurowe z pełną ochroną danych wrażliwych.",
+        span: "md:col-span-3 md:row-span-2",
+        accent: false,
       },
       {
-        no: "02",
-        eyebrow: "Autonomiczni agenci AI",
-        title: "Nie asystenci. Operatorzy.",
-        body: "Agenci, którzy planują wieloetapową pracę i ją kończą: kwalifikują leady, segregują zgłoszenia, przygotowują odpowiedzi, aktualizują rekordy. Akceptacja człowieka dokładnie tam, gdzie jej wymagasz.",
-        span: "md:col-span-2 md:row-span-2",
-      },
-      {
-        no: "03",
-        eyebrow: "Wyszukiwanie wiedzy wewnętrznej",
-        title: "Twoja firma, przeszukiwalna.",
-        body: "Polityki, umowy, zgłoszenia i dokumenty stają się jednym prywatnym mózgiem. Pracownicy pytają po ludzku i w sekundy dostają odpowiedzi z cytowanymi źródłami.",
+        value: -80,
+        decimals: 0,
+        suffix: "%",
+        title: "Skrócenie czasu reakcji",
+        body: "Autonomiczne agenty przejmują powtarzalne zapytania, skracając czas obsługi klienta i procesów wewnętrznych do minimum.",
         span: "md:col-span-3",
+        accent: false,
       },
       {
-        no: "04",
-        eyebrow: "Integracje CRM i workflow",
-        title: "Podłączeni do wszystkiego.",
-        body: "Salesforce, HubSpot, kalendarze, ERP, narzędzia wewnętrzne. Nasi agenci czytają i zapisują tam, gdzie naprawdę toczy się praca, więc nic nie wymaga kopiowania dwa razy.",
+        value: null,
+        decimals: 0,
+        suffix: "",
+        display: "24/7",
+        title: "Nieprzerwana optymalizacja",
+        body: "Systemy AI pracujące bez przerw, eliminujące wąskie gardła w operacjach Twojej firmy.",
         span: "md:col-span-3",
+        accent: true,
       },
     ],
   },

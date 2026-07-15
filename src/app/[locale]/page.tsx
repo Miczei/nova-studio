@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CoudersHero from "@/components/couders/CoudersHero";
+import ImpactTelemetry from "@/components/couders/ImpactTelemetry";
 import CoreEngine from "@/components/couders/CoreEngine";
 import AiAgnostic from "@/components/couders/AiAgnostic";
 import ProcessSection from "@/components/couders/ProcessSection";
@@ -33,6 +34,7 @@ export default async function Home({
       <Navbar locale={locale} dict={dict} />
       <main>
         <CoudersHero content={couders.hero} />
+        <ImpactTelemetry content={couders.telemetry} />
         <CoreEngine content={couders.engine} />
         <AiAgnostic content={couders.agnostic} />
         <ProcessSection content={couders.process} />

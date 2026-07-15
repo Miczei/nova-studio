@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import CoudersHero from "@/components/couders/CoudersHero";
-import CapabilitiesBento from "@/components/couders/CapabilitiesBento";
+import ImpactTelemetry from "@/components/couders/ImpactTelemetry";
 import { getCouders } from "@/i18n/couders";
 
 export default function LabClient() {
@@ -23,7 +23,7 @@ export default function LabClient() {
   return (
     <div className="relative z-10 bg-black">
       <CoudersHero content={couders.hero} debugProgress={debugProgress} />
-      <CapabilitiesBento content={couders.capabilities} />
+      <ImpactTelemetry content={couders.telemetry} />
     </div>
   );
 }
