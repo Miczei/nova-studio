@@ -7,12 +7,6 @@ import HeroChat from "./HeroChat";
 import type { CoudersContent } from "@/i18n/couders";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-// The subtitle/chat entrance is bound to FluidMorph's actual onComplete event
-// (not a hardcoded mount-relative timer) so it can never drift out of sync
-// with however long the logo animation ends up taking. ENTRY_DELAY is only
-// the tiny gap *after* that real event, kept deliberately near-zero for a
-// seamless, overlapping hand-off.
-const ENTRY_DELAY = 0.12;
 
 export default function CoudersHero({
   content,
@@ -23,7 +17,10 @@ export default function CoudersHero({
 }) {
   const reduced = useReducedMotion();
   const still = debugProgress !== undefined || !!reduced;
-  const [logoDone, setLogoDone] = useState(still);
+  // Flipped early by FluidMorph's onReveal (~78% through the morph, not at
+  // its true end) so the subtitle/chat overlap the logo's final settling
+  // phase instead of waiting for it — zero dead pause, zero extra delay.
+  const [logoReveal, setLogoReveal] = useState(still);
 
   return (
     <section className="relative z-10 bg-black">
@@ -41,13 +38,13 @@ export default function CoudersHero({
           debugProgress={debugProgress}
           ariaLabel={content.morphAria}
           className="w-[min(72vw,620px)]"
-          onComplete={() => setLogoDone(true)}
+          onReveal={() => setLogoReveal(true)}
         />
 
         <motion.h1
           initial={still ? false : { opacity: 0, y: 20 }}
-          animate={logoDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.7, delay: logoDone ? ENTRY_DELAY : 0, ease: EASE }}
+          animate={logoReveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.7, delay: 0, ease: EASE }}
           className="mt-1 max-w-xl text-balance px-6 text-center text-xl font-semibold tracking-[-0.03em] text-[#F5F5F7] sm:max-w-2xl sm:text-2xl lg:w-max lg:max-w-none lg:whitespace-nowrap lg:text-3xl"
           style={{ fontFamily: "var(--font-display), sans-serif" }}
         >
@@ -55,13 +52,13 @@ export default function CoudersHero({
         </motion.h1>
 
         <div className="w-full max-w-4xl px-6">
-          <HeroChat ready={logoDone} />
+          <HeroChat ready={logoReveal} />
         </div>
 
         <motion.div
           initial={still ? false : { opacity: 0 }}
-          animate={{ opacity: logoDone ? 1 : 0 }}
-          transition={{ duration: 0.8, delay: logoDone ? 1 : 0 }}
+          animate={{ opacity: logoReveal ? 1 : 0 }}
+          transition={{ duration: 0.8, delay: logoReveal ? 0.9 : 0 }}
           className="mt-auto flex flex-col items-center gap-2.5 pt-10 text-zinc-600"
         >
           <span className="font-mono text-[10px] uppercase tracking-[0.28em]">
