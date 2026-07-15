@@ -74,7 +74,7 @@ export default function ChatProvider({
 
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-
+    
     fetch(WEBHOOK_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -86,27 +86,47 @@ export default function ChatProvider({
       }),
     })
       .then((res) => {
+        console.log("[Chat] HTTP status:", res.status, "| Content-Type:", res.headers.get("content-type"));
         if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.json();
+        return res.text(); // read as text first — Make doesn't always return strict JSON
       })
-      .then((data) => {
+      .then((raw) => {
         clearTimeout(timer);
-        const reply =
-          data && typeof data.reply === "string" && data.reply.trim()
-            ? data.reply.trim()
-            : ui.errorMessage;
-        setMessages((m) => [...m, { id: idRef.current++, text: reply, sender: "bot" }]);
-        if (data && data.thread_id) {
-          threadIdRef.current = data.thread_id;
-          try {
-            sessionStorage.setItem("aiw_thread_id", data.thread_id);
-          } catch {
-            // private browsing
+        console.log("[Chat] Raw response from Make:", raw);
+
+        let reply = "";
+        try {
+          const data = JSON.parse(raw);
+          if (data && typeof data.reply === "string" && data.reply.trim()) {
+            reply = data.reply.trim();
           }
+          if (data && data.thread_id) {
+            threadIdRef.current = data.thread_id;
+            try {
+              sessionStorage.setItem("aiw_thread_id", data.thread_id);
+            } catch {
+              // private browsing
+            }
+          }
+        } catch (parseError) {
+          console.warn("[Chat] Response wasn't valid JSON, using raw text as the reply.", parseError);
+          reply = raw.trim();
         }
+
+        if (!reply) {
+          console.error("[Chat] Empty reply — check the Webhook Response module in Make.");
+        }
+        setMessages((m) => [
+          ...m,
+          { id: idRef.current++, text: reply || ui.errorMessage, sender: reply ? "bot" : "error" },
+        ]);
       })
-      .catch(() => {
+      .catch((error) => {
         clearTimeout(timer);
+        console.error("[Chat] Network/connection error:", error);
+        if (error?.name === "AbortError") {
+          console.error("[Chat] Timed out after " + TIMEOUT_MS + " ms — Make scenario may be too slow or missing Webhook Response.");
+        }
         setMessages((m) => [...m, { id: idRef.current++, text: ui.errorMessage, sender: "error" }]);
       })
       .finally(() => setIsWaiting(false));
