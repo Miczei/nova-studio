@@ -34,8 +34,8 @@ export default async function Home({
       <Navbar locale={locale} dict={dict} />
       <main>
         <CoudersHero content={couders.hero} />
-        <ImpactTelemetry content={couders.telemetry} />
         <ProcessSection content={couders.process} />
+        <ImpactTelemetry content={couders.telemetry} />
         <LogoTicker content={couders.logoTicker} />
         <RoiEstimator content={couders.roiEstimator} locale={locale} />
         <ReachBento content={couders.reach} />

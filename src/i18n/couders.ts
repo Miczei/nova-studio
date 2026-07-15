@@ -236,7 +236,7 @@ const pl: CoudersContent = {
   },
   telemetry: {
     eyebrow: "W Liczbach",
-    h2: "Mierzalne rezultaty",
+    h2: "Efektywność w skali",
     cards: [
       {
         value: 99.9,
