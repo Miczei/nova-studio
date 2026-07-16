@@ -129,6 +129,20 @@ main {
   font-weight: 600;
 }
 
+.nav__links a.nav__link--pill {
+  color: var(--fg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 16px;
+  transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
+}
+
+.nav__links a.nav__link--pill:hover,
+.nav__links a.nav__link--pill.nav__link--active {
+  border-color: #c06c4c;
+  color: #c06c4c;
+}
+
 /* Right cluster: language toggle + CTA */
 .nav__right {
   display: flex;
@@ -1882,6 +1896,15 @@ main {
 .sub-shell .nav__links a.nav__link--active {
   color: #fff;
   font-weight: 600;
+}
+.sub-shell .nav__links a.nav__link--pill {
+  color: rgba(255, 255, 255, 0.78);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.sub-shell .nav__links a.nav__link--pill:hover,
+.sub-shell .nav__links a.nav__link--pill.nav__link--active {
+  border-color: #c06c4c;
+  color: #c06c4c;
 }
 .sub-shell .nav--scrolled {
   background: rgba(6, 7, 11, 0.72);

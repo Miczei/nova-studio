@@ -8,10 +8,10 @@ import { ChatHeader, ChatInput, ChatMessages, QuickReplies } from "./ChatBox";
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 /**
- * The floating bottom-left chat bubble. Left, not right, so it never
- * collides with MiniAgent's bottom-right status ticker on the AI Engine /
- * Security pages. Shares its conversation with HeroChat via ChatProvider —
- * a message sent here shows up there too, and vice versa.
+ * The floating bottom-right chat bubble. MiniAgent's status ticker on the
+ * AI Engine / Security pages lives at bottom-left so the two never collide.
+ * Shares its conversation with HeroChat via ChatProvider — a message sent
+ * here shows up there too, and vice versa.
  */
 export default function ChatLauncher() {
   const { ui } = useChat();
@@ -24,7 +24,7 @@ export default function ChatLauncher() {
         aria-label={open ? ui.closeLabel : ui.openLabel}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-[22px] left-[22px] z-[999999] flex h-[60px] w-[60px] items-center justify-center rounded-full border border-white/10 bg-black/80 text-white shadow-[0_6px_24px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-transform duration-300 hover:scale-105"
+        className="fixed bottom-6 right-6 z-[999999] flex h-[60px] w-[60px] items-center justify-center rounded-full border border-white/10 bg-black/80 text-white shadow-[0_6px_24px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-transform duration-300 hover:scale-105 md:bottom-8 md:right-8"
       >
         {open ? (
           <svg
@@ -74,7 +74,7 @@ export default function ChatLauncher() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.28, ease: EASE }}
-              className="fixed inset-0 z-[999998] flex flex-col overflow-hidden border border-white/15 bg-black/85 shadow-2xl backdrop-blur-xl sm:inset-auto sm:bottom-[96px] sm:left-[22px] sm:h-[560px] sm:w-[380px] sm:rounded-2xl"
+              className="fixed inset-0 z-[999998] flex flex-col overflow-hidden border border-white/15 bg-black/85 shadow-2xl backdrop-blur-xl sm:inset-auto sm:bottom-[96px] sm:right-6 sm:h-[560px] sm:w-[380px] sm:rounded-2xl md:right-8"
             >
               <ChatHeader />
               <ChatMessages className="flex-1 px-4 py-4" />

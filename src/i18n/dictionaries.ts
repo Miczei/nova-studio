@@ -16,6 +16,7 @@ export type Dictionary = {
     aiEngine: string;
     securityData: string;
     methodology: string;
+    contact: string;
     cta: string;
     languageLabel: string;
   };
@@ -92,6 +93,7 @@ const en: Dictionary = {
     aiEngine: "AI Engine",
     securityData: "Security",
     methodology: "Solutions",
+    contact: "Contact Us",
     cta: "Start a conversation",
     languageLabel: "Language",
   },
@@ -321,6 +323,7 @@ const pl: Dictionary = {
     aiEngine: "Silnik AI",
     securityData: "Bezpieczeństwo",
     methodology: "Rozwiązania",
+    contact: "Kontakt",
     cta: "Zacznij rozmowę",
     languageLabel: "Język",
   },

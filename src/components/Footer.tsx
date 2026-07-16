@@ -30,6 +30,7 @@ export default function Footer({
           <Link href={`${home}/services/ai-engine`}>{dict.nav.aiEngine}</Link>
           <Link href={`${home}/services/security-data`}>{dict.nav.securityData}</Link>
           <Link href={`${home}/methodology`}>{dict.nav.methodology}</Link>
+          <Link href={`${home}/contact`}>{dict.nav.contact}</Link>
         </nav>
 
         <div className="footer__meta">
