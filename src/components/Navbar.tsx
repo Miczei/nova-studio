@@ -111,7 +111,7 @@ export default function Navbar({
         </button>
 
         <Link className="nav__brand" href={home}>
-          COUDERS
+          Couders
         </Link>
       </div>
 

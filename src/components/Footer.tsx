@@ -21,7 +21,7 @@ export default function Footer({
     <footer className="footer">
       <div className="shell footer__inner">
         <div className="footer__brand">
-          <span className="nav__brand">COUDERS</span>
+          <span className="nav__brand">Couders</span>
           <span className="footer__tagline">{f.tagline}</span>
         </div>
 

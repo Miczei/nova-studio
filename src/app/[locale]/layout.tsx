@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk, Schoolbell } from "next/font/google";
 import "../globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import MatrixRain from "@/components/MatrixRain";
@@ -28,6 +28,16 @@ const display = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
   variable: "--font-display",
   weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+// Schoolbell = the handwritten Couders wordmark (logo). Single 400 weight,
+// exposed as --font-logo and consumed by .nav__brand. "Couders" has no Polish
+// diacritics, so the latin subset is enough.
+const logo = Schoolbell({
+  subsets: ["latin"],
+  variable: "--font-logo",
+  weight: "400",
   display: "swap",
 });
 
@@ -81,7 +91,7 @@ export default async function LocaleLayout({
   const locale = toLocale((await params).locale);
 
   return (
-    <html lang={locale} className={`${inter.variable} ${display.variable}`}>
+    <html lang={locale} className={`${inter.variable} ${display.variable} ${logo.variable}`}>
       <body>
         <ChatProvider locale={locale}>
           <MatrixRain />
