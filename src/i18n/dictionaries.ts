@@ -76,6 +76,8 @@ export type Dictionary = {
       cta: string;
       emailLabel: string;
       email: string;
+      phoneLabel: string;
+      phone: string;
     };
     footer: { tagline: string; rights: string };
   };
@@ -299,6 +301,8 @@ const en: Dictionary = {
       cta: "Start a project",
       emailLabel: "Or email us",
       email: "contact@couders.com",
+      phoneLabel: "Or call us",
+      phone: "784 526 124",
     },
     footer: {
       tagline: "Bespoke AI systems.",
@@ -529,6 +533,8 @@ const pl: Dictionary = {
       cta: "Rozpocznij projekt",
       emailLabel: "Albo napisz do nas",
       email: "contact@couders.com",
+      phoneLabel: "Albo zadzwoń",
+      phone: "784 526 124",
     },
     footer: {
       tagline: "Systemy AI na zamówienie.",

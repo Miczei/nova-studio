@@ -6,9 +6,13 @@ import type { CoudersContent } from "@/i18n/couders";
 export default function CtaSection({
   content,
   email,
+  phone,
+  phoneLabel,
 }: {
   content: CoudersContent["cta"];
   email: string;
+  phone: string;
+  phoneLabel: string;
 }) {
   return (
     <section id="contact" className="relative z-10 bg-black px-5 py-24 sm:px-6 sm:py-32 md:py-48">
@@ -38,6 +42,15 @@ export default function CtaSection({
           {content.emailLabel}:{" "}
           <a href={`mailto:${email}`} className="text-zinc-400 hover:text-white">
             {email}
+          </a>
+        </p>
+        <p className="mt-2 px-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600 sm:text-[11px] sm:tracking-[0.22em]">
+          {phoneLabel}:{" "}
+          <a
+            href={`tel:+48${phone.replace(/\s/g, "")}`}
+            className="text-zinc-400 hover:text-white"
+          >
+            {phone}
           </a>
         </p>
       </motion.div>

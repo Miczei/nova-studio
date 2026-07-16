@@ -40,7 +40,12 @@ export default async function Home({
         <RoiEstimator content={couders.roiEstimator} locale={locale} />
         <ReachBento content={couders.reach} />
         <Commitments content={couders.commitments} />
-        <CtaSection content={couders.cta} email={dict.sections.contact.email} />
+        <CtaSection
+          content={couders.cta}
+          email={dict.sections.contact.email}
+          phone={dict.sections.contact.phone}
+          phoneLabel={dict.sections.contact.phoneLabel}
+        />
       </main>
       <Footer dict={dict} locale={locale} />
     </div>
