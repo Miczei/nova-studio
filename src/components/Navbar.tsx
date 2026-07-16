@@ -74,8 +74,7 @@ export default function Navbar({
 
   // Active state keyed on the locale-stripped path (rest): "" is home,
   // "/about" etc. for the silos. Drives styling + aria-current for a11y/SEO.
-  const cls = (p: string, pill?: boolean) =>
-    `nav__link${pill ? " nav__link--pill" : ""}${rest === p ? " nav__link--active" : ""}`;
+  const cls = (p: string) => `nav__link${rest === p ? " nav__link--active" : ""}`;
   const cur = (p: string) => (rest === p ? "page" : undefined);
 
   const mobileLabel = locale === "pl" ? "Menu mobilne" : "Mobile menu";
@@ -92,7 +91,7 @@ export default function Navbar({
       label: dict.nav.securityData,
     },
     { href: `${home}/methodology`, path: "/methodology", label: dict.nav.methodology },
-    { href: `${home}/contact`, path: "/contact", label: dict.nav.contact, pill: true },
+    { href: `${home}/contact`, path: "/contact", label: dict.nav.contact },
   ];
 
   return (
@@ -122,7 +121,7 @@ export default function Navbar({
           <Link
             key={item.path}
             href={item.href}
-            className={cls(item.path, item.pill)}
+            className={cls(item.path)}
             aria-current={cur(item.path)}
           >
             {item.label}
@@ -195,7 +194,7 @@ export default function Navbar({
         <Link
           key={item.path}
           href={item.href}
-          className={cls(item.path, item.pill)}
+          className={cls(item.path)}
           aria-current={cur(item.path)}
           onClick={() => setMobileOpen(false)}
         >
