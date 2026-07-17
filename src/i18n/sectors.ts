@@ -11,7 +11,7 @@ export type SectorTile = {
   /** Tier 2: expandable plain-English walkthrough. Cards without it don't expand. */
   deepDive?: { intro: string; steps: DeepDiveStep[] };
   /** Overrides the sector's default deep-dive visual with a bespoke one. */
-  flow?: "wealth" | "fraud" | "shopper" | "inventory";
+  flow?: "wealth" | "fraud" | "shopper" | "inventory" | "triage" | "diagnostics" | "monitoring";
 };
 
 export type Sector = {
@@ -70,18 +70,75 @@ const en: SectorsContent = {
       tiles: [
         {
           title: "Triage bots",
+          outcome: "Every patient lands in the right queue in seconds, sorted by urgency, not by arrival order.",
           body: "Structured symptom intake in every language, urgency scoring against your clinical protocols, and instant hand-off to the right specialist queue.",
           span: "md:col-span-2",
+          flow: "triage",
+          deepDive: {
+            intro: "It is 7 AM and forty new symptom reports are waiting. Here is how none of them slip through.",
+            steps: [
+              {
+                title: "Intake",
+                body: "A structured symptom interview in the patient's own language, no forms. The bot asks the follow-ups a nurse would, and knows when to stop.",
+              },
+              {
+                title: "Score",
+                body: "Each case is scored against your clinical protocols and red-flag rules, so chest pain never waits behind a prescription refill.",
+              },
+              {
+                title: "Route",
+                body: "Urgent cases jump straight to on-call staff with a summary attached. Routine ones book the right specialist slot automatically.",
+              },
+            ],
+          },
         },
         {
           title: "Predictive diagnostics",
+          outcome: "Catch the risk pattern this week, not at next year's check-up.",
           body: "Models trained on your historical cases flag risk patterns early and attach the evidence trail a clinician needs to verify them.",
           span: "md:col-span-2",
+          flow: "diagnostics",
+          deepDive: {
+            intro: "The warning signs were in the chart for months. This time somebody is reading them, continuously.",
+            steps: [
+              {
+                title: "Learn",
+                body: "Models train on your historical cases and outcomes, inside your infrastructure, tuned to your patient population.",
+              },
+              {
+                title: "Flag",
+                body: "Emerging risk patterns are flagged early, each with the evidence trail that led there, never a black-box verdict.",
+              },
+              {
+                title: "Verify",
+                body: "A clinician reviews the flag with sources attached and makes the call. The model never diagnoses on its own.",
+              },
+            ],
+          },
         },
         {
           title: "24/7 patient monitoring",
+          outcome: "A threshold crossed at 3 AM gets a response at 3 AM, not at morning rounds.",
           body: "Agents watch vitals streams and follow-up schedules around the clock, escalating to staff the moment thresholds are crossed.",
           span: "md:col-span-2",
+          flow: "monitoring",
+          deepDive: {
+            intro: "A discharged patient's vitals drift at night. The agent notices in seconds. Here is what happens next.",
+            steps: [
+              {
+                title: "Watch",
+                body: "Vitals streams and follow-up schedules are monitored continuously, every reading checked against the patient's own baseline.",
+              },
+              {
+                title: "Escalate",
+                body: "The moment a threshold is crossed, the right person is paged with context, trend and severity, not just a raw alarm.",
+              },
+              {
+                title: "Log",
+                body: "Every alert, hand-off and response lands in an auditable trail, so the team sees exactly what happened and when.",
+              },
+            ],
+          },
         },
         {
           title: "Compliance by design",
@@ -352,18 +409,75 @@ const pl: SectorsContent = {
       tiles: [
         {
           title: "Boty triage",
+          outcome: "Każdy pacjent trafia do właściwej kolejki w kilka sekund, według pilności, a nie kolejności zgłoszeń.",
           body: "Ustrukturyzowany wywiad objawowy w każdym języku, ocena pilności według Twoich protokołów klinicznych i natychmiastowe przekazanie do właściwej kolejki specjalisty.",
           span: "md:col-span-2",
+          flow: "triage",
+          deepDive: {
+            intro: "Jest 7 rano, czeka czterdzieści nowych zgłoszeń. Oto jak żadne nie przepada.",
+            steps: [
+              {
+                title: "Wywiad",
+                body: "Ustrukturyzowany wywiad objawowy w języku pacjenta, bez formularzy. Bot dopytuje tak, jak zrobiłaby to pielęgniarka, i wie, kiedy przestać.",
+              },
+              {
+                title: "Ocena",
+                body: "Każdy przypadek jest punktowany według Twoich protokołów klinicznych i reguł czerwonych flag, więc ból w klatce piersiowej nigdy nie czeka za receptą.",
+              },
+              {
+                title: "Skierowanie",
+                body: "Pilne przypadki trafiają prosto do dyżurnego z gotowym podsumowaniem. Rutynowe same rezerwują właściwy termin u specjalisty.",
+              },
+            ],
+          },
         },
         {
           title: "Diagnostyka predykcyjna",
+          outcome: "Wychwyć wzorzec ryzyka w tym tygodniu, a nie na przyszłorocznym badaniu kontrolnym.",
           body: "Modele trenowane na Twoich historycznych przypadkach wcześnie wychwytują wzorce ryzyka i dołączają ślad dowodowy do weryfikacji przez klinicystę.",
           span: "md:col-span-2",
+          flow: "diagnostics",
+          deepDive: {
+            intro: "Sygnały ostrzegawcze były w kartotece od miesięcy. Tym razem ktoś je czyta, bez przerwy.",
+            steps: [
+              {
+                title: "Nauka",
+                body: "Modele uczą się na Twoich historycznych przypadkach i wynikach, w Twojej infrastrukturze, dopasowane do Twojej populacji pacjentów.",
+              },
+              {
+                title: "Flaga",
+                body: "Wyłaniające się wzorce ryzyka są flagowane wcześnie, każdy ze śladem dowodowym, który do niego doprowadził, nigdy werdyktem z czarnej skrzynki.",
+              },
+              {
+                title: "Weryfikacja",
+                body: "Klinicysta ogląda flagę z podpiętymi źródłami i podejmuje decyzję. Model nigdy nie diagnozuje samodzielnie.",
+              },
+            ],
+          },
         },
         {
           title: "Monitoring pacjenta 24/7",
+          outcome: "Próg przekroczony o 3 w nocy dostaje reakcję o 3 w nocy, a nie przy porannym obchodzie.",
           body: "Agenci całą dobę obserwują strumienie parametrów i harmonogramy kontroli, eskalując do personelu w chwili przekroczenia progów.",
           span: "md:col-span-2",
+          flow: "monitoring",
+          deepDive: {
+            intro: "Parametry pacjenta po wypisie dryfują w nocy. Agent widzi to w kilka sekund. Oto co dzieje się dalej.",
+            steps: [
+              {
+                title: "Obserwacja",
+                body: "Strumienie parametrów i harmonogramy kontroli są monitorowane bez przerwy, a każdy odczyt porównywany z własną linią bazową pacjenta.",
+              },
+              {
+                title: "Eskalacja",
+                body: "W chwili przekroczenia progu właściwa osoba dostaje wezwanie z kontekstem, trendem i wagą zdarzenia, a nie goły alarm.",
+              },
+              {
+                title: "Zapis",
+                body: "Każdy alert, przekazanie i reakcja trafiają do audytowalnego śladu, więc zespół widzi dokładnie, co i kiedy się wydarzyło.",
+              },
+            ],
+          },
         },
         {
           title: "Zgodność w standardzie",

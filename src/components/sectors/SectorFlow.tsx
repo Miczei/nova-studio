@@ -713,6 +713,350 @@ function InventoryFlow() {
 }
 
 /* ---------------------------------------------------------------------------
+   TRIAGE BOTS: patient dots stream into a diamond triage node and get routed
+   onto three priority lanes. The urgent case turns terracotta at the node and
+   takes the fast lane to a pulsing endpoint. Routing/classification mechanic,
+   unlike the single-lane fraud interception.
+   --------------------------------------------------------------------------- */
+function TriageFlow() {
+  const reduced = useReducedMotion();
+  const DUR = 5.4;
+  const NODE = { x: 120, y: 70 };
+  // Lane endpoints: urgent (top), standard (middle), self-care (bottom).
+  const LANES = [
+    { x: 296, y: 30 },
+    { x: 296, y: 70 },
+    { x: 296, y: 110 },
+  ];
+  const DIAMOND = `M ${NODE.x} 54 L ${NODE.x + 16} 70 L ${NODE.x} 86 L ${NODE.x - 16} 70 Z`;
+
+  if (reduced) {
+    return (
+      <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+        <line x1="8" y1={NODE.y} x2={NODE.x - 16} y2={NODE.y} stroke={SILVER} strokeOpacity="0.15" strokeDasharray="2 6" />
+        <path d={DIAMOND} stroke={SILVER} strokeOpacity="0.5" strokeWidth="1.5" />
+        {LANES.map((l) => (
+          <g key={l.y}>
+            <line x1={NODE.x + 16} y1={NODE.y} x2={l.x} y2={l.y} stroke={SILVER} strokeOpacity="0.18" strokeWidth="1" />
+            <circle cx={l.x} cy={l.y} r="3.5" fill="#0A0A0B" stroke={SILVER} strokeWidth="1.5" />
+          </g>
+        ))}
+        <circle cx={LANES[0].x} cy={LANES[0].y} r="8" stroke={ACCENT} strokeOpacity="0.7" strokeWidth="1.5" />
+        <circle cx="200" cy="50" r="3" fill={ACCENT} />
+        <circle cx="220" cy="70" r="3" fill={SILVER} />
+      </svg>
+    );
+  }
+
+  // Each dot repeats its own route; staggered so one reaches the node every
+  // 1.8s, which the diamond's score-pulse mirrors.
+  const dots = [
+    { lane: 0, delay: 0, urgent: true },
+    { lane: 1, delay: 1.8, urgent: false },
+    { lane: 2, delay: 3.6, urgent: false },
+  ];
+
+  return (
+    <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+      <defs>
+        <filter id="triage-glow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="2.4" />
+        </filter>
+      </defs>
+
+      {/* Intake rail + triage node */}
+      <line x1="8" y1={NODE.y} x2={NODE.x - 16} y2={NODE.y} stroke={SILVER} strokeOpacity="0.15" strokeDasharray="2 6" />
+      <motion.path
+        d={DIAMOND}
+        stroke={SILVER}
+        strokeWidth="1.5"
+        animate={{ strokeOpacity: [0.4, 0.9, 0.4] }}
+        transition={{ duration: 1.8, delay: 1.9, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Priority lanes */}
+      {LANES.map((l) => (
+        <g key={l.y}>
+          <line x1={NODE.x + 16} y1={NODE.y} x2={l.x} y2={l.y} stroke={SILVER} strokeOpacity="0.18" strokeWidth="1" />
+          <circle cx={l.x} cy={l.y} r="3.5" fill="#0A0A0B" stroke={SILVER} strokeWidth="1.5" />
+        </g>
+      ))}
+
+      {/* Urgent endpoint pulses terracotta */}
+      <motion.circle
+        cx={LANES[0].x}
+        cy={LANES[0].y}
+        r="6"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        initial={{ scale: 0.6, opacity: 0.8 }}
+        animate={{ scale: [0.6, 1.9], opacity: [0.8, 0] }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+        style={{ transformBox: "view-box", transformOrigin: `${LANES[0].x}px ${LANES[0].y}px` }}
+      />
+
+      {/* Patients: in on the rail, scored at the node, routed to a lane */}
+      {dots.map((d) => {
+        const lane = LANES[d.lane];
+        return (
+          <motion.circle
+            key={d.lane}
+            r="3.2"
+            initial={{ x: -8, y: NODE.y, opacity: 0, fill: SILVER }}
+            animate={{
+              x: [-8, NODE.x - 8, NODE.x, lane.x, lane.x],
+              y: [NODE.y, NODE.y, NODE.y, lane.y, lane.y],
+              opacity: [0, 1, 1, 1, 0],
+              fill: d.urgent
+                ? [SILVER, SILVER, ACCENT, ACCENT, ACCENT]
+                : [SILVER, SILVER, SILVER, SILVER, SILVER],
+            }}
+            transition={{
+              duration: DUR,
+              delay: d.delay,
+              times: [0, 0.3, 0.38, 0.78, 0.92],
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            filter={d.urgent ? "url(#triage-glow)" : undefined}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   PREDICTIVE DIAGNOSTICS: an ECG trace redraws under a sweeping scan line.
+   Two clean beats, then a subtly irregular one; as the sweep crosses it, a
+   dashed terracotta ring and a risk flag pop over the anomaly. Waveform
+   anomaly-detection mechanic.
+   --------------------------------------------------------------------------- */
+function DiagnosticsFlow() {
+  const reduced = useReducedMotion();
+  const DUR = 5;
+  // Baseline y=78; beats at ~x74 and ~x150; irregular cluster around x216.
+  const ECG =
+    "M 16 78 L 44 78 L 50 72 L 56 78 L 62 78 L 68 46 L 74 104 L 80 78 L 88 70 L 96 78 " +
+    "L 120 78 L 126 72 L 132 78 L 138 78 L 144 46 L 150 104 L 156 78 L 164 70 L 172 78 " +
+    "L 196 78 L 202 74 L 208 80 L 214 64 L 218 84 L 224 70 L 230 78 L 304 78";
+  const ANOM = { x: 216, y: 74 };
+
+  if (reduced) {
+    return (
+      <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+        <path d={ECG} stroke={SILVER} strokeOpacity="0.7" strokeWidth="1.5" strokeLinejoin="round" />
+        <circle cx={ANOM.x} cy={ANOM.y} r="16" stroke={ACCENT} strokeWidth="1.5" strokeDasharray="4 4" />
+        <path d={`M ${ANOM.x - 4} 44 L ${ANOM.x + 4} 44 L ${ANOM.x} 51 Z`} fill={ACCENT} />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+      {/* Faint full trace for context; the live trace redraws over it */}
+      <path d={ECG} stroke={SILVER} strokeOpacity="0.14" strokeWidth="1.5" strokeLinejoin="round" />
+      <motion.path
+        d={ECG}
+        stroke={SILVER}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0.85 }}
+        animate={{ pathLength: [0, 1, 1], opacity: [0.85, 0.85, 0] }}
+        transition={{ duration: DUR, times: [0, 0.8, 1], repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* Monitor sweep line */}
+      <motion.line
+        y1="30"
+        y2="118"
+        stroke={SILVER}
+        strokeWidth="1"
+        initial={{ x: 16, opacity: 0.25 }}
+        animate={{ x: [16, 304], opacity: [0.25, 0.25, 0] }}
+        transition={{
+          duration: DUR,
+          times: [0, 0.8, 1],
+          repeat: Infinity,
+          ease: "linear",
+          opacity: { duration: DUR, times: [0, 0.94, 1], repeat: Infinity },
+        }}
+      />
+
+      {/* Anomaly detected as the sweep crosses it: dashed ring + risk flag */}
+      <motion.circle
+        cx={ANOM.x}
+        cy={ANOM.y}
+        r="16"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        strokeDasharray="4 4"
+        initial={{ opacity: 0, scale: 0.6 }}
+        animate={{ opacity: [0, 0, 0.9, 0.9, 0], scale: [0.6, 0.6, 1, 1, 1] }}
+        transition={{ duration: DUR, times: [0, 0.56, 0.62, 0.92, 1], repeat: Infinity, ease: "easeOut" }}
+        style={{ transformBox: "view-box", transformOrigin: `${ANOM.x}px ${ANOM.y}px` }}
+      />
+      <motion.path
+        d={`M ${ANOM.x - 4} 44 L ${ANOM.x + 4} 44 L ${ANOM.x} 51 Z`}
+        fill={ACCENT}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.95, 0.95, 0] }}
+        transition={{ duration: DUR, times: [0, 0.6, 0.64, 0.92, 1], repeat: Infinity }}
+      />
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   24/7 MONITORING: a round-the-clock dial with a rotating sweep. Patient dots
+   sit around the face; when the sweep passes the drifting one it flips
+   terracotta, rings an alert and the staff station flashes in response.
+   Circular radar mechanic, the only non-linear visual in the set.
+   --------------------------------------------------------------------------- */
+function MonitoringFlow() {
+  const reduced = useReducedMotion();
+  const DUR = 6;
+  const C = { x: 160, y: 74 };
+  const R = 46;
+  // (angle° clockwise from 12) -> fixed patient positions on the dial.
+  const PATIENTS = [
+    { x: 180, y: 40 },
+    { x: 199, y: 80 },
+    { x: 174, y: 113 },
+    { x: 129, y: 96, alert: true }, // ~235°, sweep passes at t≈0.65
+    { x: 125, y: 54 },
+  ];
+  const STATION = { x: 278, y: 20, w: 12, h: 12 };
+  const ticks = Array.from({ length: 12 }, (_, i) => {
+    const a = (i * Math.PI) / 6;
+    return {
+      x1: C.x + (R - 4) * Math.sin(a),
+      y1: C.y - (R - 4) * Math.cos(a),
+      x2: C.x + R * Math.sin(a),
+      y2: C.y - R * Math.cos(a),
+    };
+  });
+
+  const dial = (
+    <>
+      <circle cx={C.x} cy={C.y} r={R} stroke={SILVER} strokeOpacity="0.3" strokeWidth="1" />
+      <circle cx={C.x} cy={C.y} r={R - 18} stroke={SILVER} strokeOpacity="0.1" strokeWidth="1" />
+      {ticks.map((t, i) => (
+        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke={SILVER} strokeOpacity="0.25" strokeWidth="1" />
+      ))}
+      <rect
+        x={STATION.x}
+        y={STATION.y}
+        width={STATION.w}
+        height={STATION.h}
+        rx="2.5"
+        stroke={SILVER}
+        strokeOpacity="0.45"
+        strokeWidth="1.5"
+      />
+    </>
+  );
+
+  if (reduced) {
+    return (
+      <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+        {dial}
+        {PATIENTS.map((p) => (
+          <circle key={`${p.x}-${p.y}`} cx={p.x} cy={p.y} r="3" fill={p.alert ? ACCENT : SILVER} opacity={p.alert ? 1 : 0.7} />
+        ))}
+        <circle cx={PATIENTS[3].x} cy={PATIENTS[3].y} r="9" stroke={ACCENT} strokeOpacity="0.7" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  const alertP = PATIENTS[3];
+
+  return (
+    <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+      <defs>
+        <filter id="mon-glow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="2.2" />
+        </filter>
+      </defs>
+
+      {dial}
+
+      {/* Rotating sweep hand with a faint trailing wedge */}
+      <motion.g
+        initial={{ rotate: 0 }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: DUR, repeat: Infinity, ease: "linear" }}
+        style={{ transformBox: "view-box", transformOrigin: `${C.x}px ${C.y}px` }}
+      >
+        <path
+          d={`M ${C.x} ${C.y} L ${C.x} ${C.y - R} A ${R} ${R} 0 0 0 ${C.x - R * 0.5} ${C.y - R * 0.866} Z`}
+          fill={SILVER}
+          opacity="0.06"
+        />
+        <line x1={C.x} y1={C.y} x2={C.x} y2={C.y - R} stroke={SILVER} strokeOpacity="0.5" strokeWidth="1" />
+      </motion.g>
+      <circle cx={C.x} cy={C.y} r="2" fill={SILVER} opacity="0.6" />
+
+      {/* Stable patients: quiet silver dots */}
+      {PATIENTS.filter((p) => !p.alert).map((p) => (
+        <motion.circle
+          key={`${p.x}-${p.y}`}
+          cx={p.x}
+          cy={p.y}
+          r="3"
+          fill={SILVER}
+          animate={{ opacity: [0.45, 0.8, 0.45] }}
+          transition={{ duration: 3, delay: (p.x % 5) * 0.3, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+
+      {/* The drifting patient: flips terracotta as the sweep passes (~t 0.65) */}
+      <motion.circle
+        cx={alertP.x}
+        cy={alertP.y}
+        r="3.2"
+        initial={{ fill: SILVER, opacity: 0.6 }}
+        animate={{
+          fill: [SILVER, SILVER, ACCENT, ACCENT, SILVER],
+          opacity: [0.6, 0.6, 1, 1, 0.6],
+        }}
+        transition={{ duration: DUR, times: [0, 0.63, 0.66, 0.97, 1], repeat: Infinity }}
+        filter="url(#mon-glow)"
+      />
+      <motion.circle
+        cx={alertP.x}
+        cy={alertP.y}
+        r="8"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: [0.5, 0.5, 0.7, 2, 2], opacity: [0, 0, 0.85, 0, 0] }}
+        transition={{ duration: DUR, times: [0, 0.65, 0.7, 0.88, 1], repeat: Infinity, ease: "easeOut" }}
+        style={{ transformBox: "view-box", transformOrigin: `${alertP.x}px ${alertP.y}px` }}
+      />
+
+      {/* Staff station acknowledges right after the alert fires */}
+      <motion.rect
+        x={STATION.x}
+        y={STATION.y}
+        width={STATION.w}
+        height={STATION.h}
+        rx="2.5"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.95, 0.95, 0] }}
+        transition={{ duration: DUR, times: [0, 0.72, 0.76, 0.95, 1], repeat: Infinity }}
+      />
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------------
    Generic request -> reasoning -> outcome timeline. Placeholder for the
    sectors whose bespoke visuals are not built yet (healthcare, legal,
    industrial, e-commerce).
@@ -773,6 +1117,9 @@ export default function SectorFlow({
   if (flow === "fraud") return <FraudFlow />;
   if (flow === "shopper") return <ShopperFlow />;
   if (flow === "inventory") return <InventoryFlow />;
+  if (flow === "triage") return <TriageFlow />;
+  if (flow === "diagnostics") return <DiagnosticsFlow />;
+  if (flow === "monitoring") return <MonitoringFlow />;
   if (sector === "finance") return <FinanceFlow labels={labels} />;
   return <GenericFlow labels={labels} />;
 }
