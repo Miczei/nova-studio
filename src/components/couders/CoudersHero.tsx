@@ -33,7 +33,9 @@ export default function CoudersHero({
         className="bottom-0 right-[6%] h-[420px] w-[420px]"
         color="rgba(90,120,150,0.1)"
       />
-      <div className="relative flex min-h-screen flex-col items-center overflow-hidden px-0 pb-16 pt-12 sm:pt-16">
+      {/* pt clears the fixed navbar on phones (burger + brand row is ~60px
+          tall); ≥768px the header is a single slim row so 64px is enough. */}
+      <div className="relative flex min-h-screen flex-col items-center overflow-hidden px-0 pb-16 pt-24 md:pt-16">
         <motion.p
           initial={still ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}

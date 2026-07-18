@@ -175,7 +175,7 @@ export default function Navbar({
       aria-label={mobileLabel}
     >
       <div className="nav__mobile-head">
-        <span className="nav__brand">COUDERS</span>
+        <span className="nav__brand">Couders</span>
         <button
           type="button"
           className="nav__mobile-close"
@@ -197,6 +197,32 @@ export default function Navbar({
           {item.label}
         </Link>
       ))}
+
+      {/* On mobile the language toggle lives here, not in the header row
+          (there it collided with the brand on narrow phones). */}
+      <div className="nav__mobile-lang" role="group" aria-label={dict.nav.languageLabel}>
+        <Link
+          href={`/pl${rest}`}
+          hrefLang="pl"
+          aria-current={locale === "pl" ? "true" : undefined}
+          className={`lang ${locale === "pl" ? "lang--active" : ""}`}
+          onClick={() => setMobileOpen(false)}
+        >
+          PL
+        </Link>
+        <span className="lang-sep" aria-hidden="true">
+          /
+        </span>
+        <Link
+          href={`/en${rest}`}
+          hrefLang="en"
+          aria-current={locale === "en" ? "true" : undefined}
+          className={`lang ${locale === "en" ? "lang--active" : ""}`}
+          onClick={() => setMobileOpen(false)}
+        >
+          EN
+        </Link>
+      </div>
 
       <a
         className="nav__cta nav__mobile-cta"

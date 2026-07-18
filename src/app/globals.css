@@ -306,6 +306,32 @@ main {
   text-align: center;
 }
 
+/* Language switch inside the drawer (mobile only; the drawer itself is
+   off-screen above 768px, so no extra gating is needed). */
+.nav__mobile-lang {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 2px 0;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+
+.nav__mobile-lang .lang {
+  text-decoration: none;
+  color: var(--muted);
+  transition: color 0.2s var(--ease-out);
+}
+
+.nav__mobile-lang .lang--active {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.nav__mobile-lang .lang-sep {
+  color: rgba(0, 0, 0, 0.25);
+}
+
 @media (max-width: 768px) {
   .nav__burger {
     display: flex;
@@ -326,9 +352,16 @@ main {
     padding: 14px 16px;
   }
 
+  /* The header row keeps only burger + brand + a compact CTA; the
+     language toggle moves into the drawer (.nav__mobile-lang) because
+     on narrow phones it collided with the brand wordmark. */
+  .nav__right .lang-toggle {
+    display: none;
+  }
+
   .nav__cta {
-    padding: 9px 14px;
-    font-size: 13px;
+    padding: 8px 14px;
+    font-size: 12.5px;
     white-space: nowrap;
   }
 }
@@ -1789,6 +1822,22 @@ main {
   font-size: 13px;
 }
 
+/* Footer on phones: drop the link tabs, keep brand + copyright, stacked
+   and centered. (Must live AFTER the base .footer__links rule above —
+   equal specificity, so source order decides.) */
+@media (max-width: 768px) {
+  .footer__links {
+    display: none;
+  }
+
+  .footer__inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+}
+
 /* ============================================================
    Topical-silo sub-pages — premium DARK theme (scoped to .sub-shell
    so the white-minimalist homepage is untouched)
@@ -1928,6 +1977,15 @@ main {
 }
 .sub-shell .nav__mobile-panel .nav__link--active {
   color: #fff;
+}
+.sub-shell .nav__mobile-lang .lang {
+  color: rgba(255, 255, 255, 0.55);
+}
+.sub-shell .nav__mobile-lang .lang--active {
+  color: #fff;
+}
+.sub-shell .nav__mobile-lang .lang-sep {
+  color: rgba(255, 255, 255, 0.28);
 }
 .sub-shell .section-eyebrow {
   color: var(--d-muted);

@@ -11,7 +11,7 @@ export type SectorTile = {
   /** Tier 2: expandable plain-English walkthrough. Cards without it don't expand. */
   deepDive?: { intro: string; steps: DeepDiveStep[] };
   /** Overrides the sector's default deep-dive visual with a bespoke one. */
-  flow?: "wealth";
+  flow?: "wealth" | "fraud" | "shopper" | "inventory" | "triage" | "diagnostics" | "monitoring";
 };
 
 export type Sector = {
@@ -65,23 +65,80 @@ const en: SectorsContent = {
       id: "healthcare",
       label: "Healthcare",
       h2: "Medicine that never sleeps.",
-      lead: "Agents that ease the load on clinical staff while keeping every decision auditable and a clinician in the loop.",
+      lead: "Built for private practices, dental studios and clinics: agents that take the load off your team while keeping every decision auditable and a doctor in the loop.",
       visualAria: "A heart-rate line morphing into a neural network node",
       tiles: [
         {
           title: "Triage bots",
-          body: "Structured symptom intake in every language, urgency scoring against your clinical protocols, and instant hand-off to the right specialist queue.",
+          outcome: "Every inquiry lands in the right calendar in seconds, sorted by urgency, not by arrival order.",
+          body: "Structured symptom intake in every language, urgency scoring against your practice's protocols, and instant routing to the right specialist's calendar.",
           span: "md:col-span-2",
+          flow: "triage",
+          deepDive: {
+            intro: "It is 7 AM and forty new messages are waiting: toothaches, post-treatment questions, consultation requests. Here is how none of them slip through.",
+            steps: [
+              {
+                title: "Intake",
+                body: "A structured symptom interview in the patient's own language, no forms. The bot asks the follow-ups an experienced front desk would, and knows when to stop.",
+              },
+              {
+                title: "Score",
+                body: "Each case is scored against your practice's protocols and red-flag rules, so a swollen face never waits behind a teeth-whitening inquiry.",
+              },
+              {
+                title: "Route",
+                body: "Urgent cases go straight to the doctor on duty with a summary attached. Routine ones book the right slot in the right calendar automatically.",
+              },
+            ],
+          },
         },
         {
           title: "Predictive diagnostics",
-          body: "Models trained on your historical cases flag risk patterns early and attach the evidence trail a clinician needs to verify them.",
+          outcome: "Catch the risk pattern this week, not at next year's check-up.",
+          body: "Models trained on your practice's historical cases flag risk patterns early and attach the evidence trail a doctor needs to verify them.",
           span: "md:col-span-2",
+          flow: "diagnostics",
+          deepDive: {
+            intro: "The warning signs were in the patient's chart for months. This time somebody is reading them, continuously.",
+            steps: [
+              {
+                title: "Learn",
+                body: "Models train on your practice's historical cases and outcomes, inside your infrastructure, tuned to the patients you actually treat.",
+              },
+              {
+                title: "Flag",
+                body: "Emerging risk patterns are flagged early, each with the evidence trail that led there, never a black-box verdict.",
+              },
+              {
+                title: "Verify",
+                body: "The doctor reviews the flag with sources attached and makes the call. The model never diagnoses on its own.",
+              },
+            ],
+          },
         },
         {
           title: "24/7 patient monitoring",
-          body: "Agents watch vitals streams and follow-up schedules around the clock, escalating to staff the moment thresholds are crossed.",
+          outcome: "A patient worried at 3 AM gets an answer at 3 AM, not when the front desk opens.",
+          body: "Agents watch post-treatment check-ins and follow-up schedules around the clock, escalating to the doctor the moment something looks off.",
           span: "md:col-span-2",
+          flow: "monitoring",
+          deepDive: {
+            intro: "Two days after a procedure, a patient reports growing pain at midnight. The agent notices in seconds. Here is what happens next.",
+            steps: [
+              {
+                title: "Watch",
+                body: "Post-treatment check-ins, symptom reports and follow-up schedules are monitored continuously, each against what is normal for that procedure and that patient.",
+              },
+              {
+                title: "Escalate",
+                body: "The moment something crosses a threshold, the doctor on duty gets a message with context, trend and severity, not just a raw alarm.",
+              },
+              {
+                title: "Log",
+                body: "Every alert, hand-off and response lands in an auditable trail, so the practice sees exactly what happened and when.",
+              },
+            ],
+          },
         },
         {
           title: "Compliance by design",
@@ -160,6 +217,7 @@ const en: SectorsContent = {
           outcome: "Turn midnight browsers into buyers with a concierge that knows your catalogue better than your best salesperson.",
           body: "A conversational agent that guides every visitor from vague idea to confident checkout, in their language, on brand, within your pricing rules.",
           span: "md:col-span-2",
+          flow: "shopper",
           deepDive: {
             intro: "Imagine a customer landing at 2 AM with a screenshot, a rough budget and no product name. Here is what happens in the next ninety seconds.",
             steps: [
@@ -183,6 +241,7 @@ const en: SectorsContent = {
           outcome: "Reorder before the shelf empties and kill dead stock before it lands in your warehouse.",
           body: "SKU-level demand forecasting wired into your purchasing flow, so buying decisions stop being gut feel.",
           span: "md:col-span-2",
+          flow: "inventory",
           deepDive: {
             intro: "Your bestseller sells out every fourth Friday and nobody knows why. The agent does.",
             steps: [
@@ -243,6 +302,7 @@ const en: SectorsContent = {
           outcome: "Block fraudulent transactions in milliseconds, not after the chargeback lands.",
           body: "Scoring agents watch every transaction against behavioral baselines and known patterns, freezing only what deserves freezing.",
           span: "md:col-span-2",
+          flow: "fraud",
           deepDive: {
             intro: "A stolen card tries three stores in ninety seconds. A traditional fraud queue reviews it tomorrow. Your agent reviews it now.",
             steps: [
@@ -344,23 +404,80 @@ const pl: SectorsContent = {
       id: "healthcare",
       label: "Medycyna",
       h2: "Medycyna, która nie śpi.",
-      lead: "Agenci odciążają personel kliniczny, a każda decyzja pozostaje audytowalna i z klinicystą w pętli.",
+      lead: "Dla prywatnych praktyk, gabinetów stomatologicznych i klinik: agenci odciążają Twój zespół, a każda decyzja pozostaje audytowalna i z lekarzem w pętli.",
       visualAria: "Linia EKG przechodząca w węzeł sieci neuronowej",
       tiles: [
         {
           title: "Boty triage",
-          body: "Ustrukturyzowany wywiad objawowy w każdym języku, ocena pilności według Twoich protokołów klinicznych i natychmiastowe przekazanie do właściwej kolejki specjalisty.",
+          outcome: "Każde zgłoszenie trafia do właściwego kalendarza w kilka sekund, według pilności, a nie kolejności.",
+          body: "Ustrukturyzowany wywiad objawowy w każdym języku, ocena pilności według protokołów Twojego gabinetu i natychmiastowe kierowanie do kalendarza właściwego specjalisty.",
           span: "md:col-span-2",
+          flow: "triage",
+          deepDive: {
+            intro: "Jest 7 rano, czeka czterdzieści nowych wiadomości: bóle zębów, pytania po zabiegach, prośby o konsultacje. Oto jak żadna nie przepada.",
+            steps: [
+              {
+                title: "Wywiad",
+                body: "Ustrukturyzowany wywiad objawowy w języku pacjenta, bez formularzy. Bot dopytuje jak doświadczona rejestratorka i wie, kiedy przestać.",
+              },
+              {
+                title: "Ocena",
+                body: "Każdy przypadek jest punktowany według protokołów Twojego gabinetu i reguł czerwonych flag, więc spuchnięta twarz nigdy nie czeka za pytaniem o wybielanie.",
+              },
+              {
+                title: "Skierowanie",
+                body: "Pilne przypadki trafiają prosto do lekarza dyżurnego z gotowym podsumowaniem. Rutynowe same rezerwują właściwy termin we właściwym kalendarzu.",
+              },
+            ],
+          },
         },
         {
           title: "Diagnostyka predykcyjna",
-          body: "Modele trenowane na Twoich historycznych przypadkach wcześnie wychwytują wzorce ryzyka i dołączają ślad dowodowy do weryfikacji przez klinicystę.",
+          outcome: "Wychwyć wzorzec ryzyka w tym tygodniu, a nie na przyszłorocznym badaniu kontrolnym.",
+          body: "Modele trenowane na historycznych przypadkach Twojego gabinetu wcześnie wychwytują wzorce ryzyka i dołączają ślad dowodowy do weryfikacji przez lekarza.",
           span: "md:col-span-2",
+          flow: "diagnostics",
+          deepDive: {
+            intro: "Sygnały ostrzegawcze były w kartotece pacjenta od miesięcy. Tym razem ktoś je czyta, bez przerwy.",
+            steps: [
+              {
+                title: "Nauka",
+                body: "Modele uczą się na historycznych przypadkach i wynikach Twojego gabinetu, w Twojej infrastrukturze, dopasowane do pacjentów, których naprawdę leczysz.",
+              },
+              {
+                title: "Flaga",
+                body: "Wyłaniające się wzorce ryzyka są flagowane wcześnie, każdy ze śladem dowodowym, który do niego doprowadził, nigdy werdyktem z czarnej skrzynki.",
+              },
+              {
+                title: "Weryfikacja",
+                body: "Lekarz ogląda flagę z podpiętymi źródłami i podejmuje decyzję. Model nigdy nie diagnozuje samodzielnie.",
+              },
+            ],
+          },
         },
         {
           title: "Monitoring pacjenta 24/7",
-          body: "Agenci całą dobę obserwują strumienie parametrów i harmonogramy kontroli, eskalując do personelu w chwili przekroczenia progów.",
+          outcome: "Pacjent zaniepokojony o 3 w nocy dostaje odpowiedź o 3 w nocy, a nie gdy rano otworzy się rejestracja.",
+          body: "Agenci całą dobę pilnują zgłoszeń po zabiegach i harmonogramów kontroli, eskalując do lekarza, gdy tylko coś wygląda niepokojąco.",
           span: "md:col-span-2",
+          flow: "monitoring",
+          deepDive: {
+            intro: "Dwa dni po zabiegu pacjent zgłasza o północy narastający ból. Agent widzi to w kilka sekund. Oto co dzieje się dalej.",
+            steps: [
+              {
+                title: "Obserwacja",
+                body: "Zgłoszenia pozabiegowe, raporty objawów i harmonogramy kontroli są monitorowane bez przerwy, każde na tle normy dla danego zabiegu i danego pacjenta.",
+              },
+              {
+                title: "Eskalacja",
+                body: "W chwili przekroczenia progu lekarz dyżurny dostaje wiadomość z kontekstem, trendem i wagą zdarzenia, a nie goły alarm.",
+              },
+              {
+                title: "Zapis",
+                body: "Każdy alert, przekazanie i reakcja trafiają do audytowalnego śladu, więc gabinet widzi dokładnie, co i kiedy się wydarzyło.",
+              },
+            ],
+          },
         },
         {
           title: "Zgodność w standardzie",
@@ -439,6 +556,7 @@ const pl: SectorsContent = {
           outcome: "Zamień nocnych przeglądaczy w kupujących dzięki konsjerżowi, który zna Twój katalog lepiej niż najlepszy sprzedawca.",
           body: "Konwersacyjny agent prowadzi każdego odwiedzającego od mglistego pomysłu do pewnego zakupu, w jego języku, w tonie marki, w granicach Twoich reguł cenowych.",
           span: "md:col-span-2",
+          flow: "shopper",
           deepDive: {
             intro: "Wyobraź sobie klienta, który wchodzi o 2 w nocy ze zrzutem ekranu, przybliżonym budżetem i bez nazwy produktu. Oto co dzieje się przez następne dziewięćdziesiąt sekund.",
             steps: [
@@ -461,6 +579,7 @@ const pl: SectorsContent = {
           title: "Dynamiczna predykcja zapasów",
           outcome: "Zamawiaj, zanim półka się opróżni, i zabijaj martwy zapas, zanim trafi do magazynu.",
           body: "Prognozowanie popytu na poziomie SKU wpięte w Twój proces zakupowy, żeby decyzje przestały być zgadywaniem.",
+          flow: "inventory",
           span: "md:col-span-2",
           deepDive: {
             intro: "Twój bestseller wyprzedaje się w każdy czwarty piątek i nikt nie wie dlaczego. Agent wie.",
@@ -522,6 +641,7 @@ const pl: SectorsContent = {
           outcome: "Blokuj podejrzane transakcje w milisekundy, a nie po chargebacku.",
           body: "Agenci scoringowi porównują każdą transakcję z profilem behawioralnym i znanymi wzorcami, mrożąc tylko to, co na to zasługuje.",
           span: "md:col-span-2",
+          flow: "fraud",
           deepDive: {
             intro: "Skradziona karta próbuje trzech sklepów w dziewięćdziesiąt sekund. Tradycyjna kolejka antyfraudowa sprawdzi to jutro. Twój agent sprawdza teraz.",
             steps: [
