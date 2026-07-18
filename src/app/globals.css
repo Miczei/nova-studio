@@ -346,17 +346,10 @@ main {
     transform: translateX(0);
   }
 
-  /* The brand + lang toggle + CTA were tight enough on narrow phones
-     (360-390px) that the CTA button's text wrapped to two lines. */
+  /* The brand + lang toggle were tight enough on narrow phones
+     (360-390px) that things could wrap awkwardly. */
   .nav {
     padding: 14px 16px;
-  }
-
-  /* The header row keeps only burger + brand + a compact CTA; the
-     language toggle moves into the drawer (.nav__mobile-lang) because
-     on narrow phones it collided with the brand wordmark. */
-  .nav__right .lang-toggle {
-    display: none;
   }
 
   .nav__cta {
