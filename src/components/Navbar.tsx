@@ -223,14 +223,6 @@ export default function Navbar({
           EN
         </Link>
       </div>
-
-      <a
-        className="nav__cta nav__mobile-cta"
-        href={`${home}#contact`}
-        onClick={() => setMobileOpen(false)}
-      >
-        {dict.nav.cta}
-      </a>
     </nav>
     </>
   );

@@ -17,7 +17,6 @@ export type Dictionary = {
     securityData: string;
     methodology: string;
     contact: string;
-    cta: string;
     languageLabel: string;
   };
   hero: {
@@ -96,7 +95,6 @@ const en: Dictionary = {
     securityData: "Security",
     methodology: "Solutions",
     contact: "Contact Us",
-    cta: "Start a conversation",
     languageLabel: "Language",
   },
   hero: {
@@ -328,7 +326,6 @@ const pl: Dictionary = {
     securityData: "Bezpieczeństwo",
     methodology: "Rozwiązania",
     contact: "Kontakt",
-    cta: "Zacznij rozmowę",
     languageLabel: "Język",
   },
   hero: {

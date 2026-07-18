@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { animate, motion, useReducedMotion } from "framer-motion";
 import type { CoudersContent } from "@/i18n/couders";
 import type { Locale } from "@/i18n/config";
@@ -194,12 +195,12 @@ export default function RoiEstimator({
                 </span>
               </div>
 
-              <a
-                href="#contact"
+              <Link
+                href={`/${locale}/contact`}
                 className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-[#C06C4C] px-7 py-3.5 text-center text-[15px] font-medium text-white transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto"
               >
                 {content.ctaLabel}
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>
