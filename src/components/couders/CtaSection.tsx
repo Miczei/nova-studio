@@ -1,18 +1,22 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import type { CoudersContent } from "@/i18n/couders";
+import type { Locale } from "@/i18n/config";
 
 export default function CtaSection({
   content,
   email,
   phone,
   phoneLabel,
+  locale,
 }: {
   content: CoudersContent["cta"];
   email: string;
   phone: string;
   phoneLabel: string;
+  locale: Locale;
 }) {
   return (
     <section id="contact" className="relative z-10 bg-black px-5 py-24 sm:px-6 sm:py-32 md:py-48">
@@ -32,12 +36,12 @@ export default function CtaSection({
         <p className="mt-5 max-w-xl text-pretty text-sm leading-relaxed text-zinc-400 sm:mt-6 sm:text-base">
           {content.body}
         </p>
-        <a
-          href={`mailto:${email}`}
+        <Link
+          href={`/${locale}/contact`}
           className="mt-8 w-full max-w-xs rounded-full bg-white px-9 py-4 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:mt-10 sm:w-auto sm:max-w-none"
         >
           {content.button}
-        </a>
+        </Link>
         <p className="mt-6 px-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600 sm:text-[11px] sm:tracking-[0.22em]">
           {content.emailLabel}:{" "}
           <a href={`mailto:${email}`} className="text-zinc-400 hover:text-white">

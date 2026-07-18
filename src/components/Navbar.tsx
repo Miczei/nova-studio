@@ -151,10 +151,6 @@ export default function Navbar({
             EN
           </Link>
         </div>
-
-        <a className="nav__cta" href={`${home}#contact`}>
-          {dict.nav.cta}
-        </a>
       </div>
     </header>
 

@@ -118,9 +118,9 @@ export default function AboutPage({
                   transition={{ duration: 0.7, ease: EASE }}
                   className="hero-actions"
                 >
-                  <a className="btn btn--primary" href={`${home}#contact`}>
+                  <Link className="btn btn--primary" href={`${home}/contact`}>
                     {about.ctaPrimary}
-                  </a>
+                  </Link>
                   <Link className="btn btn--ghost" href={`${home}/${about.ctaSecondarySlug}`}>
                     {about.ctaSecondary}
                   </Link>
@@ -196,9 +196,9 @@ export default function AboutPage({
               </h2>
               <p className="sub__lead">{about.ctaBody}</p>
               <div className="hero-actions">
-                <a className="btn btn--primary" href={`${home}#contact`}>
+                <Link className="btn btn--primary" href={`${home}/contact`}>
                   {about.ctaPrimary}
-                </a>
+                </Link>
                 <Link className="btn btn--ghost" href={`${home}/${about.ctaSecondarySlug}`}>
                   {about.ctaSecondary}
                 </Link>

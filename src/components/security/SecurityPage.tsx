@@ -183,12 +183,12 @@ export default function SecurityPage({
               transition={{ duration: 0.7, delay: 0.9, ease: EASE }}
               className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10 sm:gap-3.5"
             >
-              <a
-                href={`${home}#contact`}
+              <Link
+                href={`${home}/contact`}
                 className="w-full rounded-full bg-white px-6 py-3 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:px-7 sm:py-3.5"
               >
                 {page.ctaPrimary}
-              </a>
+              </Link>
               <Link
                 href={secondaryHref}
                 className="w-full rounded-full border border-white/20 px-6 py-3 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:px-7 sm:py-3.5"
@@ -334,12 +334,12 @@ export default function SecurityPage({
               {page.ctaBody}
             </p>
             <div className="mt-8 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10 sm:w-auto sm:gap-3.5">
-              <a
-                href={`${home}#contact`}
+              <Link
+                href={`${home}/contact`}
                 className="w-full rounded-full bg-white px-7 py-3.5 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5 sm:w-auto sm:px-8 sm:py-4"
               >
                 {page.ctaPrimary}
-              </a>
+              </Link>
               <Link
                 href={secondaryHref}
                 className="w-full rounded-full border border-white/20 px-7 py-3.5 text-center text-[15px] font-medium text-white transition-colors duration-300 hover:border-white/60 sm:w-auto sm:px-8 sm:py-4"

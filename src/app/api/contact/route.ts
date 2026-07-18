@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   const email = body.email?.trim();
   const message = body.message?.trim();
 
-  if (!firstName || !lastName || !email || !message) {
+  if (!firstName || !lastName || !email) {
     return NextResponse.json({ ok: false, error: "missing_fields" }, { status: 400 });
   }
 
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     firstName,
     lastName,
     email,
-    message,
+    message: message || "Brak wiadomości.",
     timestamp: body.timestamp ?? new Date().toISOString(),
   };
 

@@ -65,8 +65,8 @@ export default function ContactPage({
     e.preventDefault();
     if (status === "sending") return;
 
-    const { firstName, lastName, email, message } = fields;
-    if (!firstName.trim() || !lastName.trim() || !email.trim() || !message.trim()) return;
+    const { firstName, lastName, email } = fields;
+    if (!firstName.trim() || !lastName.trim() || !email.trim()) return;
 
     setStatus("sending");
     try {
@@ -217,7 +217,6 @@ export default function ContactPage({
                   <textarea
                     id="contact-message"
                     name="message"
-                    required
                     rows={5}
                     placeholder={content.messagePlaceholder}
                     value={fields.message}

@@ -67,12 +67,12 @@ export default function SectorsPage({
 
         <section className="px-5 pb-28 sm:px-6 sm:pb-36">
           <div className="mx-auto flex max-w-6xl justify-center">
-            <a
-              href={`${home}#contact`}
+            <Link
+              href={`${home}/contact`}
               className="rounded-full bg-white px-8 py-4 text-center text-[15px] font-medium text-black transition-transform duration-300 hover:-translate-y-0.5"
             >
               {content.cta}
-            </a>
+            </Link>
           </div>
         </section>
       </main>

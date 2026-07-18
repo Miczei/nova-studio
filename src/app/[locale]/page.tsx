@@ -45,6 +45,7 @@ export default async function Home({
           email={dict.sections.contact.email}
           phone={dict.sections.contact.phone}
           phoneLabel={dict.sections.contact.phoneLabel}
+          locale={locale}
         />
       </main>
       <Footer dict={dict} locale={locale} />
