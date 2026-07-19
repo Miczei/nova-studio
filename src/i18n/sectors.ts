@@ -21,7 +21,10 @@ export type SectorTile = {
     | "monitoring"
     | "contract"
     | "caselaw"
-    | "compliance";
+    | "compliance"
+    | "supply"
+    | "maintenance"
+    | "vision";
 };
 
 export type Sector = {
@@ -252,18 +255,75 @@ const en: SectorsContent = {
       tiles: [
         {
           title: "Supply chain optimization",
+          outcome: "Reorders that fire before the shortage, across every site at once.",
           body: "Demand forecasting and reorder agents that watch lead times, buffer stock and supplier risk across every site.",
           span: "md:col-span-2",
+          flow: "supply",
+          deepDive: {
+            intro: "A supplier slips three days on a Friday afternoon. No spreadsheet would notice before Monday. The agent notices now.",
+            steps: [
+              {
+                title: "Watch",
+                body: "Lead times, buffer stock and supplier risk are tracked continuously across every site, not in a monthly review.",
+              },
+              {
+                title: "Decide",
+                body: "When a delay or shortage starts forming, the agent recalculates: alternative supplier, adjusted order, shifted schedule.",
+              },
+              {
+                title: "Act",
+                body: "It drafts the purchase orders and lays out the trade-offs. Your planner approves the reasoning, not the spreadsheet.",
+              },
+            ],
+          },
         },
         {
           title: "Predictive maintenance",
+          outcome: "Service happens the week before the breakdown, not the night after.",
           body: "Vibration, temperature and cycle data feed models that schedule service before failure, not after.",
           span: "md:col-span-2",
+          flow: "maintenance",
+          deepDive: {
+            intro: "Bearing vibration creeps up two percent a day. Nobody hears it yet. The model has already scheduled the fix.",
+            steps: [
+              {
+                title: "Listen",
+                body: "Vibration, temperature and cycle data stream from your machines into models tuned per asset, not per catalogue average.",
+              },
+              {
+                title: "Predict",
+                body: "The model spots the degradation curve early and estimates time to failure with a confidence level attached.",
+              },
+              {
+                title: "Schedule",
+                body: "Service lands in the calendar at the cheapest possible moment: planned downtime, parts in stock, line still running.",
+              },
+            ],
+          },
         },
         {
           title: "QA vision agents",
+          outcome: "Every unit inspected, every defect caught on the line, not in a customer email.",
           body: "Camera-based inspection tuned to your defect catalogue, flagging anomalies in real time on the line.",
           span: "md:col-span-2",
+          flow: "vision",
+          deepDive: {
+            intro: "Unit 4096 has a hairline defect no tired eye would catch on a Friday shift. Here is what happens instead.",
+            steps: [
+              {
+                title: "See",
+                body: "Cameras inspect every unit against your defect catalogue in real time, at line speed, without slowing production.",
+              },
+              {
+                title: "Flag",
+                body: "A defect gets classified and photographed, and the unit is diverted off the line before it reaches packing.",
+              },
+              {
+                title: "Learn",
+                body: "Every confirmed catch refines the model, so the rare defect of today becomes the routine catch of tomorrow.",
+              },
+            ],
+          },
         },
         {
           title: "Shop-floor guardrails",
@@ -648,18 +708,75 @@ const pl: SectorsContent = {
       tiles: [
         {
           title: "Optymalizacja łańcucha dostaw",
+          outcome: "Zamówienia, które wychodzą przed brakiem, we wszystkich zakładach naraz.",
           body: "Agenci prognozowania popytu i zamówień, którzy pilnują czasów dostaw, zapasów buforowych i ryzyka dostawców we wszystkich zakładach.",
           span: "md:col-span-2",
+          flow: "supply",
+          deepDive: {
+            intro: "Dostawca łapie trzy dni poślizgu w piątek po południu. Żaden arkusz nie zauważy tego przed poniedziałkiem. Agent widzi to od razu.",
+            steps: [
+              {
+                title: "Obserwacja",
+                body: "Czasy dostaw, zapasy buforowe i ryzyko dostawców są śledzone bez przerwy we wszystkich zakładach, a nie w miesięcznym przeglądzie.",
+              },
+              {
+                title: "Decyzja",
+                body: "Gdy opóźnienie albo brak zaczyna się formować, agent przelicza: alternatywny dostawca, skorygowane zamówienie, przesunięty harmonogram.",
+              },
+              {
+                title: "Działanie",
+                body: "Przygotowuje zamówienia i pokazuje kompromisy. Twój planista zatwierdza rozumowanie, a nie arkusz kalkulacyjny.",
+              },
+            ],
+          },
         },
         {
           title: "Predykcyjne utrzymanie ruchu",
+          outcome: "Serwis dzieje się tydzień przed awarią, a nie noc po niej.",
           body: "Dane o wibracjach, temperaturze i cyklach zasilają modele, które planują serwis przed awarią, nie po niej.",
           span: "md:col-span-2",
+          flow: "maintenance",
+          deepDive: {
+            intro: "Wibracje łożyska rosną o dwa procent dziennie. Nikt jeszcze tego nie słyszy. Model już zaplanował naprawę.",
+            steps: [
+              {
+                title: "Nasłuch",
+                body: "Wibracje, temperatura i dane cykli płyną z Twoich maszyn do modeli strojonych per maszyna, a nie per średnia z katalogu.",
+              },
+              {
+                title: "Predykcja",
+                body: "Model wcześnie wychwytuje krzywą degradacji i szacuje czas do awarii wraz z poziomem pewności.",
+              },
+              {
+                title: "Harmonogram",
+                body: "Serwis trafia do kalendarza w najtańszym możliwym momencie: planowany przestój, części na stanie, linia wciąż pracuje.",
+              },
+            ],
+          },
         },
         {
           title: "Wizyjni agenci QA",
+          outcome: "Każda sztuka sprawdzona, każda wada złapana na linii, a nie w mailu od klienta.",
           body: "Inspekcja kamerowa dostrojona do Twojego katalogu wad, oznaczająca anomalie na linii w czasie rzeczywistym.",
           span: "md:col-span-2",
+          flow: "vision",
+          deepDive: {
+            intro: "Sztuka numer 4096 ma włosową wadę, której zmęczone oko nie wychwyci na piątkowej zmianie. Oto co dzieje się zamiast tego.",
+            steps: [
+              {
+                title: "Widzenie",
+                body: "Kamery sprawdzają każdą sztukę z Twoim katalogiem wad w czasie rzeczywistym, w tempie linii, bez spowalniania produkcji.",
+              },
+              {
+                title: "Flaga",
+                body: "Wada zostaje sklasyfikowana i sfotografowana, a sztuka zjeżdża z linii, zanim dotrze do pakowania.",
+              },
+              {
+                title: "Nauka",
+                body: "Każde potwierdzone trafienie doszkala model, więc rzadka wada z dziś staje się rutynowym wychwytem jutra.",
+              },
+            ],
+          },
         },
         {
           title: "Zabezpieczenia hali produkcyjnej",

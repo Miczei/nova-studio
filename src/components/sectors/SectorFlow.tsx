@@ -1419,6 +1419,389 @@ function ComplianceFlow() {
 }
 
 /* ---------------------------------------------------------------------------
+   SUPPLY CHAIN: a mini network map. Parts flow from a supplier through the
+   factory to the plant; when the primary supplier flags terracotta, the flow
+   reroutes through the alternate without the factory ever starving. Network
+   rerouting mechanic.
+   --------------------------------------------------------------------------- */
+function SupplyFlow() {
+  const reduced = useReducedMotion();
+  const DUR = 8;
+  const S1 = { x: 36, y: 38 };
+  const S2 = { x: 36, y: 102 };
+  const F = { x: 160, y: 70 };
+  const P = { x: 288, y: 70 };
+
+  const scene = (
+    <>
+      <line x1={S1.x + 5} y1={S1.y + 2} x2={F.x - 14} y2={F.y - 6} stroke={SILVER} strokeOpacity="0.18" strokeWidth="1" />
+      <line x1={S2.x + 5} y1={S2.y - 2} x2={F.x - 14} y2={F.y + 6} stroke={SILVER} strokeOpacity="0.18" strokeWidth="1" />
+      <line x1={F.x + 14} y1={F.y} x2={P.x - 5} y2={P.y} stroke={SILVER} strokeOpacity="0.18" strokeWidth="1" />
+      <circle cx={S1.x} cy={S1.y} r="5" fill="#0A0A0B" stroke={SILVER} strokeWidth="1.5" />
+      <circle cx={S2.x} cy={S2.y} r="5" fill="#0A0A0B" stroke={SILVER} strokeWidth="1.5" />
+      <rect x={F.x - 14} y={F.y - 14} width="28" height="28" rx="5" fill="#0A0A0B" stroke={SILVER} strokeOpacity="0.6" strokeWidth="1.5" />
+      <circle cx={P.x} cy={P.y} r="5" fill="#0A0A0B" stroke={SILVER} strokeWidth="1.5" />
+    </>
+  );
+
+  if (reduced) {
+    return (
+      <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+        {scene}
+        <circle cx={S1.x} cy={S1.y} r="9" stroke={ACCENT} strokeOpacity="0.7" strokeWidth="1.5" />
+        <line x1={S2.x + 5} y1={S2.y - 2} x2={F.x - 14} y2={F.y + 6} stroke={SILVER} strokeOpacity="0.5" strokeWidth="1.5" />
+        <circle cx="98" cy="87" r="2.6" fill={ACCENT} />
+        <circle cx="230" cy="70" r="2.6" fill={SILVER} />
+      </svg>
+    );
+  }
+
+  // Phase timings inside the 8s cycle: primary supplier feeds until ~0.4,
+  // flags at ~0.45, alternate takes over from ~0.55.
+  return (
+    <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+      {scene}
+
+      {/* Primary route dims after the disruption; alternate brightens */}
+      <motion.line
+        x1={S1.x + 5}
+        y1={S1.y + 2}
+        x2={F.x - 14}
+        y2={F.y - 6}
+        stroke={ACCENT}
+        strokeWidth="1"
+        strokeDasharray="3 4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.7, 0.7, 0] }}
+        transition={{ duration: DUR, times: [0, 0.44, 0.48, 0.9, 1], repeat: Infinity }}
+      />
+      <motion.line
+        x1={S2.x + 5}
+        y1={S2.y - 2}
+        x2={F.x - 14}
+        y2={F.y + 6}
+        stroke={SILVER}
+        strokeWidth="1.5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.5, 0.5, 0] }}
+        transition={{ duration: DUR, times: [0, 0.5, 0.56, 0.92, 1], repeat: Infinity }}
+      />
+
+      {/* Disruption ring + cross on the primary supplier */}
+      <motion.circle
+        cx={S1.x}
+        cy={S1.y}
+        r="8"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: [0.5, 0.5, 0.7, 1.9, 1.9], opacity: [0, 0, 0.85, 0, 0] }}
+        transition={{ duration: DUR, times: [0, 0.44, 0.5, 0.66, 1], repeat: Infinity, ease: "easeOut" }}
+        style={{ transformBox: "view-box", transformOrigin: `${S1.x}px ${S1.y}px` }}
+      />
+      <motion.g
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.9, 0.9, 0] }}
+        transition={{ duration: DUR, times: [0, 0.46, 0.5, 0.9, 1], repeat: Infinity }}
+      >
+        <line x1={S1.x - 3.5} y1={S1.y - 3.5} x2={S1.x + 3.5} y2={S1.y + 3.5} />
+        <line x1={S1.x + 3.5} y1={S1.y - 3.5} x2={S1.x - 3.5} y2={S1.y + 3.5} />
+      </motion.g>
+
+      {/* Parts on the primary route (first phase only) */}
+      {[0, 0.16].map((phase) => (
+        <motion.circle
+          key={`p1-${phase}`}
+          r="2.6"
+          fill={SILVER}
+          initial={{ x: S1.x + 5, y: S1.y + 2, opacity: 0 }}
+          animate={{
+            x: [S1.x + 5, F.x - 16, F.x - 16],
+            y: [S1.y + 2, F.y - 6, F.y - 6],
+            opacity: [0, 0.9, 0],
+          }}
+          transition={{
+            duration: DUR,
+            times: [phase, phase + 0.22, phase + 0.24],
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
+
+      {/* Parts on the alternate route (after the reroute) */}
+      {[0.55, 0.72].map((phase) => (
+        <motion.circle
+          key={`p2-${phase}`}
+          r="2.6"
+          fill={SILVER}
+          initial={{ x: S2.x + 5, y: S2.y - 2, opacity: 0 }}
+          animate={{
+            x: [S2.x + 5, F.x - 16, F.x - 16],
+            y: [S2.y - 2, F.y + 6, F.y + 6],
+            opacity: [0, 0.9, 0],
+          }}
+          transition={{
+            duration: DUR,
+            times: [phase, phase + 0.22, phase + 0.24],
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
+
+      {/* Factory -> plant never stops (independent short loop) */}
+      <motion.circle
+        r="2.6"
+        fill={SILVER}
+        initial={{ x: F.x + 16, y: F.y, opacity: 0 }}
+        animate={{ x: [F.x + 16, P.x - 7], opacity: [0, 0.9, 0.9, 0] }}
+        transition={{
+          duration: 1.8,
+          repeat: Infinity,
+          ease: "linear",
+          opacity: { duration: 1.8, times: [0, 0.15, 0.85, 1], repeat: Infinity },
+        }}
+      />
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   PREDICTIVE MAINTENANCE: a machine-health gauge. The needle creeps toward
+   the terracotta zone, the alert fires BEFORE it gets there, a service slot
+   is booked and the needle eases back to safe. Gauge-needle mechanic.
+   --------------------------------------------------------------------------- */
+function MaintenanceFlow() {
+  const reduced = useReducedMotion();
+  const DUR = 8;
+  const C = { x: 160, y: 100 };
+  const R = 56;
+  const pt = (deg: number, r: number) => {
+    const a = (deg * Math.PI) / 180;
+    return { x: C.x + r * Math.sin(a), y: C.y - r * Math.cos(a) };
+  };
+  const a0 = pt(-80, R);
+  const a1 = pt(80, R);
+  const red0 = pt(40, R);
+  const ticks = [-80, -40, 0, 40, 80].map((d) => ({ o: pt(d, R - 6), i: pt(d, R + 2) }));
+
+  const dial = (
+    <>
+      <path d={`M ${a0.x} ${a0.y} A ${R} ${R} 0 0 1 ${a1.x} ${a1.y}`} stroke={SILVER} strokeOpacity="0.3" strokeWidth="2" />
+      <path d={`M ${red0.x} ${red0.y} A ${R} ${R} 0 0 1 ${a1.x} ${a1.y}`} stroke={ACCENT} strokeOpacity="0.55" strokeWidth="3" />
+      {ticks.map((t, i) => (
+        <line key={i} x1={t.o.x} y1={t.o.y} x2={t.i.x} y2={t.i.y} stroke={SILVER} strokeOpacity="0.3" strokeWidth="1" />
+      ))}
+      <circle cx={C.x} cy={C.y} r="3" fill={SILVER} fillOpacity="0.6" />
+    </>
+  );
+  const serviceChip = (
+    <g>
+      <rect x="238" y="24" width="40" height="22" rx="4" stroke={ACCENT} strokeOpacity="0.8" strokeWidth="1.2" fill="#0A0A0B" />
+      <path d="M 249 35 l 3 3.4 l 6.5 -7.4" stroke={ACCENT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+    </g>
+  );
+
+  if (reduced) {
+    const tip = pt(28, R - 8);
+    return (
+      <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+        {dial}
+        <line x1={C.x} y1={C.y} x2={tip.x} y2={tip.y} stroke={SILVER} strokeWidth="2" strokeLinecap="round" />
+        <circle cx={tip.x} cy={tip.y} r="9" stroke={ACCENT} strokeOpacity="0.7" strokeWidth="1.5" strokeDasharray="3 3" />
+        {serviceChip}
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+      {dial}
+
+      {/* Needle: creeps toward the red zone, then service brings it back */}
+      <motion.g
+        initial={{ rotate: -70 }}
+        animate={{ rotate: [-70, -70, 34, 34, -55, -55] }}
+        transition={{ duration: DUR, times: [0, 0.06, 0.45, 0.66, 0.85, 1], repeat: Infinity, ease: "easeInOut" }}
+        style={{ transformBox: "view-box", transformOrigin: `${C.x}px ${C.y}px` }}
+      >
+        <line x1={C.x} y1={C.y} x2={C.x} y2={C.y - (R - 8)} stroke={SILVER} strokeWidth="2" strokeLinecap="round" />
+      </motion.g>
+
+      {/* Early-warning ring where the needle is heading, fired pre-redline */}
+      <motion.circle
+        cx={pt(34, R - 8).x}
+        cy={pt(34, R - 8).y}
+        r="9"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth="1.5"
+        strokeDasharray="3 3"
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: [0.5, 0.5, 0.8, 1.8, 1.8], opacity: [0, 0, 0.85, 0, 0] }}
+        transition={{ duration: DUR, times: [0, 0.46, 0.52, 0.68, 1], repeat: Infinity, ease: "easeOut" }}
+        style={{ transformBox: "view-box", transformOrigin: `${pt(34, R - 8).x}px ${pt(34, R - 8).y}px` }}
+      />
+
+      {/* Service slot booked: chip with a check pops before the needle relaxes */}
+      <motion.g
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.95, 0.95, 0] }}
+        transition={{ duration: DUR, times: [0, 0.6, 0.66, 0.94, 1], repeat: Infinity }}
+      >
+        {serviceChip}
+      </motion.g>
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   QA VISION: units ride a conveyor under a camera. Good units pass with a
+   quiet tick; the defective one is locked by terracotta brackets and
+   diverted off the line into the reject tray. Conveyor-inspection mechanic.
+   --------------------------------------------------------------------------- */
+function VisionFlow() {
+  const reduced = useReducedMotion();
+  const DUR = 8;
+  const BELT_Y = 104;
+  const ITEM_Y = 94;
+  const SCAN_X = 160;
+
+  const camera = (
+    <g stroke={SILVER} strokeOpacity="0.55" strokeWidth="1.5" fill="none">
+      <rect x="148" y="18" width="24" height="16" rx="3" />
+      <circle cx="160" cy="26" r="4" />
+      <line x1="160" y1="34" x2="160" y2="48" strokeDasharray="2 4" />
+    </g>
+  );
+  const brackets = (color: string, opacity: number) => (
+    <g stroke={color} strokeOpacity={opacity} strokeWidth="1.5" fill="none">
+      <path d="M 146 76 h 6 M 146 76 v 6" />
+      <path d="M 174 76 h -6 M 174 76 v 6" />
+      <path d="M 146 106 h 6 M 146 106 v -6" />
+      <path d="M 174 106 h -6 M 174 106 v -6" />
+    </g>
+  );
+  const tray = (
+    <path d="M 150 124 L 150 134 L 178 134 L 178 124" stroke={SILVER} strokeOpacity="0.35" strokeWidth="1.5" fill="none" />
+  );
+
+  if (reduced) {
+    return (
+      <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+        <line x1="10" y1={BELT_Y} x2="310" y2={BELT_Y} stroke={SILVER} strokeOpacity="0.25" strokeWidth="1.5" strokeDasharray="6 10" />
+        {camera}
+        {brackets(ACCENT, 0.9)}
+        {tray}
+        <rect x="70" y={ITEM_Y - 8} width="16" height="16" rx="2" stroke={SILVER} strokeOpacity="0.6" strokeWidth="1.5" />
+        <rect x={SCAN_X - 8} y={ITEM_Y - 8} width="16" height="16" rx="2" stroke={ACCENT} strokeOpacity="0.9" strokeWidth="1.5" />
+        <rect x="248" y={ITEM_Y - 8} width="16" height="16" rx="2" stroke={SILVER} strokeOpacity="0.6" strokeWidth="1.5" />
+      </svg>
+    );
+  }
+
+  // Items are phase-shifted copies of the same 8s journey; the third one is
+  // defective and gets pulled off the line at the scanner.
+  const good = [0, 0.33];
+  const DEFECT_DELAY = 0.66;
+
+  return (
+    <svg viewBox="0 0 320 140" fill="none" aria-hidden="true" className="w-full">
+      {/* Belt with drifting dashes */}
+      <motion.line
+        x1="10"
+        y1={BELT_Y}
+        x2="310"
+        y2={BELT_Y}
+        stroke={SILVER}
+        strokeOpacity="0.25"
+        strokeWidth="1.5"
+        strokeDasharray="6 10"
+        animate={{ strokeDashoffset: [0, -32] }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
+      />
+      {camera}
+      {tray}
+
+      {/* Scan brackets breathe on the cadence of arriving units */}
+      <motion.g
+        animate={{ opacity: [0.35, 0.75, 0.35] }}
+        transition={{ duration: DUR / 3, repeat: Infinity, ease: "easeInOut" }}
+      >
+        {brackets(SILVER, 1)}
+      </motion.g>
+
+      {/* Good units: cross the scanner, collect a quiet tick, roll on */}
+      {good.map((phase) => (
+        <g key={phase}>
+          <motion.rect
+            width="16"
+            height="16"
+            rx="2"
+            stroke={SILVER}
+            strokeOpacity="0.6"
+            strokeWidth="1.5"
+            fill="#0A0A0B"
+            initial={{ x: -24, y: ITEM_Y - 8, opacity: 0 }}
+            animate={{ x: [-24, 336], opacity: [0, 0.9, 0.9, 0] }}
+            transition={{
+              duration: DUR,
+              delay: phase * DUR,
+              repeat: Infinity,
+              ease: "linear",
+              opacity: { duration: DUR, delay: phase * DUR, times: [0, 0.06, 0.94, 1], repeat: Infinity },
+            }}
+          />
+          <motion.path
+            d="M 172 62 l 3 3.4 l 6.5 -7.4"
+            stroke={SILVER}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0, 0.8, 0, 0] }}
+            transition={{ duration: DUR, delay: phase * DUR, times: [0, 0.5, 0.54, 0.62, 1], repeat: Infinity }}
+          />
+        </g>
+      ))}
+
+      {/* The defective unit: locked at the scanner, diverted into the tray */}
+      <motion.g
+        initial={{ x: -24, y: 0, opacity: 0 }}
+        animate={{
+          x: [-24, SCAN_X - 8, SCAN_X - 8, SCAN_X - 6, SCAN_X - 6],
+          y: [0, 0, 0, 32, 32],
+          opacity: [0, 0.95, 0.95, 0.95, 0],
+        }}
+        transition={{
+          duration: DUR,
+          delay: DEFECT_DELAY * DUR,
+          times: [0, 0.5, 0.6, 0.72, 0.8],
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <rect y={ITEM_Y - 8} width="16" height="16" rx="2" stroke={ACCENT} strokeOpacity="0.95" strokeWidth="1.5" fill="#0A0A0B" />
+        <line x1="4" y1={ITEM_Y - 4} x2="12" y2={ITEM_Y + 4} stroke={ACCENT} strokeOpacity="0.7" strokeWidth="1" />
+      </motion.g>
+      <motion.g
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 0.95, 0.95, 0] }}
+        transition={{ duration: DUR, delay: DEFECT_DELAY * DUR, times: [0, 0.5, 0.53, 0.68, 0.74], repeat: Infinity }}
+      >
+        {brackets(ACCENT, 1)}
+      </motion.g>
+    </svg>
+  );
+}
+
+/* ---------------------------------------------------------------------------
    Generic request -> reasoning -> outcome timeline. Placeholder for the
    sectors whose bespoke visuals are not built yet (healthcare, legal,
    industrial, e-commerce).
@@ -1485,6 +1868,9 @@ export default function SectorFlow({
   if (flow === "contract") return <ContractFlow />;
   if (flow === "caselaw") return <CaselawFlow />;
   if (flow === "compliance") return <ComplianceFlow />;
+  if (flow === "supply") return <SupplyFlow />;
+  if (flow === "maintenance") return <MaintenanceFlow />;
+  if (flow === "vision") return <VisionFlow />;
   if (sector === "finance") return <FinanceFlow labels={labels} />;
   return <GenericFlow labels={labels} />;
 }
