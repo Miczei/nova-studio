@@ -43,8 +43,6 @@ export default async function Home({
         <CtaSection
           content={couders.cta}
           email={dict.sections.contact.email}
-          phone={dict.sections.contact.phone}
-          phoneLabel={dict.sections.contact.phoneLabel}
           locale={locale}
         />
       </main>

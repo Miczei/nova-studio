@@ -21,8 +21,17 @@ type FormFields = {
 
 const EMPTY_FIELDS: FormFields = { firstName: "", lastName: "", email: "", message: "" };
 
-const INPUT_CLASS =
-  "w-full rounded-lg border border-white/10 bg-black/50 p-3.5 text-base text-white outline-none transition-all placeholder:text-zinc-500 focus:border-[#C06C4C]";
+type RequiredField = "firstName" | "lastName" | "email";
+type FieldErrors = Partial<Record<RequiredField, boolean>>;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function inputClass(hasError: boolean) {
+  const border = hasError
+    ? "border-red-400/70 focus:border-red-400"
+    : "border-white/10 focus:border-[#C06C4C]";
+  return `w-full rounded-lg border ${border} bg-black/50 p-3.5 text-base text-white outline-none transition-all placeholder:text-zinc-500`;
+}
 
 export default function ContactPage({
   locale,
@@ -37,10 +46,15 @@ export default function ContactPage({
   const home = `/${locale}`;
   const [fields, setFields] = useState<FormFields>(EMPTY_FIELDS);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const submitRef = useRef<HTMLButtonElement>(null);
 
   function update<K extends keyof FormFields>(key: K, value: string) {
     setFields((prev) => ({ ...prev, [key]: value }));
+    // Clear a field's error the moment the visitor edits it, rather than
+    // leaving a stale "required" message up after they've fixed it — it
+    // reappears on the next submit attempt if still invalid.
+    setFieldErrors((prev) => (prev[key as RequiredField] ? { ...prev, [key]: false } : prev));
   }
 
   // Inserting the banner above the form pushes the submit button down the
@@ -66,7 +80,13 @@ export default function ContactPage({
     if (status === "sending") return;
 
     const { firstName, lastName, email } = fields;
-    if (!firstName.trim() || !lastName.trim() || !email.trim()) return;
+    const errors: FieldErrors = {
+      firstName: !firstName.trim(),
+      lastName: !lastName.trim(),
+      email: !email.trim() || !EMAIL_RE.test(email.trim()),
+    };
+    setFieldErrors(errors);
+    if (errors.firstName || errors.lastName || errors.email) return;
 
     setStatus("sending");
     try {
@@ -170,12 +190,18 @@ export default function ContactPage({
                       id="contact-firstName"
                       name="firstName"
                       type="text"
-                      required
                       autoComplete="given-name"
                       value={fields.firstName}
                       onChange={(e) => update("firstName", e.target.value)}
-                      className={INPUT_CLASS}
+                      className={inputClass(!!fieldErrors.firstName)}
+                      aria-invalid={fieldErrors.firstName || undefined}
+                      aria-describedby={fieldErrors.firstName ? "contact-firstName-error" : undefined}
                     />
+                    {fieldErrors.firstName && (
+                      <p id="contact-firstName-error" className="mt-1.5 text-xs text-red-400">
+                        {content.errorRequired}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="contact-lastName" className="mb-2 block text-sm text-zinc-300">
@@ -185,12 +211,18 @@ export default function ContactPage({
                       id="contact-lastName"
                       name="lastName"
                       type="text"
-                      required
                       autoComplete="family-name"
                       value={fields.lastName}
                       onChange={(e) => update("lastName", e.target.value)}
-                      className={INPUT_CLASS}
+                      className={inputClass(!!fieldErrors.lastName)}
+                      aria-invalid={fieldErrors.lastName || undefined}
+                      aria-describedby={fieldErrors.lastName ? "contact-lastName-error" : undefined}
                     />
+                    {fieldErrors.lastName && (
+                      <p id="contact-lastName-error" className="mt-1.5 text-xs text-red-400">
+                        {content.errorRequired}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -202,12 +234,18 @@ export default function ContactPage({
                     id="contact-email"
                     name="email"
                     type="email"
-                    required
                     autoComplete="email"
                     value={fields.email}
                     onChange={(e) => update("email", e.target.value)}
-                    className={INPUT_CLASS}
+                    className={inputClass(!!fieldErrors.email)}
+                    aria-invalid={fieldErrors.email || undefined}
+                    aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
                   />
+                  {fieldErrors.email && (
+                    <p id="contact-email-error" className="mt-1.5 text-xs text-red-400">
+                      {content.errorRequired}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -221,7 +259,7 @@ export default function ContactPage({
                     placeholder={content.messagePlaceholder}
                     value={fields.message}
                     onChange={(e) => update("message", e.target.value)}
-                    className={`${INPUT_CLASS} resize-none`}
+                    className={`${inputClass(false)} resize-none`}
                   />
                 </div>
 

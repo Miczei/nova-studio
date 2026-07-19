@@ -23,6 +23,7 @@ export type ContactContent = {
   sendingLabel: string;
   successMessage: string;
   errorMessage: string;
+  errorRequired: string;
 };
 
 const en: ContactContent = {
@@ -43,7 +44,7 @@ const en: ContactContent = {
   formH2: "Schedule Your Free Consultation",
   firstNameLabel: "First Name*",
   lastNameLabel: "Last Name*",
-  emailLabel: "Business Email*",
+  emailLabel: "Email*",
   messageLabel: "Message (optional)",
   messagePlaceholder: "Tell us a few words about your project...",
   submitLabel: "Send Message ➔",
@@ -51,6 +52,7 @@ const en: ContactContent = {
   successMessage:
     "Thank you! Your message has been sent. We will get back to you within 24 hours.",
   errorMessage: "Something went wrong. Please try again, or email us directly.",
+  errorRequired: "This field is required",
 };
 
 const pl: ContactContent = {
@@ -71,7 +73,7 @@ const pl: ContactContent = {
   formH2: "Zaplanuj darmową konsultację",
   firstNameLabel: "Imię*",
   lastNameLabel: "Nazwisko*",
-  emailLabel: "E-mail służbowy*",
+  emailLabel: "Email*",
   messageLabel: "Wiadomość",
   messagePlaceholder: "Napisz kilka słów o swoim projekcie lub problemie do rozwiązania...",
   submitLabel: "Wyślij wiadomość ➔",
@@ -79,6 +81,7 @@ const pl: ContactContent = {
   successMessage:
     "Dziękujemy! Twoja wiadomość została wysłana. Skontaktujemy się w ciągu 24 godzin.",
   errorMessage: "Coś poszło nie tak. Spróbuj ponownie lub napisz do nas bezpośrednio.",
+  errorRequired: "Pole wymagane",
 };
 
 const CONTACT: Record<Locale, ContactContent> = { en, pl };
